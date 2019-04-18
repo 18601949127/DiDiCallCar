@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DiDiCar</string>
+    <string name="splash_message">滴滴一下 美好出行</string>
+    <string name="didi_company">滴滴出行</string>
+</resources>

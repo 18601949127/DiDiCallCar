@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.tantuo.didicar.view.NoScrollViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <RadioGroup
+        android:id="@+id/rg_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_tab_bg"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_map"
+            android:drawableTop="@drawable/rb_home_drawable_selector"
+            android:gravity="center"
+            android:text="打车"
+            style="@style/bottom_tag_style"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            android:drawableTop="@drawable/rb_map_drawable_selector"
+            android:gravity="center"
+            android:text="主页"
+            style="@style/bottom_tag_style"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_cardservice"
+            android:drawableTop="@drawable/rb_cardservice_drawable_selector"
+            android:gravity="center"
+            android:text="认证"
+            style="@style/bottom_tag_style"
+            />
+
+
+
+
+        <RadioButton
+            android:id="@+id/rb_govaffair"
+            android:drawableTop="@drawable/rb_govaffair_drawable_selector"
+            android:gravity="center"
+            android:text="合规"
+            style="@style/bottom_tag_style"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_setting"
+            android:drawableTop="@drawable/rb_setting_drawable_selector"
+            android:gravity="center"
+            android:text="设置"
+            style="@style/bottom_tag_style"
+            />
+
+
+    </RadioGroup>
+
+</LinearLayout>

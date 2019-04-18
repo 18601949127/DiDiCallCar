@@ -1,0 +1,9 @@
+
+<objectAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="3000"
+    android:propertyName="trimPathEnd"
+    android:repeatCount="0"
+    android:valueFrom="0"
+    android:valueTo="1"
+    android:valueType="floatType"/>
