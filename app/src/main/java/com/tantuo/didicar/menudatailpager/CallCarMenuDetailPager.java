@@ -8,17 +8,7 @@ import android.widget.ImageButton;
 
 import com.tantuo.didicar.MainActivity;
 import com.tantuo.didicar.R;
-import com.tantuo.didicar.TabFragment.TabFragment0;
-import com.tantuo.didicar.TabFragment.TabFragment1;
-import com.tantuo.didicar.TabFragment.TabFragment10;
-import com.tantuo.didicar.TabFragment.TabFragment2;
-import com.tantuo.didicar.TabFragment.TabFragment3;
-import com.tantuo.didicar.TabFragment.TabFragment4;
-import com.tantuo.didicar.TabFragment.TabFragment5;
-import com.tantuo.didicar.TabFragment.TabFragment6;
-import com.tantuo.didicar.TabFragment.TabFragment7;
-import com.tantuo.didicar.TabFragment.TabFragment8;
-import com.tantuo.didicar.TabFragment.TabFragment9;
+
 import com.tantuo.didicar.adapter.CallCarTabPagerAdapter;
 import com.tantuo.didicar.base.BaseFragment;
 import com.tantuo.didicar.base.MenuDetaiBasePager;
@@ -101,21 +91,21 @@ public class CallCarMenuDetailPager extends MenuDetaiBasePager {
         //1.这里为TabDetailPagers打车界面准备fragment界面
         callcarFragments = new ArrayList<>();
 
-        callcarFragments.add(new TabFragment0(children.get(0),"textview"+children.get(0).getTitle()));
-        callcarFragments.add(new TabFragment1(children.get(1),"textview"+children.get(1).getTitle()));
-        callcarFragments.add(new TabFragment2(children.get(2),"textview"+children.get(2).getTitle()));
-        callcarFragments.add(new TabFragment3(children.get(3),"textview"+children.get(3).getTitle()));
-        callcarFragments.add(new TabFragment4(children.get(4),"textview"+children.get(4).getTitle()));
-        callcarFragments.add(new TabFragment5(children.get(5),"textview"+children.get(5).getTitle()));
-        callcarFragments.add(new TabFragment6(children.get(6),"textview"+children.get(6).getTitle()));
-        callcarFragments.add(new TabFragment7(children.get(7),"textview"+children.get(7).getTitle()));
-        callcarFragments.add(new TabFragment8(children.get(8),"textview"+children.get(8).getTitle()));
-        callcarFragments.add(new TabFragment9(children.get(9),"textview"+children.get(9).getTitle()));
-        callcarFragments.add(new TabFragment10(children.get(10),"textview"+children.get(10).getTitle()));
+//        callcarFragments.add(new TabFragment0(children.get(0),"textview"+children.get(0).getTitle()));
+//        callcarFragments.add(new TabFragment1(children.get(1),"textview"+children.get(1).getTitle()));
+//        callcarFragments.add(new TabFragment2(children.get(2),"textview"+children.get(2).getTitle()));
+//        callcarFragments.add(new TabFragment3(children.get(3),"textview"+children.get(3).getTitle()));
+//        callcarFragments.add(new TabFragment4(children.get(4),"textview"+children.get(4).getTitle()));
+//        callcarFragments.add(new TabFragment5(children.get(5),"textview"+children.get(5).getTitle()));
+//        callcarFragments.add(new TabFragment6(children.get(6),"textview"+children.get(6).getTitle()));
+//        callcarFragments.add(new TabFragment7(children.get(7),"textview"+children.get(7).getTitle()));
+//        callcarFragments.add(new TabFragment8(children.get(8),"textview"+children.get(8).getTitle()));
+//        callcarFragments.add(new TabFragment9(children.get(9),"textview"+children.get(9).getTitle()));
+//        callcarFragments.add(new TabFragment10(children.get(10),"textview"+children.get(10).getTitle()));
 
 
         //2.这里为打车界面tabFragments准备数据
-        FragmentManager fm = getSupportFragmentManager();
+//        FragmentManager fm = getSupportFragmentManager();
         tabFragmentPagerAdapter= new CallCarTabPagerAdapter(MainActivity.manager,callcarFragments);
         viewPager.setAdapter(tabFragmentPagerAdapter);
         viewPager.setOffscreenPageLimit(6);//viewPager预加载，从0开始
@@ -128,7 +118,7 @@ public class CallCarMenuDetailPager extends MenuDetaiBasePager {
 
 
         //注意viewPageIndicator的PageChangeListener比 viewPager的优先级高，因此要使用indicator的listener
-        tabPageIndicator.setOnPageChangeListener(new MyOnPageChangeListener());
+        viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
     }
 
 

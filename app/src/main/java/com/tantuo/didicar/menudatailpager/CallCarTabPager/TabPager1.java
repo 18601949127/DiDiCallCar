@@ -40,7 +40,7 @@ public class TabPager1 extends BaseCallCarTabPager {
         //mMapView = (MapView) view.findViewById(R.id.bmapView);
         mMapView =  view.findViewById(R.id.bmapView);
 
-        new TabDialogFragment1().show(((MainActivity) context).getFragmentManager(),"dialog");
+//        new TabDialogFragment1().show(((MainActivity) context).getFragmentManager(),"dialog");
 
         return view;
     }

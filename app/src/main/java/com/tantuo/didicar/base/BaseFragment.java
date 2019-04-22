@@ -2,11 +2,13 @@ package com.tantuo.didicar.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 
 
 /**
@@ -18,6 +20,7 @@ import android.view.ViewGroup;
 public abstract class BaseFragment extends Fragment {
 
     protected Context context;
+    protected String title;
 
 
     @Override
@@ -32,23 +35,39 @@ public abstract class BaseFragment extends Fragment {
         return initView();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        //initData();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //initData();
+    }
+
     /**
      * 强制继承fragment的子类执行此方法初始化页面
      *
      * @return
      */
-    protected abstract View initView();
+    public abstract View initView();
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initData();
+        //initData();
     }
 
     /**
      * 子类初始化数据或者联网请求或者展示数据的时候执行initData()
      */
-    protected void initData() {
+    public void initData() {
     }
 
+
+    public String gettitle() {
+        return title;
+    }
 }

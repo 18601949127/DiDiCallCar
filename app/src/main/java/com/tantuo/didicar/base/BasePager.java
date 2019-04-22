@@ -41,21 +41,19 @@ public class BasePager {
     }
 
 
-
-
     /**
      * 用于初始化rootview，并且加载子视图的FrameLayout
+     *
      * @return
      */
 
     private View initView() {
         //基类的页面
-        View view = View.inflate(context, R.layout.base_pager,null);
+        View view = View.inflate(context, R.layout.base_pager, null);
         tv_title = (TextView) view.findViewById(R.id.tv_title);
         ib_menu = (ImageButton) view.findViewById(R.id.ib_menu);
         fl_content = (FrameLayout) view.findViewById(R.id.fl_content);
-        ib_swich_list_grid = (ImageButton) view.findViewById(R.id.ib_swich_list_grid);
-        btn_cart = (Button) view.findViewById(R.id.btn_cart);
+
         ib_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +69,7 @@ public class BasePager {
     /**
      * 初始化数据;当子页面需要初始化数据;或者绑定数据;联网请求数据并且绑定的时候，重写该方法
      */
-    public void initData(){
+    public void initData() {
 
     }
 }

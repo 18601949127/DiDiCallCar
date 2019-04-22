@@ -120,7 +120,7 @@ public class LogUtil {
         if (customLogger != null) {
             customLogger.e(tag, content);
         } else {
-            Log.e(tag, content);
+            Log.i(tag, content);
         }
         if (isSaveLog) {
             point(LOG_PATH, tag, content);
@@ -138,7 +138,7 @@ public class LogUtil {
         if (customLogger != null) {
             customLogger.e(tag, "error", e);
         } else {
-            Log.e(tag, e.getMessage(), e);
+            Log.i(tag, e.getMessage(), e);
         }
         if (isSaveLog) {
             point(LOG_PATH, tag, e.getMessage());
@@ -156,7 +156,7 @@ public class LogUtil {
         if (customLogger != null) {
             customLogger.e(tag, content, e);
         } else {
-            Log.e(tag, content, e);
+            Log.i(tag, content, e);
         }
         if (isSaveLog) {
             point(LOG_PATH, tag, e.getMessage());

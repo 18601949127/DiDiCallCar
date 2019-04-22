@@ -27,4 +27,11 @@ public class CallCarTabPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return fragments.size();
     }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return fragments.get(position).gettitle();
+    }
+
 }
+

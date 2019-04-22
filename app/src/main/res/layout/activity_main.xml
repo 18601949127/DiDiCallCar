@@ -1,12 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@android:color/white"
-    android:id="@+id/fl_main_content">
+    android:orientation="vertical">
 
 
-</FrameLayout>
+    <include layout="@layout/titlebar" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_page_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:tabIndicatorColor="@color/logoColor"
+        app:tabSelectedTextColor="@color/logoColor"
+        app:tabTextColor="@android:color/black" />
+
+        <com.tantuo.didicar.view.NoScrollViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></com.tantuo.didicar.view.NoScrollViewPager>
+
+
+    <RadioGroup
+        android:id="@+id/rg_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bottom_tab_bg"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_map"
+            style="@style/bottom_tag_style"
+            android:drawableTop="@drawable/rb_home_drawable_selector"
+            android:gravity="center"
+            android:text="打车" />
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            style="@style/bottom_tag_style"
+            android:drawableTop="@drawable/rb_map_drawable_selector"
+            android:gravity="center"
+            android:text="主页" />
+
+        <RadioButton
+            android:id="@+id/rb_cardservice"
+            style="@style/bottom_tag_style"
+            android:drawableTop="@drawable/rb_cardservice_drawable_selector"
+            android:gravity="center"
+            android:text="认证" />
+
+
+        <RadioButton
+            android:id="@+id/rb_govaffair"
+            style="@style/bottom_tag_style"
+            android:drawableTop="@drawable/rb_govaffair_drawable_selector"
+            android:gravity="center"
+            android:text="合规" />
+
+        <RadioButton
+            android:id="@+id/rb_setting"
+            style="@style/bottom_tag_style"
+            android:drawableTop="@drawable/rb_setting_drawable_selector"
+            android:gravity="center"
+            android:text="设置" />
+
+
+    </RadioGroup>
+
+</LinearLayout>

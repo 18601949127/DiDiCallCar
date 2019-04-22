@@ -32,7 +32,6 @@ public class LeftMenuFragment extends BaseMenuFragment {
 
     private int prePosition;
 
-
     @Override
     public View initView() {
 
@@ -41,7 +40,6 @@ public class LeftMenuFragment extends BaseMenuFragment {
         listView.setPadding(0, DensityUtil.dip2px(context, 40), 0, 0);
         listView.setDividerHeight(5);//设置分割线高度为0
         listView.setCacheColorHint(Color.RED);
-
         //设置按下listView的item不变色
         listView.setSelector(android.R.color.holo_orange_dark);
 
