@@ -1,8 +1,6 @@
 package com.tantuo.didicar.TabFragment;
 
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.TextureMapView;

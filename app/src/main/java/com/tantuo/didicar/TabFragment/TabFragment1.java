@@ -1,16 +1,14 @@
 package com.tantuo.didicar.TabFragment;
 
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.TextureMapView;
 import com.tantuo.didicar.MainActivity;
 import com.tantuo.didicar.R;
 import com.tantuo.didicar.base.BaseFragment;
-import com.tantuo.didicar.dialogfragment.TabDialogFragment1;
 import com.tantuo.didicar.utils.LogUtil;
 
 public class TabFragment1 extends BaseFragment {
@@ -31,6 +29,8 @@ public class TabFragment1 extends BaseFragment {
     }
     @Override
     public View initView() {
+
+        Toast.makeText(context, "tab1 initview()", Toast.LENGTH_SHORT).show();
         LogUtil.i("==================================================");
         LogUtil.i("进入类:"+gettitle()+"TabFragment1, 方法:initView()  ");
         View view =  View.inflate(getActivity(), R.layout.callcar_tab_fragment_1,null);
@@ -44,6 +44,8 @@ public class TabFragment1 extends BaseFragment {
 
     @Override
     public void initData() {
+
+        Toast.makeText(context, "tab1 initData()", Toast.LENGTH_SHORT).show();
         LogUtil.i("==================================================");
         LogUtil.i("进入类:"+gettitle()+"TabFragment1, 方法:initData()  ");
         super.initData();

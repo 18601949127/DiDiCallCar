@@ -1,6 +1,5 @@
 package com.tantuo.didicar.TabFragment;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 

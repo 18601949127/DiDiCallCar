@@ -8,6 +8,9 @@
 
     <include layout="@layout/titlebar" />
 
+
+
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_page_indicator"
         android:layout_width="match_parent"

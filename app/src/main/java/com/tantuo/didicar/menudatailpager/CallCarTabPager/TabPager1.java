@@ -10,7 +10,6 @@ import com.baidu.mapapi.map.TextureMapView;
 import com.tantuo.didicar.MainActivity;
 import com.tantuo.didicar.R;
 import com.tantuo.didicar.base.BaseCallCarTabPager;
-import com.tantuo.didicar.dialogfragment.TabDialogFragment1;
 import com.tantuo.didicar.domain.CallCarPagerBean;
 import com.tantuo.didicar.utils.LogUtil;
 

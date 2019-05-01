@@ -15,7 +15,6 @@ import com.tantuo.didicar.base.MenuDetaiBasePager;
 import com.tantuo.didicar.domain.CallCarPagerBean;
 import com.tantuo.didicar.utils.LogUtil;
 import com.viewpagerindicator.TabPageIndicator;
-import android.support.v4.app.FragmentManager;
 
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
