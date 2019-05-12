@@ -1,28 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="40dp"
+    android:background="@android:color/white"
 
-    android:background="@android:color/white">
-
-
-    <ImageView
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:src="@drawable/didi_icon"
-        android:layout_toLeftOf="@id/tv_title"
-        android:layout_centerVertical="true"
-        android:scaleType="fitCenter"
-        />
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/didi_company"
-        android:textColor="@color/color_text_normal"
-        style="@style/Base.TextAppearance.AppCompat.Small"
-        android:textSize="14sp" />
+    android:padding="2dp">
 
     <ImageButton
         android:id="@+id/ib_menu"
@@ -31,8 +13,60 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
         android:background="@android:color/transparent"
+        android:padding="1dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/img_menu"
         android:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tv_title"
+            android:scaleType="fitCenter"
+            android:src="@drawable/didi_icon" />
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/didi_company"
+            android:layout_gravity="center"
+            android:textStyle="normal"
+            android:textColor="@color/logoColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/yourLocation"
+            style="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:layout_gravity="center"
+            android:text="您的位置:"
+            android:textColor="@color/vpi__bright_foreground_disabled_holo_light"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/current_city"
+            style="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="8dp"
+            android:text="北京市"
+            android:textColor="@color/color_text_normal"
+            android:textSize="12sp" />
+
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/ib_back"
@@ -56,13 +90,14 @@
 
         <ImageButton
             android:id="@+id/ib_license"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/icon_share"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_scan"
             android:visibility="visible" />
 
     </LinearLayout>

@@ -18,8 +18,8 @@
             android:scaleType="fitCenter"
             android:src="@drawable/icon_green_dot" />
 
-        <EditText
-            android:id="@+id/et_start_location"
+        <AutoCompleteTextView
+            android:id="@+id/tv_start_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/icon_green_dot"
@@ -41,8 +41,8 @@
             android:scaleType="fitCenter"
             android:src="@drawable/icon_red_dot" />
 
-        <EditText
-            android:id="@+id/et_destin_location"
+        <AutoCompleteTextView
+            android:id="@+id/tv_destin_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/icon_red_dot"

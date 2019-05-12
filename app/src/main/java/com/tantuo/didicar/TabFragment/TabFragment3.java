@@ -30,7 +30,6 @@ public class TabFragment3 extends BaseFragment {
     @Override
     public View initView() {
 
-        Toast.makeText(getActivity(), "tab3 initView()", Toast.LENGTH_SHORT).show();
         LogUtil.i("==================================================");
         LogUtil.i("进入类:"+gettitle()+"TabFragment3, 方法:initView()  ");
         View view =  View.inflate(getActivity(), R.layout.callcar_tab_fragment_3,null);

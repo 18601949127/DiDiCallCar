@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.entity.pb.CurrentCity;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
@@ -94,7 +95,6 @@ public class MainActivity extends SlidingFragmentActivity {
     private SlidingMenu slidingMenu;
 
 
-
     //tabDetailPager打车界面的fragment页面集合
     private ArrayList<BaseFragment> callcarFragments;
 
@@ -114,6 +114,8 @@ public class MainActivity extends SlidingFragmentActivity {
     private double mCurrentLon = 0.0;
     private float mCurrentAccracy;
     private LocationClient mLocClient;
+    public static String CurrentCity;
+    boolean isFirstLoc = true; // 是否首次定位
 
 
     @Override
@@ -136,49 +138,26 @@ public class MainActivity extends SlidingFragmentActivity {
         initSlidingMenu();
         initSlidingMenuFragment();
 
-        //初始化打车界面Fragment集合
-        initCallCarFragments();
+        //得到定位地址
+        initLocationClient();
 
-        //得到定位
-
-        initLocationOption();
 
 
         iniLoadOpenCV();
 
-
     }
-
-    private void initLocationOption() {
-        // 定位初始化
-        mLocClient = new LocationClient(this);
-        mLocClient.registerLocationListener(new MyLocationListener());
-        LocationClientOption option = new LocationClientOption();
-        option.setOpenGps(true); // 打开gps
-        option.setIsNeedAddress(true);
-        option.setCoorType("bd09ll"); // 设置坐标类型
-        option.setScanSpan(3000);
-        mLocClient.setLocOption(option);
-        mLocClient.start();
-    }
-
-    /**
-     * 初始化定位参数配置
-     */
-    /**
-     * 初始化定位参数配置
-     */
-
 
     public class MyLocationListener extends BDAbstractLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
 
+            String locdescribe = location.getStreet();
+            Toast.makeText(MainActivity.this, "locDescription:" + locdescribe, Toast.LENGTH_SHORT).show();
 
-                // map view 销毁后不在处理新接收的位置
-                if (location == null || TabFragment0.mMapView == null) {
-                    return;
-                }
+
+            if (isFirstLoc) {
+                isFirstLoc = false;
+
                 mCurrentLat = location.getLatitude();
                 mCurrentLon = location.getLongitude();
                 mCurrentAccracy = location.getRadius();
@@ -188,17 +167,32 @@ public class MainActivity extends SlidingFragmentActivity {
                         .direction(mCurrentDirection).latitude(location.getLatitude())
                         .longitude(location.getLongitude()).build();
                 startll = new LatLng(location.getLatitude(), location.getLongitude());
+                CurrentCity = location.getCity();
                 startlocation = location;
-                String locdescribe = location.getStreet();
-                Toast.makeText(MainActivity.this, "locDescription:" + locdescribe, Toast.LENGTH_SHORT).show();
 
                 //得到地址信息以后立即把第一个客户可见的出行fragment当前位置界面展示出来
-                callcarFragments.get(0).initView();
+                //初始化打车界面Fragment集合
+                initCallCarFragments();
                 callcarFragments.get(0).initData();
-
 
             }
 
+
+        }
+
+    }
+
+    private void initLocationClient() {
+        // 定位初始化
+        mLocClient = new LocationClient(this);
+        mLocClient.registerLocationListener(new MyLocationListener());
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true); // 打开gps
+        option.setIsNeedAddress(true);
+        option.setCoorType("bd09ll"); // 设置坐标类型
+        option.setScanSpan(1000000);
+        mLocClient.setLocOption(option);
+        mLocClient.start();
     }
 
 
