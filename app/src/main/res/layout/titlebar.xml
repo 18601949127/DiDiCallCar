@@ -100,6 +100,21 @@
             android:src="@drawable/icon_scan"
             android:visibility="visible" />
 
+
+        <ImageButton
+            android:id="@+id/ib_nfc_detector"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_pic_grid_type"
+            android:visibility="visible" />
+
+
+
     </LinearLayout>
 
 

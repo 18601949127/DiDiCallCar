@@ -6,30 +6,37 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_take_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
             android:layout_weight="1"
             android:text="拍照" />
 
         <Button
+            android:id="@+id/btn_process"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
             android:layout_weight="1"
-            android:text="拍照" />
+            android:text="处理" />
 
     </LinearLayout>
 
+
+
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="6"
+        android:paddingTop="40dp"
+        android:id="@+id/iv_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:scaleType="fitCenter"
-        android:src="@drawable/img_menu"/>
+        android:src="@drawable/didisplash"/>
 
 
 </LinearLayout>

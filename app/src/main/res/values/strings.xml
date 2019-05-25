@@ -3,4 +3,5 @@
     <string name="splash_message">滴滴一下 美好出行</string>
     <string name="didi_company">妥啦出行</string>
     <string name="ninyaoquna">你要去哪？ 请输入您的目的地址</string>
+    <string name="LicenceRecognition">滴滴打车 驾驶员证件识别</string>
 </resources>

@@ -1,11 +1,13 @@
 package com.tantuo.didicar.TabFragment;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
@@ -106,8 +108,11 @@ public class TabFragment0 extends BaseFragment implements
         LogUtil.i("==================================================");
         LogUtil.i("进入类:" + gettitle() + "TabFragment0, 方法:initView()  ");
         Toast.makeText(getActivity(), "tab0 initview()", Toast.LENGTH_SHORT).show();
+
+
         rootview = View.inflate(getActivity(), R.layout.callcar_tab_fragment_0, null);
         mMapView = rootview.findViewById(R.id.bmapView);
+
 
         mBaiduMap = mMapView.getMap();
 
@@ -163,6 +168,7 @@ public class TabFragment0 extends BaseFragment implements
                         .keyword(cs.toString())
                         .city(MainActivity.CurrentCity));
 
+                MainActivity.HideKeyboard(rootview);
 
                 start_str = start_text_view.getText().toString();
 
@@ -177,6 +183,7 @@ public class TabFragment0 extends BaseFragment implements
                         .pageNum(0)
                         //scope的值为1表示返回基本信息，2表示返回POI详细信息
                         .scope(1));
+
 
 
             }
@@ -210,7 +217,7 @@ public class TabFragment0 extends BaseFragment implements
                 mSuggestionSearch.requestSuggestion((new SuggestionSearchOption())
                         .keyword(cs.toString())
                         .city(MainActivity.CurrentCity));
-
+                MainActivity.imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
                 destin_str = destin_text_view.getText().toString();
 
@@ -278,15 +285,17 @@ public class TabFragment0 extends BaseFragment implements
                 case "destin_text_view":
                     Toast.makeText(context, "Case:Flag_Tocken=" + Flag_Tocken, Toast.LENGTH_SHORT).show();
 
-
-
-
                     RoutePlanSearch mSearch = RoutePlanSearch.newInstance();
                     mSearch = RoutePlanSearch.newInstance();
 
                     mSearch.setOnGetRoutePlanResultListener(listener);
                     PlanNode stNode = PlanNode.withCityNameAndPlaceName("北京", start_str);
                     PlanNode enNode = PlanNode.withCityNameAndPlaceName("北京", destin_str);
+
+                    //  注意：在DrivingRoutePlanOption()内可以设置以下几个检索策略常量
+                    //  ECAR_TIME_FIRST 驾乘检索策略常量：时间优先
+                    //  ECAR_FEE_FIRST  驾乘检索策略常量：较少费用
+                    //  ECAR_DIS_FIRST  驾乘检索策略常量：最短距离
 
                     mSearch.drivingSearch((new DrivingRoutePlanOption())
                             .from(stNode)
@@ -297,6 +306,7 @@ public class TabFragment0 extends BaseFragment implements
                     mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()), 2000);
                     overlay.zoomToSpan();
 
+                    MainActivity.HideKeyboard(rootview);
 
                     break;
                 default:
@@ -325,7 +335,7 @@ public class TabFragment0 extends BaseFragment implements
     private void initBottomSheet() {
 
         View bottomSheetView = rootview.findViewById(R.id.bottomSheetView);
-
+.
         //获取behavior
         sheetBehavior = BottomSheetBehavior.from(bottomSheetView);
 
@@ -463,6 +473,26 @@ public class TabFragment0 extends BaseFragment implements
         start_text_view.setAdapter(sugAdapter);
         destin_text_view.setAdapter(sugAdapter);
         sugAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onPause() {
+        mMapView.onPause();
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        // 关闭定位图层
+        mBaiduMap.setMyLocationEnabled(false);
+        mMapView.onDestroy();
+        mMapView = null;
+        super.onDestroy();
     }
 
 

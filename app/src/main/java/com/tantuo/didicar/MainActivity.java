@@ -1,6 +1,8 @@
 package com.tantuo.didicar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +35,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.tantuo.didicar.Activity.LicenseRecognizeActivity;
+import com.tantuo.didicar.DriverLicenseRecognition.LicenseMainActivity;
 import com.tantuo.didicar.TabFragment.TabFragment0;
 import com.tantuo.didicar.TabFragment.TabFragment1;
 import com.tantuo.didicar.TabFragment.TabFragment10;
@@ -66,6 +70,10 @@ public class MainActivity extends SlidingFragmentActivity {
 
 
     //用xUtils3 声明并XML控件绑定
+    @ViewInject(R.id.ib_nfc_detector)
+    private ImageButton ib_nfc_detector;
+
+    //用xUtils3 声明并XML控件绑定
     @ViewInject(R.id.ib_license)
     private ImageButton ib_license;
 
@@ -93,6 +101,8 @@ public class MainActivity extends SlidingFragmentActivity {
 
     public static FragmentManager manager;
     private SlidingMenu slidingMenu;
+
+    public static InputMethodManager imm;
 
 
     //tabDetailPager打车界面的fragment页面集合
@@ -129,6 +139,8 @@ public class MainActivity extends SlidingFragmentActivity {
         setContentView(R.layout.activity_main);
         x.view().inject(MainActivity.this);
 
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
 
         //初始化顶部标题栏
         initTitleBar();
@@ -140,7 +152,6 @@ public class MainActivity extends SlidingFragmentActivity {
 
         //得到定位地址
         initLocationClient();
-
 
 
         iniLoadOpenCV();
@@ -201,8 +212,19 @@ public class MainActivity extends SlidingFragmentActivity {
             @Override
             public void onClick(View v) {
                 //跳转到司机证件自动识别界面
-                Intent intent = new Intent(MainActivity.this, LicenseRecognizeActivity.class);
+                Intent intent = new Intent(MainActivity.this, LicenseMainActivity.class);
                 startActivity(intent);
+
+            }
+        });
+
+        ib_nfc_detector.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到司机证件自动识别界面
+                Intent intent = new Intent(MainActivity.this, LicenseMainActivity.class);
+                startActivity(intent);
+
             }
         });
     }
@@ -278,6 +300,13 @@ public class MainActivity extends SlidingFragmentActivity {
         slidingMenu.setBehindOffset((int) (screeWidth * 0.65));
     }
 
+    public static void HideKeyboard(View v) {
+        InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm.isActive()) {
+            imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+        }
+    }
+
     /**
      * 使用LeftMenuFragment替换左侧slidingmenu的frameLayout
      */
@@ -301,26 +330,6 @@ public class MainActivity extends SlidingFragmentActivity {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-        //mMapView.onDestroy();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
-        //mMapView.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
-        //mMapView.onPause();
-    }
 
     public LeftMenuFragment getleftMenuFragment() {
         LogUtil.i("进入： 类:MainActivity -----方法:getleftMenuFragment()---- ");
@@ -349,24 +358,33 @@ public class MainActivity extends SlidingFragmentActivity {
     private class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-
         }
 
         @Override
         public void onPageSelected(int position) {
-            LogUtil.i("----------------------进入了TabdetailPager的onPagerSelected方法 ");
-
 //          callcarFragments.get(position).initView();
             callcarFragments.get(position).initData();
-
-
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
-            LogUtil.i("----------------进入了TabdetailPager的onPagerScrollChanged方法 ");
-
         }
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
 }
