@@ -2,7 +2,6 @@ package com.tantuo.didicar;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +9,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
@@ -18,27 +16,19 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.entity.pb.CurrentCity;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.location.Poi;
 import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.map.SupportMapFragment;
-import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.tantuo.didicar.Activity.LicenseRecognizeActivity;
+import com.tantuo.didicar.DriverLicenseNFC.DriverRFIDMainActivity;
 import com.tantuo.didicar.DriverLicenseRecognition.LicenseMainActivity;
 import com.tantuo.didicar.TabFragment.TabFragment0;
 import com.tantuo.didicar.TabFragment.TabFragment1;
-import com.tantuo.didicar.TabFragment.TabFragment10;
 import com.tantuo.didicar.TabFragment.TabFragment2;
 import com.tantuo.didicar.TabFragment.TabFragment3;
 import com.tantuo.didicar.TabFragment.TabFragment4;
@@ -208,6 +198,8 @@ public class MainActivity extends SlidingFragmentActivity {
 
 
     private void initTitleBar() {
+
+
         ib_license.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -222,7 +214,7 @@ public class MainActivity extends SlidingFragmentActivity {
             @Override
             public void onClick(View v) {
                 //跳转到司机证件自动识别界面
-                Intent intent = new Intent(MainActivity.this, LicenseMainActivity.class);
+                Intent intent = new Intent(MainActivity.this, DriverRFIDMainActivity.class);
                 startActivity(intent);
 
             }

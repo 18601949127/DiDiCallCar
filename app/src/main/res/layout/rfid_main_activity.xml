@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_white"
+    android:fitsSystemWindows="true">>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/titlebar" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/nfc_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="260dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:padding="8dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/nfc_scan" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请将手机背面的NFC感应区\n靠近司机证件"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:textStyle="normal"
+            android:padding="5dp"
+            android:textSize="18sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Notification"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:background="@drawable/background_white"
+            android:onClick="doclick"
+            android:scaleType="centerInside"
+            android:src="@drawable/safety_button" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatbutton"
+            app:fabSize="mini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/fabbg"
+            android:clickable="true"
+            android:src="@drawable/allocate_dot"
+            app:borderWidth="0dp"
+            app:elevation="1dp"
+            app:pressedTranslationZ="12dp"
+            app:rippleColor="#0097a7" />
+
+        <ImageButton
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/allocate_dot"
+            android:scaleType="centerCrop"
+            android:layout_gravity="right|bottom"
+            />
+
+
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

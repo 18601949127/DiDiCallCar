@@ -537,22 +537,23 @@ public class DigitImageProcessor {
             }
             //找到标志区域以后，以标志区域为基准，证件号码的位置在标志x坐标 *2 左右，宽度大概在 binary.cols() - roi.x - 100像素
             //证件号码的高度大概是证件标志（基准）的0.7倍 height*0.7 ;
-            if (roi.x < offsetx && roi.y < offsety) {
-                numberROI.x = roi.x;
-                numberROI.y = roi.y + 2 * roi.height - 20;
-                numberROI.width = binary.cols() - roi.x - 100;
-                numberROI.height = (int) (roi.height * 0.7);
-                break;
-            }
-
-            //如果找到的左上角标志物的轮廓长宽都小于证件的三分之一，则以此标志物作为标准定为号码区域
 //            if (roi.x < offsetx && roi.y < offsety) {
 //                numberROI.x = roi.x;
-//                numberROI.y = roi.y + 5 * roi.height - 180;
+//                numberROI.y = roi.y + 2 * roi.height - 20;
 //                numberROI.width = binary.cols() - roi.x - 100;
-//                numberROI.height = (int) (roi.height * 1);
+//                numberROI.height = (int) (roi.height * 0.7);
 //                break;
 //            }
+
+
+            //如果找到的左上角标志物的轮廓长宽都小于证件的三分之一，则以此标志物作为标准定为号码区域
+            if (roi.x < offsetx && roi.y < offsety) {
+                numberROI.x = 3*roi.x + 110;
+                numberROI.y = roi.y + 5 * roi.height - 180;
+                numberROI.width = binary.cols() - 3*roi.x - 140;
+                numberROI.height = (int) (roi.height * 0.6);
+                break;
+            }
         }
 
         //如果没有找到就返回null

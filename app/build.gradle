@@ -49,6 +49,9 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     implementation files('libs/BaiduLBS_Android.jar')
     implementation project(path: ':openCVLibrary320')
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.6'
+    // okhttp3的依赖
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
 }
 
 task nativeLibsToJar(type: Jar, description: 'create a jar archive of the native libs') {

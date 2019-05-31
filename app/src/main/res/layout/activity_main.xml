@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
 
-    <include layout="@layout/titlebar" />
+    <include layout="@layout/main_titlebar" />
 
 
 

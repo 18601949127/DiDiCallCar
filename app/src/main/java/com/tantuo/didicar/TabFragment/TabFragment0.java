@@ -335,7 +335,7 @@ public class TabFragment0 extends BaseFragment implements
     private void initBottomSheet() {
 
         View bottomSheetView = rootview.findViewById(R.id.bottomSheetView);
-.
+
         //获取behavior
         sheetBehavior = BottomSheetBehavior.from(bottomSheetView);
 

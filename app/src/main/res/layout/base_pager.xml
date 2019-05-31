@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
 
-    <include layout="@layout/titlebar" />
+    <include layout="@layout/main_titlebar" />
 
 
     <!--最重要的framelayout,以后所有的视图的fragment都addfragment到这里-->

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import android.util.Log;
 
 public class SlidingFragmentActivity extends FragmentActivity implements SlidingActivityBase {
 

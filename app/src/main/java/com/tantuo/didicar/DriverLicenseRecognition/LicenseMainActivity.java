@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.tantuo.didicar.R;
 
@@ -38,19 +37,18 @@ public class LicenseMainActivity extends AppCompatActivity implements View.OnCli
         Button selectPicBtn = (Button) this.findViewById(R.id.select_picture_btn);
         selectPicBtn.setOnClickListener(this);
 
+        //初始化openCV
         iniLoadOpenCV();
     }
 
+
     private void iniLoadOpenCV() {
         boolean success = OpenCVLoader.initDebug();
+        //首先使用OpenCVLoader.initDebug()检查一下OpenCV库是否成功加载
         if (success) {
-            Toast.makeText(this.getApplicationContext(), "openCV load 成功", Toast.LENGTH_LONG).show();
-
             Log.i(TAG, " *****************************************");
             Log.i(TAG, " ***************************openCV load 成功");
         } else {
-            Toast.makeText(this.getApplicationContext(), "openCV load 失败", Toast.LENGTH_LONG).show();
-
             Log.i(TAG, " *****************************************");
             Log.i(TAG, " ***************************openCV load 失败");
         }
@@ -67,17 +65,19 @@ public class LicenseMainActivity extends AppCompatActivity implements View.OnCli
         int id = v.getId();
         switch (id) {
             case R.id.take_picture_btn:
-                start2Camera();
+                //使用摄像头对司机驾驶证拍照
+                getDriverLicenseFromCamera();
                 break;
             case R.id.select_picture_btn:
-                pickUpImage();
+                //从手机调取要识别的照片
+                getDriverLicenseFromPhone();
                 break;
             default:
                 break;
         }
     }
 
-    private void start2Camera() {
+    private void getDriverLicenseFromCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         fileUri = Uri.fromFile(getSaveFilePath());
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
@@ -101,7 +101,7 @@ public class LicenseMainActivity extends AppCompatActivity implements View.OnCli
         return imageFile;
     }
 
-    private void pickUpImage() {
+    private void getDriverLicenseFromPhone() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);

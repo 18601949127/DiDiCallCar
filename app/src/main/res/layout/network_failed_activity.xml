@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg" >
+
+   <ImageButton
+        android:id="@+id/btnPopUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/dot" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnPopUp"
+        android:textSize="18sp"
+        android:layout_toLeftOf="@+id/btnPopUp"
+        android:text="Final Check"
+        android:textColor="#d0d0d0" />
+
+    <View
+        android:id="@+id/a1"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"/>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/a1"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/cut" />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="网路不给力..."
+        android:textSize="24sp"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:textColor="#d0d0d0" />
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击屏幕重新加载"
+        android:textSize="18sp"
+        android:background="@drawable/button_frame1"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:textColor="#d0d0d0" />
+
+    <View
+        android:id="@+id/a"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"/>
+	<Button
+        android:id="@+id/btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       	android:textSize="18sp"
+       	android:textColor="#ffffff"
+        android:layout_above="@+id/a"
+        android:layout_toLeftOf="@+id/a"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:text="返回"
+	    android:background="@drawable/button_frame"/>
+	<Button
+        android:id="@+id/btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       	android:textSize="18sp"
+       	android:textColor="#ffffff"
+        android:layout_above="@+id/a"
+        android:layout_toRightOf="@+id/a"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:text="退出"
+	    android:background="@drawable/button_frame"/>
+</RelativeLayout>

@@ -96,7 +96,9 @@ public class LicenseOCRActivity extends AppCompatActivity implements View.OnClic
         Utils.matToBitmap(license,license_bitmap);
         saveDebugImage(license_bitmap);
         //中间结果方便开发者查找错误，让抽象的识别计算过程更加里程碑化，更加可视化
-//--d
+        //这里是完成识别出证件区域得到的结果
+        ImageView license_imageView = (ImageView)this.findViewById(R.id.imageView);
+        license_imageView.setImageBitmap(license_bitmap);
 
 
 
@@ -110,61 +112,61 @@ public class LicenseOCRActivity extends AppCompatActivity implements View.OnClic
         Utils.matToBitmap(numImage,number_block_bitmap);
         saveDebugImage(number_block_bitmap);
         //这里是完成识别出证件号码区域得到的结果
-//        ImageView imageView = (ImageView)this.findViewById(R.id.imageView);
-//        imageView.setImageBitmap(number_block_bitmap);
+        ImageView number_block_imageView = (ImageView)this.findViewById(R.id.imageView2);
+        number_block_imageView.setImageBitmap(number_block_bitmap);
 
 
-//        List<Mat> textList = processor.splitNumberBlock(numImage);
-//        if (textList != null && textList.size() > 0) {
-//            Log.i(TAG, "Number of digits : " + textList.size());
-//
-//            int index = 0;
-//            String cardId = "";
-//
-//            for (Mat oneText : textList) {
-//
-//                float [] vectorData = processor.extractFeatureData(oneText);
-//                processor.dumpFeature(vectorData,index++);
-//            }
-//
-//        }
+        List<Mat> textList = processor.splitNumberBlock(numImage);
+        if (textList != null && textList.size() > 0) {
+            Log.i(TAG, "Number of digits : " + textList.size());
+
+            int index = 0;
+            String cardId = "";
+
+            for (Mat oneText : textList) {
+
+                float [] vectorData = processor.extractFeatureData(oneText);
+                processor.dumpFeature(vectorData,index++);
+            }
+
+        }
 
         //在TextImageProcessor.extractFeatuData，我们需要将FeatureData提取出来,用来与号码数字作比对，识别数字
         //之后继续使用二值化方法识别数字区域里的字符轮廓，如果轮廓发现的过程中有字符粘连的话还需要对粘连的字符进行分割
         //如果发现干扰块的话还要对干扰块进行填充，为字符轮廓的特征提取提供好的素材。
         //List<Mat>是识别出来的号码边缘图像组成的集合
-        List<Mat> textList = processor.splitNumberBlock(numImage);
-        if(textList != null && textList.size() > 0) {
-            Log.i(TAG, "Number of digits : " + textList.size());
-            int index = 0;
-            String cardId = "";
-            for(Mat oneText : textList) {
-                int digit = processor.recognitionChar(oneText);
-                if(digit == 0 || digit == 1) {
-                    //
-                    float w = oneText.cols();
-                    float h = oneText.rows();
-                    float rate = w / h;
-                    if(rate > 0.5) {
-                        digit = 0;
-                    } else {
-                        digit = 1;
-                    }
-                }
-                cardId += digit;
-                oneText.release();
-            }
-            Log.i("OCR-INFO", "Card Number : " + cardId);
-            TextView cardNumberTextView = (TextView)this.findViewById(R.id.textView);
-            cardNumberTextView.setText(cardId);
-        }
-        Log.i(TAG, "Find Card and Card Number Block...");
-        Bitmap bitmap = Bitmap.createBitmap(numImage.cols(),numImage.rows(), Bitmap.Config.ARGB_8888);
-        Imgproc.cvtColor(numImage, numImage, Imgproc.COLOR_BGR2RGBA);
-        Utils.matToBitmap(numImage, bitmap);
-        saveDebugImage(bitmap);
-        ImageView imageView = (ImageView)this.findViewById(R.id.imageView);
-        imageView.setImageBitmap(bitmap);
+//        List<Mat> textList = processor.splitNumberBlock(numImage);
+//        if(textList != null && textList.size() > 0) {
+//            Log.i(TAG, "Number of digits : " + textList.size());
+//            int index = 0;
+//            String cardId = "";
+//            for(Mat oneText : textList) {
+//                int digit = processor.recognitionChar(oneText);
+//                if(digit == 0 || digit == 1) {
+//                    //
+//                    float w = oneText.cols();
+//                    float h = oneText.rows();
+//                    float rate = w / h;
+//                    if(rate > 0.5) {
+//                        digit = 0;
+//                    } else {
+//                        digit = 1;
+//                    }
+//                }
+//                cardId += digit;
+//                oneText.release();
+//            }
+//            Log.i("OCR-INFO", "Card Number : " + cardId);
+//            TextView cardNumberTextView = (TextView)this.findViewById(R.id.textView);
+//            cardNumberTextView.setText(cardId);
+//        }
+//        Log.i(TAG, "Find Card and Card Number Block...");
+//        Bitmap bitmap = Bitmap.createBitmap(numImage.cols(),numImage.rows(), Bitmap.Config.ARGB_8888);
+//        Imgproc.cvtColor(numImage, numImage, Imgproc.COLOR_BGR2RGBA);
+//        Utils.matToBitmap(numImage, bitmap);
+//        saveDebugImage(bitmap);
+//        ImageView imageView = (ImageView)this.findViewById(R.id.imageView);
+//        imageView.setImageBitmap(bitmap);
     }
 
     private void saveDebugImage(Bitmap bitmap) {
