@@ -22,6 +22,11 @@
             android:layout_weight="1"
             android:clickable="true" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@android:color/white"/>
+
 
     </LinearLayout>
 
@@ -40,12 +45,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <include layout="@layout/bottomsheet_floating_top" />
+
+            <include layout="@layout/transparent_seperate_line" />
 
             <ImageView
+                android:id="@+id/iv_bottom_sheet1"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/background_white"
-                android:onClick="doclick"
+                android:clickable="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/bottom_sheet_topweishenme" />
 
@@ -57,7 +66,7 @@
             <include layout="@layout/transparent_seperate_line" />
 
             <ImageView
-                android:id="@+id/iv_bottom_backseat"
+                android:id="@+id/iv_bottom_sheet2"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="@drawable/background_white"
@@ -68,7 +77,7 @@
             <include layout="@layout/transparent_seperate_line" />
 
             <ImageView
-                android:id="@+id/bottom_didiwenda"
+                android:id="@+id/iv_bottom_sheet3"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="@drawable/background_white"
@@ -79,7 +88,7 @@
             <include layout="@layout/transparent_seperate_line" />
 
             <ImageView
-                android:id="@+id/iv_bottom_family"
+                android:id="@+id/iv_bottom_sheet4"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="@drawable/background_white"
@@ -101,6 +110,7 @@
             <include layout="@layout/transparent_seperate_line" />
 
             <ImageView
+                android:id="@+id/iv_bottom_sheet5"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="@drawable/background_white"
@@ -111,6 +121,7 @@
             <include layout="@layout/transparent_seperate_line" />
 
             <ImageView
+                android:id="@+id/iv_bottom_sheet6"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="@drawable/background_white"

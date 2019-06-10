@@ -14,7 +14,7 @@
         android:layout_marginLeft="8dp"
         android:background="@android:color/transparent"
         android:padding="1dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         android:src="@drawable/img_menu"
         android:visibility="visible" />
 
@@ -68,16 +68,6 @@
 
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/ib_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="8dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/back"
-        android:visibility="gone" />
-
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -94,10 +84,11 @@
             android:layout_height="18dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:background="@android:color/transparent"
+            android:background="@android:color/darker_gray"
+
             android:clickable="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/icon_scan"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_recognition2"
             android:visibility="visible" />
 
 
@@ -107,10 +98,10 @@
             android:layout_height="18dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:background="@android:color/transparent"
+            android:background="@android:color/darker_gray"
             android:clickable="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/icon_pic_grid_type"
+            android:src="@drawable/icon_nfc"
             android:visibility="visible" />
 
 

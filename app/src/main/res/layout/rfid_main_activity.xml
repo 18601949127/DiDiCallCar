@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_white"
-    android:fitsSystemWindows="true">>
+    android:fitsSystemWindows="true">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -15,74 +15,73 @@
 
         <include layout="@layout/titlebar" />
 
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/nfc_scan"
-            android:layout_width="wrap_content"
-            android:layout_height="260dp"
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:layout_marginTop="3dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/didi_taxi"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="4dp"
-            android:padding="8dp"
-            android:scaleType="fitStart"
-            android:src="@drawable/nfc_scan" />
+            android:clickable="true"
+            android:scaleType="centerCrop"/>
 
+        <!--<pl.droidsonroids.gif.GifImageView-->
+            <!--android:id="@+id/nfc_scan"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="9"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:padding="2dp"-->
+            <!--android:scaleType="centerInside"-->
+            <!--android:src="@drawable/nfc_scan" />-->
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="请将手机背面的NFC感应区\n靠近司机证件"
-            android:layout_marginTop="0dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
             android:gravity="center_horizontal"
-            android:textStyle="normal"
             android:padding="5dp"
+            android:text="请将手机背面的NFC感应区\n靠近司机证件"
+            android:textAppearance="@style/TextAppearance.AppCompat.Notification"
             android:textSize="18sp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Notification"/>
+            android:textStyle="normal" />
 
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:background="@drawable/background_white"
-            android:onClick="doclick"
-            android:scaleType="centerInside"
-            android:src="@drawable/safety_button" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatbutton"
-            app:fabSize="mini"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/fabbg"
+            android:id="@+id/nfc_report"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:layout_marginTop="3dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/blue_nfc_phone"
+            android:layout_gravity="center_horizontal"
             android:clickable="true"
-            android:src="@drawable/allocate_dot"
-            app:borderWidth="0dp"
-            app:elevation="1dp"
-            app:pressedTranslationZ="12dp"
-            app:rippleColor="#0097a7" />
-
-        <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/allocate_dot"
-            android:scaleType="centerCrop"
-            android:layout_gravity="right|bottom"
-            />
+            android:scaleType="fitCenter"/>
 
 
-        <Button
-            android:id="@+id/btn1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
 
-        <Button
-            android:id="@+id/btn2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/safety_center"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_marginTop="30dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/didi_building2"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:scaleType="centerCrop"/>
+
+
+
+
 
 
     </LinearLayout>

@@ -548,10 +548,10 @@ public class DigitImageProcessor {
 
             //如果找到的左上角标志物的轮廓长宽都小于证件的三分之一，则以此标志物作为标准定为号码区域
             if (roi.x < offsetx && roi.y < offsety) {
-                numberROI.x = 3*roi.x + 110;
-                numberROI.y = roi.y + 5 * roi.height - 180;
-                numberROI.width = binary.cols() - 3*roi.x - 140;
-                numberROI.height = (int) (roi.height * 0.6);
+                numberROI.x = 3* roi.x + 120;
+                numberROI.y = roi.y + 4 * roi.height - 65;
+                numberROI.width = binary.cols() - roi.x - 390;
+                numberROI.height = (int) (roi.height * 0.9);
                 break;
             }
         }
@@ -579,7 +579,7 @@ public class DigitImageProcessor {
      * @param fileUri
      * @return
      */
-    public Mat findCard(Uri fileUri) {
+    public Mat findCardContour(Uri fileUri) {
 
         //首先使用openCV 的 Imgcodecs类得到相机获取的证件图片
         Mat src = Imgcodecs.imread(fileUri.getPath());

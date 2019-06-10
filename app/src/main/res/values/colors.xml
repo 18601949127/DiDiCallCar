@@ -6,4 +6,5 @@
     <color name="logoColor">#eb8b24</color>
     <color name="color_text_normal">#333333</color>
     <color name="text_gray">#919191</color>
+    <color name="floating_blue">#3E0347F4</color>
 </resources>

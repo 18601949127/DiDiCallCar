@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    tools:showIn="@layout/callcar_tab_fragment_0">
+
+
+    <ImageView
+        android:id="@+id/safe_center"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="10dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitStart"
+        android:src="@drawable/safe_center" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+
+        android:layout_alignBottom="@+id/safe_center"
+        android:layout_gravity="end|bottom"
+        android:background="@drawable/police"
+        android:backgroundTint="@android:color/transparent"
+        android:clickable="true"
+        android:src="@drawable/allocate_dot"
+        app:borderWidth="1dp"
+        app:elevation="3dp"
+        app:fabSize="mini"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="#8797a7" />
+
+</RelativeLayout>

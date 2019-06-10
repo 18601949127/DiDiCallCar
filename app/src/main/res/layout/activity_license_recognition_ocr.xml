@@ -1,87 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_main"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_white"
-    android:fitsSystemWindows="true">>
+    android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <include layout="@layout/titlebar" />
 
-        <include layout="@layout/titlebar" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="识别"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/recognition_btn"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="识别"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:id="@+id/recognition_btn"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/recognition_btn"
-            android:text="结果:空"
-            android:id="@+id/textView" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_weight="10">
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_alignParentLeft="true"
+        android:scaleType="center"
+        android:layout_marginTop="10dp" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/bottom_sheet_stroy"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/recognition_btn"
-            android:scaleType="fitCenter"
-            android:layout_marginTop="10dp" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/bottom_sheet_stroy"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/recognition_btn"
-            android:scaleType="fitCenter"
-            android:layout_marginTop="10dp" />
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_alignParentLeft="true"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="10dp" />
 
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/bottom_sheet_stroy"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/recognition_btn"
-            android:scaleType="fitCenter"
-            android:layout_marginTop="10dp" />
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_alignParentLeft="true"
+        android:scaleType="center"
+        android:layout_marginTop="10dp" />
 
-        <Button
-            android:id="@+id/btn1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="按钮1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/textView" />
 
-
-        <Button
-            android:id="@+id/btn2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="按钮2"/>
-
-
-    </LinearLayout>
-
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
 
 
 
 
+</LinearLayout>
 
+
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView_didipay"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="80dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:src="@drawable/bottom_sheet_stroy"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:layout_marginTop="10dp" />-->
+
+</RelativeLayout>

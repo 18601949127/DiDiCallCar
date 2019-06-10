@@ -7,13 +7,14 @@
     android:padding="2dp">
 
     <ImageButton
-        android:id="@+id/ib_menu"
+        android:id="@+id/ib_titlebar_back"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
         android:background="@android:color/transparent"
         android:padding="1dp"
+        android:clickable="true"
         android:scaleType="centerCrop"
         android:src="@drawable/back"
         android:visibility="visible" />
@@ -79,7 +80,7 @@
 
 
         <ImageButton
-            android:id="@+id/btnPopUp"
+            android:id="@+id/btnPopUpMenu"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_centerVertical="true"

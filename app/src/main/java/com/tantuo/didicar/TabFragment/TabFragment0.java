@@ -1,8 +1,10 @@
 package com.tantuo.didicar.TabFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.widget.NestedScrollView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -10,15 +12,18 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.baidu.entity.pb.WalkPlan;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.CircleOptions;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
@@ -55,6 +60,10 @@ import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
 import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
+import com.google.gson.Gson;
+import com.tantuo.didicar.Activity.DiDi_info_Activity;
+import com.tantuo.didicar.DriverLicenseNFC.Check_success_activity;
+import com.tantuo.didicar.DriverLicenseNFC.DriverRFIDMainActivity;
 import com.tantuo.didicar.MainActivity;
 import com.tantuo.didicar.R;
 import com.tantuo.didicar.base.BaseFragment;
@@ -62,11 +71,23 @@ import com.tantuo.didicar.utils.DrivingRouteOverlay;
 import com.tantuo.didicar.utils.LogUtil;
 import com.tantuo.didicar.utils.PoiOverlay;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TabFragment0 extends BaseFragment implements
-        OnGetPoiSearchResultListener, OnGetSuggestionResultListener {
+        OnGetPoiSearchResultListener, OnGetSuggestionResultListener, View.OnClickListener {
+
+
+    private TextureMapView bmapView;
+    private NestedScrollView bottomSheetView;
+    private ImageView iv_BottomSheet1;
+    private ImageView iv_BottomSheet2;
+    private ImageView iv_BottomSheet3;
+    private ImageView iv_BottomSheet4;
+    private ImageView iv_BottomSheet5;
+    private ImageView iv_BottomSheet6;
+
 
     private static final String TAG = TabFragment0.class.getSimpleName();
     private final String title;
@@ -95,6 +116,8 @@ public class TabFragment0 extends BaseFragment implements
     private String Flag_Tocken;
     private String start_str;
     private String destin_str;
+    private Intent intent;
+    private String iv_bottom_sheet1_url;
 
     public TabFragment0(String title, String contents) {
         super();
@@ -105,22 +128,44 @@ public class TabFragment0 extends BaseFragment implements
 
     @Override
     public View initView() {
-        LogUtil.i("==================================================");
-        LogUtil.i("进入类:" + gettitle() + "TabFragment0, 方法:initView()  ");
-        Toast.makeText(getActivity(), "tab0 initview()", Toast.LENGTH_SHORT).show();
-
 
         rootview = View.inflate(getActivity(), R.layout.callcar_tab_fragment_0, null);
+
         mMapView = rootview.findViewById(R.id.bmapView);
 
 
         mBaiduMap = mMapView.getMap();
+
+        findview();
+
 
         initBottomSheet();
 
         initSearchLocation();
 
         return rootview;
+    }
+
+    private void findview() {
+
+
+        bmapView = (TextureMapView) rootview.findViewById(R.id.bmapView);
+        bottomSheetView = (NestedScrollView) rootview.findViewById(R.id.bottomSheetView);
+        iv_BottomSheet1 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet1);
+        iv_BottomSheet2 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet2);
+        iv_BottomSheet3 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet3);
+        iv_BottomSheet4 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet4);
+        iv_BottomSheet5 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet5);
+        iv_BottomSheet6 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet6);
+
+        iv_BottomSheet1.setOnClickListener(this);
+        iv_BottomSheet2.setOnClickListener(this);
+        iv_BottomSheet3.setOnClickListener(this);
+        iv_BottomSheet4.setOnClickListener(this);
+        iv_BottomSheet5.setOnClickListener(this);
+        iv_BottomSheet6.setOnClickListener(this);
+
+
     }
 
     private void initSearchLocation() {
@@ -157,7 +202,7 @@ public class TabFragment0 extends BaseFragment implements
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
                 Flag_Tocken = "start_text_view";
-                Toast.makeText(context, " StartTextChanged() Flag_Tocken =" + Flag_Tocken, Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, " StartTextChanged() Flag_Tocken =" + Flag_Tocken, Toast.LENGTH_LONG).show();
                 if (cs.length() <= 0) {
                     return;
                 }
@@ -185,7 +230,6 @@ public class TabFragment0 extends BaseFragment implements
                         .scope(1));
 
 
-
             }
         });
 
@@ -203,8 +247,7 @@ public class TabFragment0 extends BaseFragment implements
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
                 Flag_Tocken = "destin_text_view";
-                Toast.makeText(context, " Destin_TextChanged() Flag_Tocken =" + Flag_Tocken, Toast.LENGTH_LONG).show();
-                LogUtil.i("==================================================");
+                //Toast.makeText(context, " Destin_TextChanged() Flag_Tocken =" + Flag_Tocken, Toast.LENGTH_LONG).show();
                 LogUtil.i("进入类:TabFragment0, 方法:onTextChanged() destin_text_view ");
 
                 if (cs.length() <= 0) {
@@ -246,7 +289,7 @@ public class TabFragment0 extends BaseFragment implements
      */
     public void onGetPoiResult(PoiResult result) {
         if (result == null || result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
-            Toast.makeText(context, "未找到结果", Toast.LENGTH_LONG).show();
+            LogUtil.i("进入类:TabFragment0, 方法:onGetPoiResult() 未找到结果 ");
 
             return;
         }
@@ -267,23 +310,17 @@ public class TabFragment0 extends BaseFragment implements
             switch (Flag_Tocken) {
                 case "initData":
 
-//                overlay.zoomToSpan();
-                    Toast.makeText(context, "Case:Flag_Tocken= " + Flag_Tocken, Toast.LENGTH_SHORT).show();
-
-                    builder.target(MainActivity.startll).zoom(17.0f);
+                    builder.target(MainActivity.startll).zoom(15.0f);
                     mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()), 2000);
-
                     break;
                 case "start_text_view":
-                    Toast.makeText(context, "Case:Flag_Tocken=" + Flag_Tocken, Toast.LENGTH_SHORT).show();
-//                    overlay.zoomToSpan();
+                    //overlay.zoomToSpan();
 
-                    builder.target(poi1.getLocation()).zoom(17.0f);
+                    builder.target(poi1.getLocation()).zoom(16.0f);
                     mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()), 2000);
 
                     break;
                 case "destin_text_view":
-                    Toast.makeText(context, "Case:Flag_Tocken=" + Flag_Tocken, Toast.LENGTH_SHORT).show();
 
                     RoutePlanSearch mSearch = RoutePlanSearch.newInstance();
                     mSearch = RoutePlanSearch.newInstance();
@@ -300,9 +337,8 @@ public class TabFragment0 extends BaseFragment implements
                     mSearch.drivingSearch((new DrivingRoutePlanOption())
                             .from(stNode)
                             .to(enNode));
-                    Toast.makeText(context, "after deriveing search", Toast.LENGTH_SHORT).show();
 
-                    builder.target(poi1.getLocation()).zoom(16.0f);
+                    builder.target(poi1.getLocation()).zoom(15.0f);
                     mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()), 2000);
                     overlay.zoomToSpan();
 
@@ -328,7 +364,7 @@ public class TabFragment0 extends BaseFragment implements
             }
 
             strInfo += "找到结果";
-            Toast.makeText(context, strInfo, Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, strInfo, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -363,8 +399,7 @@ public class TabFragment0 extends BaseFragment implements
     @Override
     public void initData() {
         Flag_Tocken = "initData";
-        Toast.makeText(getActivity(), "tab0 initData()", Toast.LENGTH_SHORT).show();
-        LogUtil.i("==================================================");
+        //Toast.makeText(getActivity(), "tab0 initData()", Toast.LENGTH_SHORT).show();
         LogUtil.i("进入类:" + gettitle() + "TabFragment0, 方法:initData()  ");
         super.initData();
 
@@ -415,31 +450,27 @@ public class TabFragment0 extends BaseFragment implements
      */
     public void onGetPoiDetailResult(PoiDetailResult result) {
         if (result.error != SearchResult.ERRORNO.NO_ERROR) {
-            Toast.makeText(context, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context,
-                    result.getName() + ": " + result.getAddress(),
-                    Toast.LENGTH_SHORT).show();
+            //           //Toast.makeText(context,result.getName() + ": " + result.getAddress(),Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onGetPoiDetailResult(PoiDetailSearchResult poiDetailSearchResult) {
         if (poiDetailSearchResult.error != SearchResult.ERRORNO.NO_ERROR) {
-            Toast.makeText(context, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
         } else {
             List<PoiDetailInfo> poiDetailInfoList = poiDetailSearchResult.getPoiDetailInfoList();
             if (null == poiDetailInfoList || poiDetailInfoList.isEmpty()) {
-                Toast.makeText(context, "抱歉，检索结果为空", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "抱歉，检索结果为空", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             for (int i = 0; i < poiDetailInfoList.size(); i++) {
                 PoiDetailInfo poiDetailInfo = poiDetailInfoList.get(i);
                 if (null != poiDetailInfo) {
-                    Toast.makeText(context,
-                            poiDetailInfo.getName() + ": " + poiDetailInfo.getAddress(),
-                            Toast.LENGTH_SHORT).show();
+
                 }
             }
         }
@@ -495,6 +526,29 @@ public class TabFragment0 extends BaseFragment implements
         super.onDestroy();
     }
 
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.iv_bottom_sheet1:
+
+                start_DiDi_info_Activity("https://dpubstatic.udache.com/static/dpubimg/9cf30ff247d516f9e02c290c15523f13/index.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.36159457829866&lng=116.83176385015537&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=8.0.0&phone=W471piXc0R0glRFq7nvDow&pid=1_MbksNzh5J&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1559718360358&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=8B07586EC469640F15AF840BD3913B0C&vcode=553&from=singl");
+                break;
+            case R.id.iv_bottom_sheet2:
+
+                start_DiDi_info_Activity("https://dpubstatic.udache.com/static/dpubimg/9cf30ff247d516f9e02c290c15523f13/index.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.36159457829866&lng=116.83176385015537&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=8.0.0&phone=W471piXc0R0glRFq7nvDow&pid=1_MbksNzh5J&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1559718360358&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=8B07586EC469640F15AF840BD3913B0C&vcode=553&from=singl");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void start_DiDi_info_Activity(String url) {
+        intent = new Intent(context, DiDi_info_Activity.class);
+        intent.putExtra("url", url);
+        startActivity(intent);
+    }
+
 
     private class MyPoiOverlay extends PoiOverlay {
         MyPoiOverlay(BaiduMap baiduMap) {
@@ -510,6 +564,7 @@ public class TabFragment0 extends BaseFragment implements
             // }
             return true;
         }
+
     }
 
     /**
@@ -555,13 +610,13 @@ public class TabFragment0 extends BaseFragment implements
         @Override
         public void onGetDrivingRouteResult(DrivingRouteResult result) {
             if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-                Toast.makeText(context, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
             }
             if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
                 //起终点或途经点地址有岐义，通过以下接口获取建议查询信息
                 result.getSuggestAddrInfo();
 
-                Toast.makeText(context, "起终点或途经点地址有岐义" + result.getSuggestAddrInfo(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "起终点或途经点地址有岐义" + result.getSuggestAddrInfo(), Toast.LENGTH_SHORT).show();
 
                 return;
             }
@@ -577,7 +632,7 @@ public class TabFragment0 extends BaseFragment implements
                     overlay.zoomToSpan();
                 } else {
                     Log.d("route result", "结果数<0");
-                    Toast.makeText(context, "route result , 结果数<0", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "route result , 结果数<0", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

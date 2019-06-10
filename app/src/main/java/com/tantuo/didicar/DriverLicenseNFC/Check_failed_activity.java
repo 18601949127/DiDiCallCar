@@ -67,7 +67,7 @@ public class Check_failed_activity extends Activity implements OnClickListener,O
         Vibrator vibrator = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
         vibrator.vibrate(500);
         
-        popUpMenu = (ImageButton)findViewById(R.id.btnPopUp);
+        popUpMenu = (ImageButton)findViewById(R.id.btnPopUpMenu);
         popUpMenu.setOnClickListener(this);
 
         btnBack=(Button)findViewById(R.id.btn1);

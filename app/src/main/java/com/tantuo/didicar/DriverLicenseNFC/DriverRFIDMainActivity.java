@@ -5,8 +5,6 @@ import java.io.BufferedReader;
 import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
@@ -28,7 +27,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import android.nfc.NfcAdapter;
-import android.os.Looper;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.util.Log;
@@ -39,7 +37,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.SoundPool;
 import android.net.ConnectivityManager;
-import android.view.Menu;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,14 +49,8 @@ import com.tantuo.didicar.R;
 import com.tantuo.didicar.utils.NfcUtils;
 
 import android.media.AudioManager;
-import android.util.Log;
 
 import com.tantuo.didicar.utils.LogUtil;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -92,7 +83,7 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
     private TextView mText;
     private TextView mTextPoi;
     private LocationClient mLocationClient = null;
-    private Button btnBack, btnExit;
+    private ImageView iv_safety_center, ib_titlebar_back;
     private ImageButton popUpMenu;
     private SoundPool soundPool;
     private Vibrator vibrator;
@@ -107,10 +98,8 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.rfid_main_activity);
-        SysApplication.getInstance().addActivity(this);
+//        SysApplication.getInstance().addActivity(this);
 
-
-        playsound(R.raw.positive);
 
         checkNetworkState();
 
@@ -119,7 +108,7 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
         //nfc初始化设置
         NfcUtils nfcUtils = new NfcUtils(this);
 
-        init();    //主界面的初始化工作
+        initView();    //主界面的初始化工作
 
     }
 
@@ -156,56 +145,30 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
         });
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        menu.add(Menu.NONE, 1, 0, "公司介绍");
-        menu.add(Menu.NONE, 2, 0, "公司介绍");
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        switch (item.getItemId())//得到被点击的item的itemId
-        {
-            case 1: //对应的ID就是在add方法中所设定的Id
-                Toast.makeText(DriverRFIDMainActivity.this, "1", Toast.LENGTH_LONG).show();
-                break;
-            case 2:
-                Toast.makeText(DriverRFIDMainActivity.this, "2", Toast.LENGTH_LONG).show();
-                break;
-        }
-        return true;
-    }
+    private void initView() {
 
-
-    private void init() {
+        playsound(R.raw.positive);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
 
 
-        gifImageView = findViewById(R.id.nfc_scan);
+//        gifImageView = findViewById(R.id.nfc_scan);
 
 
-        popUpMenu = (ImageButton) findViewById(R.id.btnPopUp);
+        popUpMenu = (ImageButton) findViewById(R.id.btnPopUpMenu);
         popUpMenu.setOnClickListener(this);
 
-        btnBack = (Button) findViewById(R.id.btn1);
-        btnBack.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                finish();//DriverRFIDMainActivity不可以finish
-            }
-        });
+        iv_safety_center = (ImageView) findViewById(R.id.safety_center);
+        iv_safety_center.setOnClickListener(this);
 
-        btnExit = (Button) findViewById(R.id.btn2);
-        btnExit.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
 
-                playsound(R.raw.positive);
-            }
-        });
+        ib_titlebar_back = (ImageView) findViewById(R.id.ib_titlebar_back);
+        ib_titlebar_back.setOnClickListener(this);
+
+
     }
 
 
@@ -300,7 +263,6 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
         CardId = "not reach to processIntent";
         try {
             CardId = NfcUtils.readNFCId(intent);
-            Toast.makeText(DriverRFIDMainActivity.this, "NEW INENT CardID 为：" + CardId, Toast.LENGTH_SHORT).show();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -366,17 +328,41 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
 
     @Override
     public void onClick(View v) {
-        //创建弹出式菜单对象（最低版本11）
-        PopupMenu popup = new PopupMenu(this, v);//第二个参数是绑定的那个view
-        //获取菜单填充器
-        MenuInflater inflater = popup.getMenuInflater();
-        //填充菜单
-        inflater.inflate(R.menu.popup_menu, popup.getMenu());
-        //绑定菜单项的点击事件
-        popup.setOnMenuItemClickListener(this);
-        //显示(这一行代码不要忘记了)
-        popup.show();
 
+
+        switch (v.getId()) {
+            case R.id.btnPopUpMenu: // 说明点击了微信按钮
+                //创建弹出式菜单对象（最低版本11）
+                PopupMenu popup = new PopupMenu(this, v);//第二个参数是绑定的那个view
+                //获取菜单填充器
+                MenuInflater inflater = popup.getMenuInflater();
+                //填充菜单
+                inflater.inflate(R.menu.popup_menu, popup.getMenu());
+                //绑定菜单项的点击事件
+                popup.setOnMenuItemClickListener(this);
+                //显示(这一行代码不要忘记了)
+                popup.show();
+                break;
+
+            case R.id.safety_center:
+                finish();
+                break;
+
+
+            case R.id.ib_titlebar_back:
+                finish();
+                break;
+
+
+            default:
+                break;
+        }
+
+
+    }
+
+    public void onTitleBarBackClicked() {
+        finish();
     }
 
     //弹出式菜单的单击事件处理
@@ -472,6 +458,7 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
 
     private void notSupportNFC() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LogUtil.i("进入类:DriverRFIDMainActivity, 方法:notSupportNFC()  ");
         builder.setTitle("设备不支持提示").setMessage("很遗憾，您的手机不支持NFC功能").setPositiveButton("我知道了", new DialogInterface.OnClickListener() {
 
             @Override
@@ -506,7 +493,7 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
             //把从滴滴司机RFID识别到的唯一号码发到服务器验证
             builder.add("uid", CardId);
             //这里给大家提供一个数据库里存在的数据，让大家看一下从数据库中返回的信息
-            //在实际应用中下面这句不会有，而是使用上面的CardId发给数据库去做验证。
+            //在实际应DriverRFIDMainActivity用中下面这句不会有，而是使用上面的CardId发给数据库去做验证。
             //这里为了给大家看到正确的验证结果，使用"4F96BFDD"这个数据库里确实存在的号码代替读出来的UID
             //否则大家使用自己的手机读取一个带RFID芯片的银行卡，肯定
             builder.add("uid", "4F96BFDD");
@@ -538,22 +525,20 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
          */
         @Override
         protected void onPostExecute(String s) {
-            Toast.makeText(DriverRFIDMainActivity.this, "result:" + s, Toast.LENGTH_SHORT).show();
 
 
             try {
                 JSONObject jsonObject = new JSONObject(s);
                 result = jsonObject.getInt("status");
                 Gson gson = new Gson();
-                driverbean = (DriverBean) gson.fromJson(s,DriverBean.class);
-                Toast.makeText(getApplicationContext(), "dirverBEan" + driverbean.getCar_profile(), Toast.LENGTH_SHORT).show();
+                driverbean = (DriverBean) gson.fromJson(s, DriverBean.class);
 
 
                 if (result >= 1) {
 
                     LogUtil.i("进入类:GetDataTask, 方法:onPostExecute() result >1 ");
                     Intent intent = new Intent(DriverRFIDMainActivity.this, Check_success_activity.class);
-                    intent.putExtra("person",new Gson().toJson(driverbean));
+                    intent.putExtra("driverJson", new Gson().toJson(driverbean));
                     startActivity(intent);
 
                 } else if (result == -1) {
@@ -568,10 +553,11 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                LogUtil.i("进入类:GetDataTask, e.printStackTrace()");
+                Toast.makeText(DriverRFIDMainActivity.this, "new run thered failed", Toast.LENGTH_SHORT).show();
             }
             super.onPostExecute(s);
         }
     }
+
 
 }

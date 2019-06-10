@@ -1,5 +1,8 @@
 package com.tantuo.didicar.DriverLicenseRecognition;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -12,14 +15,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.tantuo.didicar.MainActivity;
 import com.tantuo.didicar.R;
 
 import org.opencv.android.OpenCVLoader;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import com.tantuo.didicar.utils.LogUtil;
 
 public class LicenseMainActivity extends AppCompatActivity implements View.OnClickListener {
     private String TAG = "OPenCV-Android";
@@ -31,11 +39,21 @@ public class LicenseMainActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_license_recognition_main);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
         Button takePicBtn = (Button) this.findViewById(R.id.take_picture_btn);
         takePicBtn.setOnClickListener(this);
 
         Button selectPicBtn = (Button) this.findViewById(R.id.select_picture_btn);
         selectPicBtn.setOnClickListener(this);
+
+
+
+        copyFilesFassets(this, "driver_card_sample_tantuo.png", "sdcard/driver_card_sample_tantuo.png");
+
+
 
         //初始化openCV
         iniLoadOpenCV();
@@ -71,10 +89,33 @@ public class LicenseMainActivity extends AppCompatActivity implements View.OnCli
             case R.id.select_picture_btn:
                 //从手机调取要识别的照片
                 getDriverLicenseFromPhone();
+                //getDriverLicenseFromMysample();
                 break;
             default:
                 break;
         }
+    }
+
+    private void getDriverLicenseFromMysample() {
+
+        //http://139.199.37.235/LBS/didiDriverData/didiDriverProfile/tantuo.png
+
+        Intent intent = new Intent(getApplicationContext(), LicenseOCRActivity.class);
+
+        Uri uri = Uri.fromFile(new File("sdcard/driver_card_sample_tantuo.png"));
+
+ //       Uri imageUri = getImageContentUri(LicenseMainActivity.this, "sdcard/driver_card_sample_tantuo.png");
+
+
+//        Uri uri = Uri.parse("android.resource://com.tantuo.didicar/assets/driver_card_sample_tantuo.png");
+//        intent.putExtra("PICTURE-URL","http://139.199.37.235/LBS/didiDriverData/didiDriverProfile/tantuo.png");
+//        intent.putExtra("PICTURE-URL","assets://driver_card_sample_tantuo.png");
+        intent.putExtra("PICTURE-URL",uri);
+
+//        Toast.makeText(getApplicationContext(), "android.resource://com.tantuo.didicar/" + R.raw.driver_card_sample_tantuo), Toast.LENGTH_SHORT).show();
+//        LogUtil.i("进入类:LicenseMainActivity, 方法:getDriverLicenseFromMysample() uri: " +Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.raw.driver_card_sample_tantuo));
+        startActivity(intent);
+
     }
 
     private void getDriverLicenseFromCamera() {
@@ -102,6 +143,10 @@ public class LicenseMainActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void getDriverLicenseFromPhone() {
+
+
+
+
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -150,4 +195,72 @@ public class LicenseMainActivity extends AppCompatActivity implements View.OnCli
         Log.i("CV_TAG", "selected image path : " + filePath);
         return filePath;
     }
+
+
+
+    /**
+     *  从assets目录中复制整个文件夹内容
+     *  @param  context  Context 使用CopyFiles类的Activity
+     *  @param  oldPath  String  原文件路径  如：/aa
+     *  @param  newPath  String  复制后路径  如：xx:/bb/cc
+     */
+    public void copyFilesFassets(Context context, String oldPath, String newPath) {
+        try {
+            String fileNames[] = context.getAssets().list(oldPath);//获取assets目录下的所有文件及目录名
+            if (fileNames.length > 0) {//如果是目录
+                File file = new File(newPath);
+                file.mkdirs();//如果文件夹不存在，则递归
+                for (String fileName : fileNames) {
+                    copyFilesFassets(context,oldPath + "/" + fileName,newPath+"/"+fileName);
+                }
+            } else {//如果是文件
+                InputStream is = context.getAssets().open(oldPath);
+                FileOutputStream fos = new FileOutputStream(new File(newPath));
+                byte[] buffer = new byte[1024];
+                int byteCount=0;
+                while((byteCount=is.read(buffer))!=-1) {//循环从输入流读取 buffer字节
+                    fos.write(buffer, 0, byteCount);//将读取的输入流写入到输出流
+                }
+                fos.flush();//刷新缓冲区
+                is.close();
+                fos.close();
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+
+        }
+    }
+
+    /**
+     * Gets the content:// URI from the given corresponding path to a file
+     *
+     * @param context
+     * @param imageFile
+     * @return content Uri
+     */
+    public static Uri getImageContentUri(Context context, java.io.File imageFile) {
+        String filePath = imageFile.getAbsolutePath();
+        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                new String[] { MediaStore.Images.Media._ID }, MediaStore.Images.Media.DATA + "=? ",
+                new String[] { filePath }, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
+            Uri baseUri = Uri.parse("content://media/external/images/media");
+            return Uri.withAppendedPath(baseUri, "" + id);
+        } else {
+            if (imageFile.exists()) {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.DATA, filePath);
+                return context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            } else {
+                return null;
+            }
+        }
+    }
+
+
+
+
+
 }

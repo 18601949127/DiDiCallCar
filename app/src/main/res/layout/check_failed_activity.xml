@@ -5,7 +5,7 @@
     android:background="@drawable/bg" >
 
    <ImageButton
-        android:id="@+id/btnPopUp"
+        android:id="@+id/btnPopUpMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -18,9 +18,9 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btnPopUp"
+        android:layout_alignBottom="@+id/btnPopUpMenu"
         android:textSize="18sp"
-        android:layout_toLeftOf="@+id/btnPopUp"
+        android:layout_toLeftOf="@+id/btnPopUpMenu"
         android:text="Final Check"
         android:textColor="#d0d0d0" />
 

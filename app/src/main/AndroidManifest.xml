@@ -89,9 +89,9 @@
     <application
         android:name=".utils.DiDiCarApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/didi_luncher"
         android:supportsRtl="true"
+        android:label="@string/app_labelName"
         android:theme="@style/AppTheme">
 
         <meta-data
@@ -117,6 +117,7 @@
         <activity android:name=".DriverLicenseRecognition.LicenseMainActivity"></activity>
 
         <activity android:name=".DriverLicenseRecognition.LicenseOCRActivity"></activity>
+        <activity android:name=".Activity.DiDi_info_Activity"></activity>
 
 
         <activity
