@@ -9,7 +9,7 @@ import com.tantuo.didicar.base.BasePager;
 import java.util.ArrayList;
 
 /**
- * Author by TanTuo, WeiXin:86-18601949127,
+ * Author by TanTuo, 微信：18601949127,
  * Email:1991201740@qq.com
  * 作用：ContentFragmentAdapter 屏幕正中央的ViewPager
  */

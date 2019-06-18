@@ -12,6 +12,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,9 +41,12 @@ import com.tantuo.didicar.TabFragment.TabFragment9;
 import com.tantuo.didicar.adapter.CallCarTabPagerAdapter;
 import com.tantuo.didicar.base.BaseFragment;
 import com.tantuo.didicar.fragment.ContentFragment;
-import com.tantuo.didicar.fragment.LeftMenuFragment;
+import com.tantuo.didicar.fragment.LeftSlidingFragment;
+import com.tantuo.didicar.utils.LocaleUtils;
 import com.tantuo.didicar.utils.LogUtil;
 import com.tantuo.didicar.view.NoScrollViewPager;
+
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import org.opencv.android.OpenCVLoader;
 import org.xutils.view.annotation.ViewInject;
@@ -52,11 +56,12 @@ import java.util.ArrayList;
 
 
 /**
- * Author by TanTuo, WeiXin:86-18601949127,
+ * Author by TanTuo, 微信：18601949127,
  * Email:1991201740@qq.com
  * 作用：MainActivity 进入主界面
  */
-public class MainActivity extends SlidingFragmentActivity {
+public class MainActivity extends SlidingFragmentActivity implements OnCheckedChangeListener {
+
 
 
     //用xUtils3 声明并XML控件绑定
@@ -85,6 +90,14 @@ public class MainActivity extends SlidingFragmentActivity {
     @ViewInject(R.id.tab_page_indicator)
     private TabLayout tablayoutIndicator;
 
+    //用xUtils3 声明并XML控件绑定
+    @ViewInject(R.id.switch1)
+    private ImageButton language_switch;
+
+    //用xUtils3 声明并XML控件绑定
+    @ViewInject(R.id.current_city)
+    private TextView current_city;
+
 
     public static final String MAIN_CONTENT_TAG = "main_content_tag";
     public static final String LEFTMENU_TAG = "leftmenu_tag";
@@ -101,7 +114,7 @@ public class MainActivity extends SlidingFragmentActivity {
     //TabFragments显示打车页面的adapter
     FragmentPagerAdapter tabFragmentPagerAdapter;
     private BaiduMap mBaiduMap;
-    private String[] titles = {"打车", "公交车", "出租车", "单车", "金融服务", "出租车", "公交", "金融", "打车", "打车"};
+    private String[] titles = {"快车", "出租车", "秒走打车", "单车", "金融服务", "出租车", "公交", "金融", "打车", "第三方"};
 
     //定位相关变量
 
@@ -115,7 +128,11 @@ public class MainActivity extends SlidingFragmentActivity {
     private float mCurrentAccracy;
     private LocationClient mLocClient;
     public static String CurrentCity;
+    public static String currentStreet;
+    public static String currentBuilding;
     boolean isFirstLoc = true; // 是否首次定位
+    private int[] img = {R.drawable.language_ch, R.drawable.language_en};//定义一个int数组，用来放图片
+    private boolean languageflag = false;//定义一个标识符，用来判断是中文界面，还是英文界面
 
 
     @Override
@@ -146,6 +163,24 @@ public class MainActivity extends SlidingFragmentActivity {
 
         iniLoadOpenCV();
 
+
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+
+        if (arg1) {
+            // 开
+            if (LocaleUtils.needUpdateLocale(MainActivity.this, LocaleUtils.LOCALE_ENGLISH)) {
+                LocaleUtils.updateLocale(MainActivity.this, LocaleUtils.LOCALE_ENGLISH);
+                restartAct();
+            }
+        } else {
+            // 关
+            Intent intent = new Intent(MainActivity.this, LicenseMainActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     public class MyLocationListener extends BDAbstractLocationListener {
@@ -169,11 +204,14 @@ public class MainActivity extends SlidingFragmentActivity {
                         .longitude(location.getLongitude()).build();
                 startll = new LatLng(location.getLatitude(), location.getLongitude());
                 CurrentCity = location.getCity();
+                currentStreet = location.getStreet();
+                currentBuilding = location.getBuildingName();
                 startlocation = location;
 
                 //得到地址信息以后立即把第一个客户可见的出行fragment当前位置界面展示出来
                 //初始化打车界面Fragment集合
                 initCallCarFragments();
+                current_city.setText(CurrentCity);
                 callcarFragments.get(0).initData();
 
             }
@@ -219,6 +257,32 @@ public class MainActivity extends SlidingFragmentActivity {
 
             }
         });
+
+
+        language_switch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //首先判断flag是真还是假，分别显示中文和英文
+                if (languageflag) {
+                    language_switch.setImageResource(img[0]);//中文
+                    languageflag = false;
+                    if (LocaleUtils.needUpdateLocale(MainActivity.this, LocaleUtils.LOCALE_ENGLISH)) {
+                        LocaleUtils.updateLocale(MainActivity.this, LocaleUtils.LOCALE_ENGLISH);
+                        restartAct();
+                    }
+
+                } else {
+                    language_switch.setImageResource(img[1]);//英文
+                    languageflag = true;
+
+                    if (LocaleUtils.needUpdateLocale(MainActivity.this, LocaleUtils.LOCALE_CHINESE)) {
+                        LocaleUtils.updateLocale(MainActivity.this, LocaleUtils.LOCALE_CHINESE);
+                        restartAct();
+                    }
+                }
+            }
+        });
+
     }
 
     private void iniLoadOpenCV() {
@@ -278,18 +342,16 @@ public class MainActivity extends SlidingFragmentActivity {
         slidingMenu.setSecondaryMenu(R.layout.activity_rightmenu);
         //设置SlidingMenu模式
         slidingMenu.setMode(SlidingMenu.LEFT);
-        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-        slidingMenu.setFadeDegree(0.4f);
-        slidingMenu.setFadeEnabled(true);
+        slidingMenu.setFadeEnabled(false);
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
 
 
-        //得到slidingMenu在手机屏幕上面滑动的比例为0.35
+        //得到slidingMenu在手机屏幕上面滑动的比例为 setBehindOffset
         DisplayMetrics displayMetricscs = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetricscs);
         int screeWidth = displayMetricscs.widthPixels;
         //int screeHeight = displayMetricscs.heightPixels;
-        slidingMenu.setBehindOffset((int) (screeWidth * 0.65));
+        slidingMenu.setBehindOffset((int) (screeWidth * 0.5));
     }
 
     public static void HideKeyboard(View v) {
@@ -308,7 +370,7 @@ public class MainActivity extends SlidingFragmentActivity {
         //2.开启事务
         FragmentTransaction ft = fm.beginTransaction();
         //3.替换
-        ft.replace(R.id.fl_leftmenu, new LeftMenuFragment(), LEFTMENU_TAG);//左侧菜单
+        ft.replace(R.id.fl_leftmenu, new LeftSlidingFragment(), LEFTMENU_TAG);//左侧菜单
         //4.提交
         ft.commit();
 
@@ -323,18 +385,8 @@ public class MainActivity extends SlidingFragmentActivity {
     }
 
 
-    public LeftMenuFragment getleftMenuFragment() {
-        LogUtil.i("进入： 类:MainActivity -----方法:getleftMenuFragment()---- ");
-        FragmentManager fm = getSupportFragmentManager();
-        LeftMenuFragment lf = (LeftMenuFragment) fm.findFragmentByTag(LEFTMENU_TAG);
-
-        return lf;
-    }
-
-
     //由leftMenuFragment得到右侧的主界面ContentFragment
     public ContentFragment getContentFragment() {
-        LogUtil.i("进入： 类:MainActivity -----方法:getContentFragment()---- ");
         FragmentManager fm = getSupportFragmentManager();
         ContentFragment cf = (ContentFragment) fm.findFragmentByTag(MAIN_CONTENT_TAG);
 
@@ -366,6 +418,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
     @Override
     protected void onDestroy() {
+        TabFragment0.mBaiduMap.clear();
         super.onDestroy();
     }
 
@@ -377,6 +430,47 @@ public class MainActivity extends SlidingFragmentActivity {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    /**
+     * 刷新语言
+     */
+    private void restartAct() {
+        finish();
+        Intent _Intent = new Intent(this, MainActivity.class);
+        startActivity(_Intent);
+        //清除Activity退出和进入的动画
+        overridePendingTransition(0, 0);
+    }
+
+    /**
+     * 自己出创建的内部类，监听按钮点击事件
+     *
+     * @author cyf
+     */
+    class MyOnCheckedChangeListener implements OnCheckedChangeListener {
+
+        @Override
+        public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+
+            if (arg1) {
+                if (LocaleUtils.needUpdateLocale(MainActivity.this, LocaleUtils.LOCALE_ENGLISH)) {
+                    LocaleUtils.updateLocale(MainActivity.this, LocaleUtils.LOCALE_ENGLISH);
+                    restartAct();
+                }
+
+            } else {
+                // 关
+                if (LocaleUtils.needUpdateLocale(MainActivity.this, LocaleUtils.LOCALE_CHINESE)) {
+                    LocaleUtils.updateLocale(MainActivity.this, LocaleUtils.LOCALE_CHINESE);
+                    restartAct();
+                }
+
+
+            }
+
+        }
+
     }
 
 }

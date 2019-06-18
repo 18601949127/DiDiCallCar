@@ -31,7 +31,7 @@
         android:layout_marginTop="10dp"/>
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iv_license_card_contour"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_above="@+id/a1"
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:text="网路不给力..."
         android:textSize="24sp"
-        android:layout_below="@+id/imageView2"
+        android:layout_below="@+id/iv_license_card_contour"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:textColor="#d0d0d0" />

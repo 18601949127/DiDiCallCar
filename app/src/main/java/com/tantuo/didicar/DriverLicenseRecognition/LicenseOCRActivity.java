@@ -26,9 +26,14 @@ import java.util.List;
 import android.os.Handler;
 import android.view.animation.AlphaAnimation;
 
+/**
+ * Author by TanTuo, 微信：18601949127,
+ * Email:1991201740@qq.com
+ * 作用：LicenseOCRActivity 调用 DigitImageProcessor 找到驾驶员证件照片的证件区域和数字区域，并且最终得到特征向量学习识别出数字
+ */
 
 public class LicenseOCRActivity extends AppCompatActivity implements View.OnClickListener {
-    private String TAG = "OCR-DEMO";
+    private String TAG = "Author:tantuo";
     private Uri fileUri;
     private DigitImageProcessor processor;
     private Mat license;
@@ -38,13 +43,32 @@ public class LicenseOCRActivity extends AppCompatActivity implements View.OnClic
     private AlphaAnimation alphaAnimation;
     private ImageView license_original_imageView;
     private Bitmap original_bitmap;
-    private ImageView license_contourimageView;
-    private ImageView number_block_imageView;
+    private ImageView iv_license_card_contour;
+    private ImageView iv_number_contour_block;
+    private TextView tv_ocr_result_prompt;
+    private TextView tv_ocr_result_digit;
+    private ImageView ib_titlebar_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_license_recognition_ocr);
+
+        iv_license_card_contour = (ImageView) this.findViewById(R.id.iv_license_card_contour);
+        iv_number_contour_block = (ImageView) LicenseOCRActivity.this.findViewById(R.id.iv_number_contour_block);
+        tv_ocr_result_prompt = (TextView) LicenseOCRActivity.this.findViewById(R.id.tv_ocr_result_prompt);
+        tv_ocr_result_digit = (TextView) LicenseOCRActivity.this.findViewById(R.id.tv_ocr_result_digit);
+
+        ib_titlebar_back = LicenseOCRActivity.this.findViewById(R.id.ib_titlebar_back);
+        ib_titlebar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //点击返回
+                finish();
+
+            }
+        });
+
 
         recognitionBtn = (Button) this.findViewById(R.id.recognition_btn);
         recognitionBtn.setOnClickListener(this);
@@ -53,15 +77,17 @@ public class LicenseOCRActivity extends AppCompatActivity implements View.OnClic
         if (fileUri != null) {
             processor = new DigitImageProcessor();
             displaySelectedImage();
-
-            //透明都动画 1.0f就是完全不透明 越小越透明
-            alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
-            alphaAnimation.setRepeatCount(0); //设置动画重复次数
         }
+
+        //透明都动画 1.0f就是完全不透明 越小越透明
+        alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+        alphaAnimation.setRepeatCount(0); //设置动画重复次数
+
+
     }
 
     private void displaySelectedImage() {
-        license_original_imageView = (ImageView) this.findViewById(R.id.imageView1);
+        license_original_imageView = (ImageView) this.findViewById(R.id.iv_original_license_pic);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(fileUri.getPath(), options);
@@ -196,16 +222,20 @@ public class LicenseOCRActivity extends AppCompatActivity implements View.OnClic
                         oneText.release();
                     }
                     Log.i("OCR-INFO", "Card Number : " + cardId);
-                    TextView cardNumberTextView = (TextView) LicenseOCRActivity.this.findViewById(R.id.textView);
-                    cardNumberTextView.setText("识别出司机证件号码为：" + cardId);
+
+                    //最后在最下一行显示结果
+                    tv_ocr_result_prompt.setText("识别成功");
+                    tv_ocr_result_digit.setText("识别出司机证件号码为：" + cardId);
+
+
                 }
                 Log.i(TAG, "Find Card and Card Number Block...");
-                Bitmap bitmap = Bitmap.createBitmap(numImage.cols(), numImage.rows(), Bitmap.Config.ARGB_8888);
-                Imgproc.cvtColor(numImage, numImage, Imgproc.COLOR_BGR2RGBA);
-                Utils.matToBitmap(numImage, bitmap);
-                saveDebugImage(bitmap);
-                ImageView imageView = (ImageView) LicenseOCRActivity.this.findViewById(R.id.imageView3);
-                imageView.setImageBitmap(bitmap);
+//                Bitmap bitmap = Bitmap.createBitmap(numImage.cols(), numImage.rows(), Bitmap.Config.ARGB_8888);
+////                Imgproc.cvtColor(numImage, numImage, Imgproc.COLOR_BGR2RGBA);
+////                Utils.matToBitmap(numImage, bitmap);
+////                saveDebugImage(bitmap);
+////                ImageView imageView = (ImageView) LicenseOCRActivity.this.findViewById(R.id.iv_number_contour_block);
+////                imageView.setImageBitmap(bitmap);
 
             }
         }, 4000); // 延时1秒
@@ -222,8 +252,8 @@ public class LicenseOCRActivity extends AppCompatActivity implements View.OnClic
         Utils.matToBitmap(numImage, number_block_bitmap);
         saveDebugImage(number_block_bitmap);
         //这里是完成识别出证件号码区域得到的结果
-        number_block_imageView = (ImageView) LicenseOCRActivity.this.findViewById(R.id.imageView3);
-        number_block_imageView.setImageBitmap(number_block_bitmap);
+
+        iv_number_contour_block.setImageBitmap(number_block_bitmap);
     }
 
 
@@ -241,11 +271,12 @@ public class LicenseOCRActivity extends AppCompatActivity implements View.OnClic
         saveDebugImage(license_bitmap);
         //中间结果方便开发者查找错误，让抽象的识别计算过程更加里程碑化，更加可视化
         //这里是完成识别出证件区域得到的结果
-        license_contourimageView = (ImageView) this.findViewById(R.id.imageView2);
-        license_contourimageView.setImageBitmap(license_bitmap);
+
+        iv_license_card_contour.setImageBitmap(license_bitmap);
         alphaAnimation.setDuration(1000); //设置动画执行时间
-        license_contourimageView.startAnimation(alphaAnimation);
+        iv_license_card_contour.startAnimation(alphaAnimation);
     }
+
 
     private void saveDebugImage(Bitmap bitmap) {
         File filedir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "myOcrImages");

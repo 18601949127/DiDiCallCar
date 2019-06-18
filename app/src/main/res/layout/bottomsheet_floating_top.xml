@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,22 +11,21 @@
 
 
     <ImageView
-        android:id="@+id/safe_center"
+        android:id="@+id/floating_safety_center"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:paddingTop="10dp"
         android:background="@android:color/transparent"
+        android:paddingTop="10dp"
         android:scaleType="fitStart"
         android:src="@drawable/safe_center" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatbutton"
+        android:id="@+id/floating_locate_center"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_alignBottom="@+id/floating_safety_center"
         android:layout_alignParentRight="true"
-
-        android:layout_alignBottom="@+id/safe_center"
         android:layout_gravity="end|bottom"
         android:background="@drawable/police"
         android:backgroundTint="@android:color/transparent"

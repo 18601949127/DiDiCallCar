@@ -24,7 +24,7 @@ import java.util.List;
 
 
 /**
- * Author by TanTuo, WeiXin:86-18601949127,
+ * Author by TanTuo, 微信：18601949127,
  * Email:1991201740@qq.com
  * 作用：CallCarMenuDetailPager
  * 今天从老家回来了，权当新年第一碗鸡汤

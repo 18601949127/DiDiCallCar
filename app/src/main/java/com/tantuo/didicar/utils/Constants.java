@@ -1,7 +1,7 @@
 package com.tantuo.didicar.utils;
 
 /**
- * Author by TanTuo, WeiXin:86-18601949127,
+ * Author by TanTuo, 微信：18601949127,
  * Email:1991201740@qq.com
  * 作用：Constants常量类
  */

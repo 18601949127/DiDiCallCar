@@ -10,11 +10,7 @@ import com.tantuo.didicar.R;
 import com.tantuo.didicar.adapter.ContentFragmentAdapter;
 import com.tantuo.didicar.base.BaseMenuFragment;
 import com.tantuo.didicar.base.BasePager;
-import com.tantuo.didicar.pager.CallCarPager;
-import com.tantuo.didicar.pager.CardServicePager;
-import com.tantuo.didicar.pager.GovaffairPager;
-import com.tantuo.didicar.pager.HomePager;
-import com.tantuo.didicar.pager.SettingPager;
+
 import com.tantuo.didicar.utils.LogUtil;
 import com.tantuo.didicar.view.NoScrollViewPager;
 
@@ -24,7 +20,7 @@ import org.xutils.x;
 import java.util.ArrayList;
 
 /**
- * Author by TanTuo, WeiXin:86-18601949127,
+ * Author by TanTuo, 微信：18601949127,
  * Email:1991201740@qq.com
  * 作用：左侧抽屉菜单，继承自 BaseMenuFragment
  */
@@ -60,13 +56,6 @@ public class ContentFragment extends BaseMenuFragment {
         super.initData();
         LogUtil.i("这里是正文");
 
-        //初始化五个页面，并且放入集合中
-        basePagers = new ArrayList<>();
-        basePagers.add(new CallCarPager(context));
-        basePagers.add(new HomePager(context));
-        basePagers.add(new CardServicePager(context));
-        basePagers.add(new GovaffairPager(context));
-        basePagers.add(new SettingPager(context));
 
 
         //设置ViewPager的适配器
@@ -120,10 +109,6 @@ public class ContentFragment extends BaseMenuFragment {
      * @return CallCarPager
      * 今天周六窗外的景色真好
      */
-    public CallCarPager getCallCarPager() {
-        return (CallCarPager) basePagers.get(0);
-    }
-
 
     //实现点击屏幕下方Radiogroup切换不同ViewPager最重要的方法
 

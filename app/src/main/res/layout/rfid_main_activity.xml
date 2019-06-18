@@ -13,7 +13,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/titlebar" />
+        <include
+            android:id="@+id/titlebar" layout="@layout/titlebar" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -39,6 +40,7 @@
 
 
         <TextView
+            android:id="@+id/text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -67,17 +69,15 @@
 
 
         <ImageView
-            android:id="@+id/safety_center"
+            android:id="@+id/iv_bottom_sheet_item2"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:layout_marginTop="30dp"
+            android:layout_height="90dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:scaleType="fitCenter"
             android:background="@android:color/transparent"
-            android:src="@drawable/didi_building2"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="10dp"
-            android:clickable="true"
-            android:scaleType="centerCrop"/>
+            android:src="@drawable/iv_bottom_sheet_item2" />
 
 
 

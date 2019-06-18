@@ -1,0 +1,19 @@
+#include <jni.h>
+//记得导入头文件
+#include "MD5.h"
+//记得导入头文件
+#include "MD5.h"
+
+
+
+extern "C"
+//使用c中的md5加密，可以将盐加入不容易被反编译出来
+JNIEXPORT jstring JNICALL Java_com_dengpan_MainActivity_getMd5(JNIEnv *env, jobject, jstring str) {
+    const char *originStr;
+    //将jstring转化成char *类型
+    originStr = env->GetStringUTFChars(str, false);
+    MD5 md5 = MD5(originStr);
+    std::string md5Result = md5.hexdigest();
+    //将char *类型转化成jstring返回给Java层
+    return env->NewStringUTF(md5Result.c_str());
+}

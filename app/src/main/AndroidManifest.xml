@@ -90,27 +90,27 @@
         android:name=".utils.DiDiCarApplication"
         android:allowBackup="true"
         android:icon="@drawable/didi_luncher"
-        android:supportsRtl="true"
         android:label="@string/app_labelName"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="hz8RPE8WlwsKiqvXR7hEEQGhRdsiZbAP" />
 
-        <activity android:name=".splash.SplashActivity"></activity>
+        <activity android:name=".splash.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
         </activity>
+
         <activity android:name=".splash.SplashPicActivity"></activity>
         <activity android:name=".Activity.LicenseRecognizeActivity"></activity>
 
@@ -122,9 +122,9 @@
 
         <activity
             android:name=".DriverLicenseNFC.DriverRFIDMainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/app_name"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
 
@@ -157,7 +157,13 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:permission="android.permission.BAIDU_LOCATION_SERVICE"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.6" />
+            </intent-filter>
+        </service>
+
 
     </application>
 

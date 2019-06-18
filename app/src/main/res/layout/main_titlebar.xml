@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="40dp"
     android:background="@android:color/white"
-
-    android:padding="2dp">
+    android:padding="0dp">
 
     <ImageButton
         android:id="@+id/ib_menu"
@@ -14,46 +13,69 @@
         android:layout_marginLeft="8dp"
         android:background="@android:color/transparent"
         android:padding="1dp"
+        android:foregroundGravity="center"
         android:scaleType="fitCenter"
         android:src="@drawable/img_menu"
         android:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/ib_license"
+        android:layout_width="25dp"
+        android:layout_height="18dp"
+        android:layout_toRightOf="@+id/ib_menu"
+        android:layout_centerVertical="true"
+        android:foregroundGravity="center"
+        android:layout_marginLeft="8dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:scaleType="fitStart"
+        android:src="@drawable/icon_recognition"
+        android:visibility="visible" />
+
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
+
+
         <ImageView
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:layout_gravity="center"
-            android:layout_centerVertical="true"
+            android:layout_gravity="start"
             android:layout_toLeftOf="@id/tv_title"
             android:scaleType="fitCenter"
             android:src="@drawable/didi_icon" />
+
+
 
 
         <TextView
             android:id="@+id/tv_title"
             style="@style/Base.TextAppearance.AppCompat.Small"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
             android:text="@string/didi_company"
-            android:layout_gravity="center"
-            android:textStyle="normal"
+            android:gravity="start"
             android:textColor="@color/logoColor"
-            android:textSize="14sp" />
+            android:textSize="13sp"
+            android:shadowRadius="5.0"
+            android:shadowColor="@color/logoColor"
+            android:textStyle="normal" />
 
         <TextView
-            android:id="@+id/yourLocation"
+            android:id="@+id/your_city"
             style="@style/Base.TextAppearance.AppCompat.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:layout_gravity="center"
-            android:text="您的位置:"
+            android:paddingLeft="7dp"
+            android:layout_gravity="bottom"
+            android:text="@string/nideweizhi"
             android:textColor="@color/vpi__bright_foreground_disabled_holo_light"
-            android:textSize="11sp" />
+            android:textSize="8sp" />
 
         <TextView
             android:id="@+id/current_city"
@@ -61,8 +83,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingLeft="8dp"
-            android:text="北京市"
+            android:paddingLeft="3dp"
+            android:text="@string/beijing"
             android:textColor="@color/color_text_normal"
             android:textSize="12sp" />
 
@@ -77,19 +99,21 @@
         android:layout_marginRight="8dp"
         android:orientation="horizontal">
 
-
         <ImageButton
-            android:id="@+id/ib_license"
+            android:id="@+id/switch1"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:background="@android:color/darker_gray"
-
+            android:background="@android:color/transparent"
             android:clickable="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_recognition2"
+            android:scaleType="centerCrop"
+            android:src="@drawable/language_en"
             android:visibility="visible" />
+
+
+
+
 
 
         <ImageButton
@@ -98,7 +122,7 @@
             android:layout_height="18dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/transparent"
             android:clickable="true"
             android:scaleType="centerCrop"
             android:src="@drawable/icon_nfc"

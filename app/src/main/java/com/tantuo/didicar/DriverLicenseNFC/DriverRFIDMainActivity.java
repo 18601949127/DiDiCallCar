@@ -1,3 +1,9 @@
+
+
+
+
+
+
 package com.tantuo.didicar.DriverLicenseNFC;
 
 import java.io.BufferedReader;
@@ -46,11 +52,13 @@ import com.google.gson.Gson;
 import com.tantuo.didicar.Bean.DriverBean;
 import com.tantuo.didicar.MainActivity;
 import com.tantuo.didicar.R;
+import com.tantuo.didicar.utils.MD5JniUtils;
 import com.tantuo.didicar.utils.NfcUtils;
 
 import android.media.AudioManager;
 
 import com.tantuo.didicar.utils.LogUtil;
+import com.tantuo.didicar.utils.WebDetailActivityUtils;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -79,19 +87,30 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
     private IntentFilter tagDetected;
     int result;
     int returnResult = 0;
-    private static final String TAG = "dzt";
+    private static final String TAG = "Author:tantuo";
     private TextView mText;
     private TextView mTextPoi;
     private LocationClient mLocationClient = null;
-    private ImageView iv_safety_center, ib_titlebar_back;
+    private ImageView ib_titlebar_back;
     private ImageButton popUpMenu;
     private SoundPool soundPool;
     private Vibrator vibrator;
     private ConnectivityManager manager;
     private pl.droidsonroids.gif.GifImageView gifImageView;
     private static final String URL = "http://139.199.37.235/LBS/check_userid_back_driver_info.php";
+    private String iv_bottom_sheet_item_url2 = "https://dpubstatic.udache.com/static/dpubimg/dpub2_project_187481/index_187481.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&flat=40.39293&flng=116.84192&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.392355381081394&lng=116.8424214994192&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=9&phone=W471piXc0R0glRFq7nvDow&pid=1_xID-B2_hV&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1560742235707&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&";
     public DriverBean driverbean;
+    private Button button;
+    private TextView textView;
+    private ImageView iv_bottom_image;
 
+
+//    // Used to load the 'native-lib' library on application startup.
+//    static {
+//        System.loadLibrary("native-lib");
+//    }
+//
+//    public native String getMd5(String origin);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,8 +180,8 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
         popUpMenu = (ImageButton) findViewById(R.id.btnPopUpMenu);
         popUpMenu.setOnClickListener(this);
 
-        iv_safety_center = (ImageView) findViewById(R.id.safety_center);
-        iv_safety_center.setOnClickListener(this);
+        iv_bottom_image = (ImageView) findViewById(R.id.iv_bottom_sheet_item2);
+        iv_bottom_image.setOnClickListener(this);
 
 
         ib_titlebar_back = (ImageView) findViewById(R.id.ib_titlebar_back);
@@ -276,51 +295,6 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
         new GetDataTask().execute();
 
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    Toast.makeText(DriverRFIDMainActivity.this, "before checkidforresult()", Toast.LENGTH_SHORT).show();
-//                    LogUtil.i("==================================================");
-//                    LogUtil.i(" before checkidforresult()");
-//                    checkIDTextforResult();
-//                    LogUtil.i("==================================================");
-//                    LogUtil.i("after checkidforresult()");
-//                    Toast.makeText(DriverRFIDMainActivity.this, "after checkidforresult()", Toast.LENGTH_SHORT).show();
-//                    result = returnResult;
-//                    Toast.makeText(DriverRFIDMainActivity.this, "returnResult =" + returnResult, Toast.LENGTH_SHORT).show();
-//                    //checkIDTextforResult()为向php服务器提交请求的函数，返回数据类型为int
-//                    if (result >= 1) {
-//                        Log.e("log_tag", "result=1产品验证成功，感谢您购买正品服装，详情请关注我们的公众号！");
-//                        Looper.prepare();
-//                        Intent intent = new Intent(DriverRFIDMainActivity.this, Check_success_activity.class);
-//                        startActivity(intent);
-//
-////                             Toast.makeText(DriverRFIDMainActivity.this, userid+"产品验证成功，感谢您购买正品服装，详情请关注我们的公众号", Toast.LENGTH_SHORT).show();
-//                        Looper.loop();
-//                    } else if (result == -1) {
-//                        Log.e("log_tag", "不存在该用户！");
-//                        //Toast toast=null;
-//                        Looper.prepare();
-//
-//                        Intent intent = new Intent(DriverRFIDMainActivity.this, Check_failed_activity.class);
-//                        startActivity(intent);
-//
-//                        //                            Toast.makeText(DriverRFIDMainActivity.this, "不存在该用户，产品验证不成功，请到正品商店购买！", Toast.LENGTH_SHORT).show();
-//                        Looper.loop();
-//                    } else if (result == 0) {
-//                        Log.e("log_tag", "不存在该用户！");
-//                        //Toast toast=null;
-//                        Looper.prepare();
-////                             Toast.makeText(DriverRFIDMainActivity.this, "不存在该用户，产品验证不成功，请到正品商店购买！", Toast.LENGTH_SHORT).show();
-//                        Looper.loop();
-//                    }
-//                } catch (Exception e) {
-//                    System.out.println(e.getMessage());
-//                    Toast.makeText(DriverRFIDMainActivity.this, "new run thered failed", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        }).start();
 
 
     }
@@ -344,8 +318,8 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
                 popup.show();
                 break;
 
-            case R.id.safety_center:
-                finish();
+            case R.id.iv_bottom_sheet_item2:
+                WebDetailActivityUtils.start_DiDi_info_Activity(DriverRFIDMainActivity.this,iv_bottom_sheet_item_url2);
                 break;
 
 
@@ -359,10 +333,6 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
         }
 
 
-    }
-
-    public void onTitleBarBackClicked() {
-        finish();
     }
 
     //弹出式菜单的单击事件处理
@@ -491,12 +461,12 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
             //这里也可以直接包成GSON发给服务器端，因为参数比较少我直接把RFID号码放到请求体body里面直接发动服务器
             FormBody.Builder builder = new FormBody.Builder();
             //把从滴滴司机RFID识别到的唯一号码发到服务器验证
-            builder.add("uid", CardId);
+            builder.add("uid", MD5JniUtils.getMd5(CardId));
             //这里给大家提供一个数据库里存在的数据，让大家看一下从数据库中返回的信息
             //在实际应DriverRFIDMainActivity用中下面这句不会有，而是使用上面的CardId发给数据库去做验证。
             //这里为了给大家看到正确的验证结果，使用"4F96BFDD"这个数据库里确实存在的号码代替读出来的UID
             //否则大家使用自己的手机读取一个带RFID芯片的银行卡，肯定
-            builder.add("uid", "4F96BFDD");
+            builder.add("uid", MD5JniUtils.getMd5("4F96BFDD"));
             builder.add("current_location", (MainActivity.startlocation).toString());
             RequestBody body = builder.build();
             Request request = new Request.Builder()

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 /**
- * Author by TanTuo, WeiXin:86-18601949127,
+ * Author by TanTuo, 微信：18601949127,
  * Email:1991201740@qq.com
  * 作用：BaseCallCarTabPager 对应的是打车界面点击TabIndicator对应的TabPager
  * 今天到老家阳江，这边的天气很好很暖和

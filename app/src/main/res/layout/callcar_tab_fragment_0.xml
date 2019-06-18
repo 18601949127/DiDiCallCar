@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
 
-        <com.baidu.mapapi.map.TextureMapView
+        <com.baidu.mapapi.map.MapView
             android:id="@+id/bmapView"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
@@ -50,13 +50,13 @@
             <include layout="@layout/transparent_seperate_line" />
 
             <ImageView
-                android:id="@+id/iv_bottom_sheet1"
+                android:id="@+id/iv_bottom_sheet_item1"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/background_white"
                 android:clickable="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/bottom_sheet_topweishenme" />
+                android:src="@drawable/iv_bottom_sheet_item1" />
 
             <include layout="@layout/transparent_seperate_line" />
 
@@ -66,70 +66,74 @@
             <include layout="@layout/transparent_seperate_line" />
 
             <ImageView
-                android:id="@+id/iv_bottom_sheet2"
+                android:id="@+id/iv_bottom_sheet_item2"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="90dp"
                 android:background="@drawable/background_white"
                 android:scaleType="fitCenter"
-                android:src="@drawable/bottom_sheet_backseat1" />
+                android:clickable="true"
+                android:src="@drawable/iv_bottom_sheet_item2" />
 
 
             <include layout="@layout/transparent_seperate_line" />
 
             <ImageView
-                android:id="@+id/iv_bottom_sheet3"
+                android:id="@+id/iv_bottom_sheet_item3"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="90dp"
                 android:background="@drawable/background_white"
-                android:onClick="doclick"
-                android:scaleType="fitStart"
-                android:src="@drawable/bottom_sheet_didiwenda" />
+                android:scaleType="fitCenter"
+                android:clickable="true"
+                android:src="@drawable/iv_bottom_sheet_item3" />
 
             <include layout="@layout/transparent_seperate_line" />
 
             <ImageView
-                android:id="@+id/iv_bottom_sheet4"
+                android:id="@+id/iv_bottom_sheet_item4"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="90dp"
                 android:background="@drawable/background_white"
-                android:onClick="doclick"
-                android:scaleType="fitStart"
-                android:src="@drawable/bottom_sheet_family" />
+                android:scaleType="fitCenter"
+                android:clickable="true"
+                android:src="@drawable/iv_bottom_sheet_item4" />
 
             <include layout="@layout/transparent_seperate_line" />
 
             <ImageView
+                android:id="@+id/iv_bottom_sheet_item5"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="90dp"
                 android:background="@drawable/background_white"
-                android:onClick="doclick"
-                android:scaleType="fitStart"
-                android:src="@drawable/bottom_sheet_stroy" />
+                android:scaleType="fitCenter"
+                android:clickable="true"
+                android:src="@drawable/iv_bottom_sheet_item5" />
+
+            <include layout="@layout/transparent_seperate_line" />
+
+            <ImageView
+                android:id="@+id/iv_bottom_sheet_item6"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:clickable="true"
+                android:src="@drawable/iv_bottom_sheet_item6" />
 
 
             <include layout="@layout/transparent_seperate_line" />
 
             <ImageView
-                android:id="@+id/iv_bottom_sheet5"
+                android:id="@+id/iv_bottom_sheet_item7"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="90dp"
                 android:background="@drawable/background_white"
-                android:onClick="doclick"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bottom_sheet_didiwenda" />
+                android:scaleType="fitCenter"
+                android:clickable="true"
+                android:src="@drawable/iv_bottom_sheet_item7" />
 
             <include layout="@layout/transparent_seperate_line" />
 
-            <ImageView
-                android:id="@+id/iv_bottom_sheet6"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="@drawable/background_white"
-                android:onClick="doclick"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bottom_sheet_family" />
 
-            <include layout="@layout/transparent_seperate_line" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

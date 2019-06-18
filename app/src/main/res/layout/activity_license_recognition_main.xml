@@ -74,14 +74,15 @@
 
 
     <ImageView
-        android:id="@+id/imageView_didipay"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:id="@+id/iv_bottom_sheet_item2"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:scaleType="center"
-        android:src="@drawable/didi_building2" />
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:src="@drawable/iv_bottom_sheet_item2" />
 
 </RelativeLayout>
 

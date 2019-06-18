@@ -8,14 +8,14 @@
 
     <ImageButton
         android:id="@+id/ib_titlebar_back"
-        android:layout_width="18dp"
+        android:layout_width="wrap_content"
         android:layout_height="18dp"
         android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
         android:layout_marginLeft="8dp"
         android:background="@android:color/transparent"
-        android:padding="1dp"
         android:clickable="true"
-        android:scaleType="centerCrop"
+        android:scaleType="fitStart"
         android:src="@drawable/back"
         android:visibility="visible" />
 
@@ -46,7 +46,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/yourLocation"
+            android:id="@+id/your_city"
             style="@style/Base.TextAppearance.AppCompat.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

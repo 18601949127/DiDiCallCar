@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 /**
- * Author by TanTuo, WeiXin:86-18601949127,
+ * Author by TanTuo, 微信：18601949127,
  * Email:1991201740@qq.com
  * 作用：MenuDetaiBasePager 每个对应左侧滑动菜单的detailPager
  */

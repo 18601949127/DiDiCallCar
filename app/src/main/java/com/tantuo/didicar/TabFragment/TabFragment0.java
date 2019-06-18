@@ -1,6 +1,5 @@
 package com.tantuo.didicar.TabFragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -12,11 +11,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.baidu.entity.pb.WalkPlan;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -30,7 +26,6 @@ import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.Stroke;
-import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.CityInfo;
 import com.baidu.mapapi.search.core.PoiDetailInfo;
@@ -60,16 +55,14 @@ import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
 import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
-import com.google.gson.Gson;
 import com.tantuo.didicar.Activity.DiDi_info_Activity;
-import com.tantuo.didicar.DriverLicenseNFC.Check_success_activity;
-import com.tantuo.didicar.DriverLicenseNFC.DriverRFIDMainActivity;
 import com.tantuo.didicar.MainActivity;
 import com.tantuo.didicar.R;
 import com.tantuo.didicar.base.BaseFragment;
 import com.tantuo.didicar.utils.DrivingRouteOverlay;
 import com.tantuo.didicar.utils.LogUtil;
 import com.tantuo.didicar.utils.PoiOverlay;
+import com.tantuo.didicar.utils.WebDetailActivityUtils;
 
 
 import java.util.ArrayList;
@@ -79,27 +72,37 @@ public class TabFragment0 extends BaseFragment implements
         OnGetPoiSearchResultListener, OnGetSuggestionResultListener, View.OnClickListener {
 
 
-    private TextureMapView bmapView;
     private NestedScrollView bottomSheetView;
-    private ImageView iv_BottomSheet1;
-    private ImageView iv_BottomSheet2;
-    private ImageView iv_BottomSheet3;
-    private ImageView iv_BottomSheet4;
-    private ImageView iv_BottomSheet5;
-    private ImageView iv_BottomSheet6;
+    private ImageView iv_bottom_sheet_item1;
+    private ImageView iv_bottom_sheet_item2;
+    private ImageView iv_bottom_sheet_item3;
+    private ImageView iv_bottom_sheet_item4;
+    private ImageView iv_bottom_sheet_item5;
+    private ImageView iv_bottom_sheet_item6;
+    private ImageView iv_bottom_sheet_item7;
+    private ImageView iv_bottom_sheet_item8;
+    private ImageView floating_safety_center;
+    private android.support.design.widget.FloatingActionButton floating_locate_center;
+    private String iv_bottom_sheet_item_url1 = "https://xmall.xiaojukeji.com/imall/index.htm?xmallsource=1002&sidechanne=3002&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=3012&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.394839795143554&lng=116.8487379582826&model=HWI-AL00&os=9&phone=W471piXc0R0glRFq7nvDow==&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&time=1560572808586&uid=281867467423745&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&vcode=553&trip_country=CN&location_country=CN&TripCountry=CN&trip_cityId=1&trip_cityid=1&location_cityid=1&utc_offset=480&maptype=soso&origin_id=1&terminal_id=1&source=weixin_source&role=1&shared=tru";
+    private String iv_bottom_sheet_item_url2 = "https://dpubstatic.udache.com/static/dpubimg/dpub2_project_187481/index_187481.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&flat=40.39293&flng=116.84192&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.392355381081394&lng=116.8424214994192&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=9&phone=W471piXc0R0glRFq7nvDow&pid=1_xID-B2_hV&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1560742235707&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&";
+    private String iv_bottom_sheet_item_url3 = "https://dpubstatic.udache.com/static/dpubimg/76f185ec7e0a18a60935cf2673c1020f/index.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.3949025796631&lng=116.84876880903553&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=9&phone=W471piXc0R0glRFq7nvDow&pid=1_2hJ3RccxA&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1560760307676&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&vcode=553&from=singlemess";
+    private String iv_bottom_sheet_item_url4 = "https://dpubstatic.udache.com/static/dpubimg/76f185ec7e0a18a60935cf2673c1020f/index.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.3979418911976&lng=116.8437601867656&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=9&phone=W471piXc0R0glRFq7nvDow&pid=1_m8AD23H4n&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1560759621077&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&vcode=553";
+    private String iv_bottom_sheet_item_url5 = "https://dpubstatic.udache.com/static/dpubimg/b6d6d1436f5094959a4289a4deace69c/index.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.3949025796631&lng=116.84876880903553&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=9&phone=W471piXc0R0glRFq7nvDow&pid=1_26PHFy8uc&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1560760439334&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&vcode=553";
+    private String iv_bottom_sheet_item_url6 = "https://page.xiaojukeji.com/market/ddPage_0CQ3KMow.html?access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.39493203251291&lng=116.84898101505226&model=HWI-AL00&os=9&phone=W471piXc0R0glRFq7nvDow==&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&time=1560740676668&uid=281867467423745&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&vcode=553&trip_country=CN&location_country=CN&TripCountry=CN&trip_cityId=1&trip_cityid=1&location_cityid=1&utc_offset=480&maptype=soso&origin_id=1&terminal_id=1&stm=2%257C4ad7bc9d-0a78-464c-8f45-6f3cf3c66fa9%257C4ad7bc9d-0a78-464c-8f45-6f3cf3c66fa9";
+    private String iv_bottom_sheet_item_url7 = "https://page.xiaojukeji.com/m/collage.html?openid=oDe7ajrFd0t6KdDKIYjjiCdTd2WA&acctoken=de14351d8744e998f37627267f2c5f4b&needuserinfo=0#/";
+    private String floating_safety_center_url = "https://dpubstatic.udache.com/static/dpubimg/dpub2_project_187481/index_187481.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&flat=40.39293&flng=116.84192&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.392355381081394&lng=116.8424214994192&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=9&phone=W471piXc0R0glRFq7nvDow&pid=1_xID-B2_hV&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1560742235707&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&";
 
 
     private static final String TAG = TabFragment0.class.getSimpleName();
     private final String title;
     private final String contents;
-    public static TextureMapView mMapView;
+    public MapView mMapView;
     private LocationMode mCurrentMode;
     public static BaiduMap mBaiduMap;
     private BottomSheetBehavior<View> sheetBehavior;
     private View rootview;
     BitmapDescriptor mCurrentMarker;
 
-    private ImageView iv_bottom_backseat;
     boolean isFirstLoc = true; // 是否首次定位
     private MyLocationData locData;
     private float direction;
@@ -117,7 +120,8 @@ public class TabFragment0 extends BaseFragment implements
     private String start_str;
     private String destin_str;
     private Intent intent;
-    private String iv_bottom_sheet1_url;
+    private String iv_bottom_sheet_item1_url;
+    private MapStatus.Builder builder;
 
     public TabFragment0(String title, String contents) {
         super();
@@ -133,37 +137,57 @@ public class TabFragment0 extends BaseFragment implements
 
         mMapView = rootview.findViewById(R.id.bmapView);
 
-
         mBaiduMap = mMapView.getMap();
+
 
         findview();
 
+        initSearchLocation();
 
         initBottomSheet();
 
-        initSearchLocation();
+
 
         return rootview;
+
+
     }
 
+
+
     private void findview() {
-
-
-        bmapView = (TextureMapView) rootview.findViewById(R.id.bmapView);
         bottomSheetView = (NestedScrollView) rootview.findViewById(R.id.bottomSheetView);
-        iv_BottomSheet1 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet1);
-        iv_BottomSheet2 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet2);
-        iv_BottomSheet3 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet3);
-        iv_BottomSheet4 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet4);
-        iv_BottomSheet5 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet5);
-        iv_BottomSheet6 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet6);
 
-        iv_BottomSheet1.setOnClickListener(this);
-        iv_BottomSheet2.setOnClickListener(this);
-        iv_BottomSheet3.setOnClickListener(this);
-        iv_BottomSheet4.setOnClickListener(this);
-        iv_BottomSheet5.setOnClickListener(this);
-        iv_BottomSheet6.setOnClickListener(this);
+        start_text_view = (AutoCompleteTextView) rootview.findViewById(R.id.tv_start_location);
+        destin_text_view = (AutoCompleteTextView) rootview.findViewById(R.id.tv_destin_location);
+        floating_safety_center = rootview.findViewById(R.id.floating_safety_center);
+        floating_locate_center = rootview.findViewById(R.id.floating_locate_center);
+
+
+        if(MainActivity.currentBuilding != null){
+            start_text_view.setHint("从哪里出发？ "+ MainActivity.currentStreet + MainActivity.currentBuilding);
+        } else {
+            start_text_view.setHint("从哪里出发？ "+ MainActivity.currentStreet);
+        }
+
+
+        iv_bottom_sheet_item1 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item1);
+        iv_bottom_sheet_item2 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item2);
+        iv_bottom_sheet_item3 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item3);
+        iv_bottom_sheet_item4 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item4);
+        iv_bottom_sheet_item5 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item5);
+        iv_bottom_sheet_item6 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item6);
+        iv_bottom_sheet_item7 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item7);
+
+        iv_bottom_sheet_item1.setOnClickListener(this);
+        iv_bottom_sheet_item2.setOnClickListener(this);
+        iv_bottom_sheet_item3.setOnClickListener(this);
+        iv_bottom_sheet_item4.setOnClickListener(this);
+        iv_bottom_sheet_item5.setOnClickListener(this);
+        iv_bottom_sheet_item6.setOnClickListener(this);
+        iv_bottom_sheet_item7.setOnClickListener(this);
+        floating_safety_center.setOnClickListener(this);
+        floating_locate_center.setOnClickListener(this);
 
 
     }
@@ -178,8 +202,6 @@ public class TabFragment0 extends BaseFragment implements
         mSuggestionSearch.setOnGetSuggestionResultListener(this);
 
 
-        start_text_view = (AutoCompleteTextView) rootview.findViewById(R.id.tv_start_location);
-        destin_text_view = (AutoCompleteTextView) rootview.findViewById(R.id.tv_destin_location);
 
         sugAdapter = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line);
         start_text_view.setAdapter(sugAdapter);
@@ -202,7 +224,6 @@ public class TabFragment0 extends BaseFragment implements
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
                 Flag_Tocken = "start_text_view";
-                //Toast.makeText(context, " StartTextChanged() Flag_Tocken =" + Flag_Tocken, Toast.LENGTH_LONG).show();
                 if (cs.length() <= 0) {
                     return;
                 }
@@ -304,7 +325,7 @@ public class TabFragment0 extends BaseFragment implements
             overlay.setData(result);
             overlay.addToMap();
 
-            MapStatus.Builder builder = new MapStatus.Builder();
+            builder = new MapStatus.Builder();
             PoiInfo poi1 = result.getAllPoi().get(0);
 
             switch (Flag_Tocken) {
@@ -312,6 +333,7 @@ public class TabFragment0 extends BaseFragment implements
 
                     builder.target(MainActivity.startll).zoom(15.0f);
                     mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()), 2000);
+
                     break;
                 case "start_text_view":
                     //overlay.zoomToSpan();
@@ -398,12 +420,13 @@ public class TabFragment0 extends BaseFragment implements
 
     @Override
     public void initData() {
+
         Flag_Tocken = "initData";
         //Toast.makeText(getActivity(), "tab0 initData()", Toast.LENGTH_SHORT).show();
         LogUtil.i("进入类:" + gettitle() + "TabFragment0, 方法:initData()  ");
         super.initData();
 
-        mBaiduMap = mMapView.getMap();
+        mBaiduMap.clear();
         mBaiduMap.setMyLocationEnabled(true);
         mBaiduMap.setTrafficEnabled(true);
         mBaiduMap.setBuildingsEnabled(true);
@@ -420,6 +443,7 @@ public class TabFragment0 extends BaseFragment implements
 
         PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption()
                 //搜索附近的出租车，这里在每个路口都模拟一个
+
                 .keyword("路")
                 .sortType(PoiSortType.distance_from_near_to_far)
                 .location(MainActivity.startll)
@@ -508,7 +532,6 @@ public class TabFragment0 extends BaseFragment implements
 
     @Override
     public void onPause() {
-        mMapView.onPause();
         super.onPause();
     }
 
@@ -519,6 +542,7 @@ public class TabFragment0 extends BaseFragment implements
 
     @Override
     public void onDestroy() {
+
         // 关闭定位图层
         mBaiduMap.setMyLocationEnabled(false);
         mMapView.onDestroy();
@@ -530,16 +554,54 @@ public class TabFragment0 extends BaseFragment implements
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.iv_bottom_sheet1:
 
-                start_DiDi_info_Activity("https://dpubstatic.udache.com/static/dpubimg/9cf30ff247d516f9e02c290c15523f13/index.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.36159457829866&lng=116.83176385015537&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=8.0.0&phone=W471piXc0R0glRFq7nvDow&pid=1_MbksNzh5J&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1559718360358&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=8B07586EC469640F15AF840BD3913B0C&vcode=553&from=singl");
-                break;
-            case R.id.iv_bottom_sheet2:
+            case R.id.floating_safety_center:
 
-                start_DiDi_info_Activity("https://dpubstatic.udache.com/static/dpubimg/9cf30ff247d516f9e02c290c15523f13/index.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.36159457829866&lng=116.83176385015537&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=8.0.0&phone=W471piXc0R0glRFq7nvDow&pid=1_MbksNzh5J&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1559718360358&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=8B07586EC469640F15AF840BD3913B0C&vcode=553&from=singl");
-                break;
-            default:
-                break;
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),floating_safety_center_url);
+            break;
+
+            case R.id.floating_locate_center:
+
+                builder.target(MainActivity.startll).zoom(15.0f);
+                mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()), 2000);
+            break;
+
+            case R.id.iv_bottom_sheet_item1:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url1);
+            break;
+
+            case R.id.iv_bottom_sheet_item2:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url2);
+            break;
+
+            case R.id.iv_bottom_sheet_item3:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url3);
+            break;
+
+            case R.id.iv_bottom_sheet_item4:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url4);
+            break;
+
+            case R.id.iv_bottom_sheet_item5:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url5);
+            break;
+
+            case R.id.iv_bottom_sheet_item6:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url6);
+            break;
+
+            case R.id.iv_bottom_sheet_item7:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url7);
+            break;
+
+
         }
     }
 

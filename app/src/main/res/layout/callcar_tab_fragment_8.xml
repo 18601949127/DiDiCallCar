@@ -1,24 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <com.baidu.mapapi.map.TextureMapView
-        android:id="@+id/bmapView"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:clickable="true"/>
-
-    <TextView
-        android:id="@+id/textview"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="这里是BottomSheet8"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
-</LinearLayout>
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/bmapView"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_weight="1"
+            android:clickable="true" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@android:color/white"/>
+
+
+    </LinearLayout>
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--... />-->
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/bottomSheetView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_peekHeight="200dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/bottomsheet_floating_top" />
+
+            <include layout="@layout/transparent_seperate_line" />
+
+            <ImageView
+                android:id="@+id/iv_bottom_sheet_item1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/background_white"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bottom_sheet_topweishenme" />
+
+            <include layout="@layout/transparent_seperate_line" />
+
+
+            <include layout="@layout/bottom_sheet_edittext" />
+
+            <include layout="@layout/transparent_seperate_line" />
+
+            <ImageView
+                android:id="@+id/iv_bottom_sheet_item2"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/background_white"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bottom_sheet_backseat1" />
+
+
+            <include layout="@layout/transparent_seperate_line" />
+
+            <ImageView
+                android:id="@+id/iv_bottom_sheet_item3"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/background_white"
+                android:onClick="doclick"
+                android:scaleType="fitStart"
+                android:src="@drawable/bottom_sheet_didiwenda" />
+
+            <include layout="@layout/transparent_seperate_line" />
+
+            <ImageView
+                android:id="@+id/iv_bottom_sheet_item4"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/background_white"
+                android:onClick="doclick"
+                android:scaleType="fitStart"
+                android:src="@drawable/bottom_sheet_family" />
+
+            <include layout="@layout/transparent_seperate_line" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/background_white"
+                android:onClick="doclick"
+                android:scaleType="fitStart"
+                android:src="@drawable/bottom_sheet_stroy" />
+
+
+            <include layout="@layout/transparent_seperate_line" />
+
+            <ImageView
+                android:id="@+id/iv_bottom_sheet5"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/background_white"
+                android:onClick="doclick"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bottom_sheet_didiwenda" />
+
+            <include layout="@layout/transparent_seperate_line" />
+
+            <ImageView
+                android:id="@+id/iv_bottom_sheet6"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/background_white"
+                android:onClick="doclick"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bottom_sheet_family" />
+
+            <include layout="@layout/transparent_seperate_line" />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
