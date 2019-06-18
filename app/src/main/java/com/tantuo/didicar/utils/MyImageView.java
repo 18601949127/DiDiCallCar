@@ -28,10 +28,10 @@ public class MyImageView extends ImageView {
                     setImageBitmap(bitmap);
                     break;
                 case NETWORK_ERROR:
-                    Toast.makeText(getContext(),"网络连接失败",Toast.LENGTH_SHORT).show();
+                    LogUtil.i("进入类:MyImageView, 方法:handleMessage() 网络连接失败 ");
                     break;
                 case SERVER_ERROR:
-                    Toast.makeText(getContext(),"服务器发生错误",Toast.LENGTH_SHORT).show();
+                    LogUtil.i("进入类:MyImageView, 方法:handleMessage() 服务器发生错误 ");
                     break;
             }
         }

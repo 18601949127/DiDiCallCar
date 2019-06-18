@@ -134,6 +134,7 @@ public class TabFragment0 extends BaseFragment implements
     public View initView() {
 
         rootview = View.inflate(getActivity(), R.layout.callcar_tab_fragment_0, null);
+        LogUtil.i("进入类: "+  getClass().getSimpleName() + "  交通工具为：" + gettitle() + ",  方法:initView()  ");
 
         mMapView = rootview.findViewById(R.id.bmapView);
 
@@ -146,13 +147,10 @@ public class TabFragment0 extends BaseFragment implements
 
         initBottomSheet();
 
-
-
         return rootview;
 
 
     }
-
 
 
     private void findview() {
@@ -164,10 +162,10 @@ public class TabFragment0 extends BaseFragment implements
         floating_locate_center = rootview.findViewById(R.id.floating_locate_center);
 
 
-        if(MainActivity.currentBuilding != null){
-            start_text_view.setHint("从哪里出发？ "+ MainActivity.currentStreet + MainActivity.currentBuilding);
+        if (MainActivity.currentBuilding != null) {
+            start_text_view.setHint("从哪里出发？ " + MainActivity.currentStreet + MainActivity.currentBuilding);
         } else {
-            start_text_view.setHint("从哪里出发？ "+ MainActivity.currentStreet);
+            start_text_view.setHint("从哪里出发？ " + MainActivity.currentStreet);
         }
 
 
@@ -200,7 +198,6 @@ public class TabFragment0 extends BaseFragment implements
         // 初始化建议搜索模块，注册建议搜索事件监听
         mSuggestionSearch = SuggestionSearch.newInstance();
         mSuggestionSearch.setOnGetSuggestionResultListener(this);
-
 
 
         sugAdapter = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line);
@@ -269,7 +266,7 @@ public class TabFragment0 extends BaseFragment implements
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
                 Flag_Tocken = "destin_text_view";
                 //Toast.makeText(context, " Destin_TextChanged() Flag_Tocken =" + Flag_Tocken, Toast.LENGTH_LONG).show();
-                LogUtil.i("进入类:TabFragment0, 方法:onTextChanged() destin_text_view ");
+                LogUtil.i("进入类: " + getClass().getSimpleName() + " 方法:onTextChanged() destin_text_view ");
 
                 if (cs.length() <= 0) {
                     return;
@@ -310,7 +307,7 @@ public class TabFragment0 extends BaseFragment implements
      */
     public void onGetPoiResult(PoiResult result) {
         if (result == null || result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
-            LogUtil.i("进入类:TabFragment0, 方法:onGetPoiResult() 未找到结果 ");
+            LogUtil.i("进入类:" + getClass().getSimpleName() + "  方法:onGetPoiResult() 未找到结果 ");
 
             return;
         }
@@ -423,7 +420,7 @@ public class TabFragment0 extends BaseFragment implements
 
         Flag_Tocken = "initData";
         //Toast.makeText(getActivity(), "tab0 initData()", Toast.LENGTH_SHORT).show();
-        LogUtil.i("进入类:" + gettitle() + "TabFragment0, 方法:initData()  ");
+        LogUtil.i("进入类: " + getClass().getSimpleName() + "  交通工具为：" + gettitle() + ",  方法:initData()  ");
         super.initData();
 
         mBaiduMap.clear();
@@ -557,49 +554,49 @@ public class TabFragment0 extends BaseFragment implements
 
             case R.id.floating_safety_center:
 
-                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),floating_safety_center_url);
-            break;
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), floating_safety_center_url);
+                break;
 
             case R.id.floating_locate_center:
 
                 builder.target(MainActivity.startll).zoom(15.0f);
                 mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()), 2000);
-            break;
+                break;
 
             case R.id.iv_bottom_sheet_item1:
 
-                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url1);
-            break;
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url1);
+                break;
 
             case R.id.iv_bottom_sheet_item2:
 
-                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url2);
-            break;
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url2);
+                break;
 
             case R.id.iv_bottom_sheet_item3:
 
-                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url3);
-            break;
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url3);
+                break;
 
             case R.id.iv_bottom_sheet_item4:
 
-                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url4);
-            break;
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url4);
+                break;
 
             case R.id.iv_bottom_sheet_item5:
 
-                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url5);
-            break;
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url5);
+                break;
 
             case R.id.iv_bottom_sheet_item6:
 
-                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url6);
-            break;
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url6);
+                break;
 
             case R.id.iv_bottom_sheet_item7:
 
-                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(),iv_bottom_sheet_item_url7);
-            break;
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url7);
+                break;
 
 
         }

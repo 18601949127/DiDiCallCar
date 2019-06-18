@@ -288,10 +288,12 @@ public class MainActivity extends SlidingFragmentActivity implements OnCheckedCh
     private void iniLoadOpenCV() {
         boolean success = OpenCVLoader.initDebug();
         if (success) {
-            Toast.makeText(MainActivity.this, "iniLoadOpenCV() 成功 ", Toast.LENGTH_SHORT).show();
+
+            LogUtil.i("进入类:MainActivity, 方法:iniLoadOpenCV() iniLoadOpenCV() 成功 ");
         } else {
 
-            Toast.makeText(MainActivity.this, "load OpenCV 没有成功", Toast.LENGTH_SHORT).show();
+
+            LogUtil.i("进入类:MainActivity, 方法:iniLoadOpenCV() iniLoadOpenCV() 没有成功 ");
         }
     }
 
