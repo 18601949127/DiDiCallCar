@@ -19,7 +19,7 @@
 
 ## 主界面概览
 
-![主界面概览](https://img-blog.csdnimg.cn/20190624171556877.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![主界面概览](https://upload-images.jianshu.io/upload_images/18452611-461590ccf14c68a0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 界面最上面TitleBar 的位置是主要的功能区，除了中间的醒目logo，两侧分布主要功能选项，最左边的SlidingMenu提供侧滑菜单，给乘客个人信息和软件设置提供入口，右边的证件标志按钮用于导向司机证件号码识别功能，再右边的英语标志按钮是国际化语言切换，最右边的无线标志是RFID识别认证功能的入口。
 
 主界面的中间部分是地图区域，可以在上边选择不同交通工具，用于展示乘客所在位置，附近车辆或者POI热点，以及路径规划。
@@ -35,7 +35,7 @@ https://blog.csdn.net/weixin_37734988/article/details/92852349
 
 ## 项目文件结构
 
-![项目文件结构](https://img-blog.csdnimg.cn/20190624172202951.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![项目文件结构](https://upload-images.jianshu.io/upload_images/18452611-73f363434e5dbb2c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 
@@ -54,12 +54,12 @@ https://blog.csdn.net/weixin_37734988/article/details/92852349
 
 ## 引导界面
 先看下真机上的效果：
-![引导界面](https://img-blog.csdnimg.cn/20190620215329920.gif)
+![引导界面](https://upload-images.jianshu.io/upload_images/18452611-0d7f64608d578c3c.gif?imageMogr2/auto-orient/strip)
 
 
 引导界面最初的logo动画是用我自己用SVG矢量动画做的，路径规划描述在 drawable 的splash_logo.xml 文件里：
  
-![路径规划描述](https://img-blog.csdnimg.cn/20190623180401772.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![路径规划描述](https://upload-images.jianshu.io/upload_images/18452611-c05b9f7ff19c6bb7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 还需要资源文件里的animator文件夹下的didi_logo_animator.xml 对路径进行动画描述：
 
 ```java
@@ -75,48 +75,59 @@ https://blog.csdn.net/weixin_37734988/article/details/92852349
 
 这几秒的时间里可以在下图的位置添加一些初始化代码，比如网络请求，得到后续Activity的素材，地理位置等等。
 
-![初始化代码位置](https://img-blog.csdnimg.cn/20190620213440729.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![初始化代码位置](https://upload-images.jianshu.io/upload_images/18452611-c8aa48b84729e30d?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
     
 ## 出行界面
 通过滑动地图界面上方的主题可以切换不同的项目界面。
 滑动主题条是一个VIewPager的 Indicator，每一个主题对应一个下面的服务项目，放在各自独立的VIewPager里。每个服务项目有各自独立的上划菜单，作为此服务对应的地址关键字输入或者相关信息入口。
-![出行界面](https://img-blog.csdnimg.cn/20190620223351929.gif)
+
+![出行界面](https://upload-images.jianshu.io/upload_images/18452611-63a83508e952eefb.gif?imageMogr2/auto-orient/strip)
 出行界面的UI结构：
-![出行界面的UI结构](https://img-blog.csdnimg.cn/20190621113638759.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+
+![出行界面的UI结构](https://upload-images.jianshu.io/upload_images/18452611-0f2f668787b5bcee?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 注意：乘客的位置信息、当前经纬度、当前街道名字、楼宇名字都是在MainAcitivity做为静态成员变量定义的，原因是在别的Acitivity或者类中，这些变量需要经常使用，直接调用 MainActivity.CurrentLocation就可以了，后面用到的所有当前位置，都是在MainActivity中 MyLocationListener 类得到的。
 
-![MainAcitivity](https://img-blog.csdnimg.cn/20190623233144953.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![MainAcitivity](https://upload-images.jianshu.io/upload_images/18452611-ef85542db4e46e9e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 ## 上车地址和目的地址的路线规划
-![路线规划功能](https://img-blog.csdnimg.cn/20190620232841954.gif)
+
+![路线规划功能](https://upload-images.jianshu.io/upload_images/18452611-8accc33c0a07949d.gif?imageMogr2/auto-orient/strip)
 不同交通工具（快车，出租车，单车，公交车等等）对应的服务项目都嵌在TItleBar下边的 VIewpager里，一个服务项目对应一个独立的Fragmen文件，由其顶部的的VIewpagerIndicator滑动切换。
 服务项目的主要代码在com.tantuo.didicar 包下 TabFragment 文件夹里。
 
 ## 底部上滑动菜单
-![底部上滑动菜单](https://img-blog.csdnimg.cn/20190620230116214.gif)
+
+![底部上滑动菜单](https://upload-images.jianshu.io/upload_images/18452611-969f02d0ccd92e8d.gif?imageMogr2/auto-orient/strip)
 buttonsheet是在布局文件中加入android.support.v4.widget.NestedScrollView类的 `app:layout_behavior="@string/bottom_sheet_behavior"`
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190624231149953.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+
+![在这里插入图片描述](https://upload-images.jianshu.io/upload_images/18452611-78d7d5ef7664c49b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 左侧侧滑菜单
+
 左侧侧滑菜单可以作为个人信息、安全提示、设置信息的入口
-![左侧侧滑菜单](https://img-blog.csdnimg.cn/20190620233928198.gif)
+
+![左侧侧滑菜单](https://upload-images.jianshu.io/upload_images/18452611-1546c9ea8af08204.gif?imageMogr2/auto-orient/strip)
 
 ## 司机证件的号码OCR识别功能
+
 证件号码识别功能的主要代码在com.tantuo.didicar 包下的 DriverLicenseRecognition 模块。
 
-![证件号码识别代码](https://img-blog.csdnimg.cn/20190624231654670.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![证件号码识别代码](https://upload-images.jianshu.io/upload_images/18452611-5f677388e04b3495?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 还是先看下真机效果：
-![司机证件的号码识别功能](https://img-blog.csdnimg.cn/20190620235346913.gif)
+
+![司机证件的号码识别功能](https://upload-images.jianshu.io/upload_images/18452611-3e4cfc146e2ecd8f.gif?imageMogr2/auto-orient/strip)
 
 点击进入司机证件号码识别功能以后，可以选择对证件拍照，为了方便演示，这里是从手机相册选择刚刚拍的照片。同时为了方便读者测试这个功能，我把照片保存在了开发包的asset文件夹里面，这样读者下载我保存在GIthub上https://github.com/18601949127  的版本，点击选择司机证件以后调用的是我保存在assets 文件夹里的司机证件照片，也就是下面图片里的 getDriverLicenseFromMySample() 方法，可以立刻进行测试。想继续从手机相册读取的读者可以执行LicenseMainActivity 下的 LicenseMainActivity 方法。
-![调用司机证件](https://img-blog.csdnimg.cn/20190621153621475.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+
+![调用司机证件](https://upload-images.jianshu.io/upload_images/18452611-6ca11c95bebaff3b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 注意：在程序中，想要在运行中读取司机证件照片，要把照片保存在assets 文件夹下面，使用AssetManager 类读取，而不能试图调取drawable 文件夹下面的照片，因为 \res 文件夹下的资源文件都会被编译到apk里面去，并同时赋予资源 id。感兴趣的同学可以看下代码里面的 copyFilesFassets（）方法。
 
 这里用我以前在国外读书时候的证件作为例子：
-![司机证件照片](https://img-blog.csdnimg.cn/20190621165037586.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+
+![司机证件照片](https://upload-images.jianshu.io/upload_images/18452611-25b290d74fc101ef?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
  1. 首先：要从照片中找到司机证件区域，也就是上证件边缘红色的区域
 
@@ -212,7 +223,7 @@ buttonsheet是在布局文件中加入android.support.v4.widget.NestedScrollView
 第一步先调用Imgproc.Scharr（）方法对司机证件的原始照片进行Scharr梯度运算，所谓梯度运算就是对图像中的像素点进行导数运算，从而得到相邻两个像素点的差异值，像素差异大的地方就是图像内轮廓contour，第二步在此图像上做二值化Binarization，调用 Imgproc.morphologyEx（）方法，通过轮廓（contour）发现与面积大小过滤得到证件区域。
 
 边缘发现以后调用Imgproc.cvtColor()方法得到下面的证件区域：
-![识别出的证件区域](https://img-blog.csdnimg.cn/20190621194715915.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![识别出的证件区域](https://upload-images.jianshu.io/upload_images/18452611-30973630b5ca2787?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 2.识别到证件区域以后我们注意到证件左上角有一个比较醒目的矩形，我们用它作为reference识别到照片下方包含数字的号码区域。在程序中这个过程调用下面的 findCardNumBlock(Mat card) 方法。
 
 ```java
@@ -334,7 +345,7 @@ Core.inRange(hsv, new Scalar(30, 40, 45), new Scalar(180, 255, 255), binary);
         return textImage;
 ```
 完成以上工作以后可以识别到证件号码区域的矩形轮廓：
-![识别出的证件号码区域](https://img-blog.csdnimg.cn/20190621203437855.jpeg)
+![识别出的证件号码区域](https://upload-images.jianshu.io/upload_images/18452611-83aeddd5d1fee0a5.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 识别出了证件中的号码区域，后面就调用 DigitImageProcessor 类对这些数字进行识别，这个过程需要我单独在另外一篇文章介绍，下面仅仅对几个重要方法的功能作介绍：
 
  
@@ -350,19 +361,21 @@ Core.inRange(hsv, new Scalar(30, 40, 45), new Scalar(180, 255, 255), binary);
 
 
 ## RFID识别验证功能
+
 RIFD识别验证功能的主要代码在com.tantuo.didicar 包下的DriverLIcenseNFC模块里：
 
-![RFID识别验证功能代码](https://img-blog.csdnimg.cn/20190624232207962.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![RFID识别验证功能代码](https://upload-images.jianshu.io/upload_images/18452611-e27d998a79202726?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 还是先看下真机效果：
-![RFID识别验证功能](https://img-blog.csdnimg.cn/20190622170932314.gif)
+
+![RFID识别验证功能](https://upload-images.jianshu.io/upload_images/18452611-a0659dd7325fbae5.gif?imageMogr2/auto-orient/strip)
 点击右上角的RFID验证入口以后，会提示乘客使用手机背面像刷公交卡那样感应RFID硬件，比如嵌入芯片的司机证件、固定在车上识别器等。
 
-![使用手机感应RFID芯片](https://img-blog.csdnimg.cn/20190622171945212.gif)
+![使用手机感应RFID芯片](https://upload-images.jianshu.io/upload_images/18452611-29bd3ea27d119a6d.gif?imageMogr2/auto-orient/strip)
 注意：某个Activity 要想能够在当前栈顶接收RFID芯片号码，必须在 Manifest.xml 文件中设置intent-filter 拦截TAG_DISCOVERED的Action，这样这个Activity 才能捕获RFID标签信息。并且设置LunchMode 为SingleTop，确保再次捕获RFID标签信息（TAG_DISCOVERED）的时候，始终由处于栈顶的这个Activity 来处理，而不是把他压入栈，调取新的DriverRFIDMainActivity作栈顶。
 有疑惑的同学可以看下 Activity 启动模式和栈管理的相关文章。
 [彻底明白Activity启动模式-SingleTop、SingleTask、SingleInstance具体使用场景](https://blog.csdn.net/weixin_37734988/article/details/93508139)
-![ Manifest.xml 文件中的设置](https://img-blog.csdnimg.cn/20190624180206583.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![ Manifest.xml 文件中的设置](https://upload-images.jianshu.io/upload_images/18452611-306cd3d1ba3de8ad?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 考虑到用户的手机可能有多个APP或者Activity 可以拦截RFID或者 NFC 芯片信息，所以需要给处于当前栈顶的 DriverRFIDMainActivity 设置前台分发系统 enableForegroundDispatch ，可以确保检测到RFID标签时拥有最高的捕获优先权，而不是由Android Activity 调度机制调出新的有拦截权限的活动。
 
 ```java
@@ -383,31 +396,31 @@ RIFD识别验证功能的主要代码在com.tantuo.didicar 包下的DriverLIcens
 ```
 
 手机读取芯片ID这个功能的代码我单独放到NfcUtils工具类里，在utils 文件夹下。
-![NfcUtils工具类](https://img-blog.csdnimg.cn/20190624175057744.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![NfcUtils工具类](https://upload-images.jianshu.io/upload_images/18452611-9912e39229e0ba3a?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 手机读取到芯片信息，会调用NDK编译成C语言的MD5加密算法so 文件（文章最后会讲），连同当时的地理位置经纬度一起发送给平台服务器，与数据库中注册司机的信息进行比对，并将验证结果和司机信息发送给乘客：
-![服务器端返回的验证结果](https://img-blog.csdnimg.cn/2019062217414581.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![服务器端返回的验证结果](https://upload-images.jianshu.io/upload_images/18452611-a539639233f19916?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 服务器端用的是我自己的腾讯云主机 + Apache + PHP+  MySQL ， 会一直开放出这个项目的网络接口并持续维护，方便读者测试这个功能。读者只要在验证环节使用手机读取任何一个嵌有RFID加密芯片比如学生证、银行卡、公交卡，程序在发送数据请求之前（下图代码中第二行高亮的部分）都会把读取到的ID信息换成作者本人的，再发送给平台服务器服务器做验证，这样读者测试时使用手机读取任何RFID信息都会接收到从服务器发回来的司机信息。实际项目中把这一行注释掉即可。
 
-![发送验证信息前的代码](https://img-blog.csdnimg.cn/20190623153455806.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![发送验证信息前的代码](https://upload-images.jianshu.io/upload_images/18452611-4df796e73f6c7445?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 服务器端收到乘客发送过来的验证请求以后，会对比平台司机数据库进行核实，并把核实结果和对应司机、车辆信息发回给乘客。
 下面就是平台服务器端注册司机的注册信息数据库，我用Navicat  做了部分截图，第一行红色部分就是平台验证的结果，也就是作者本人的信息。
-![服务器端的司机信息数据库](https://img-blog.csdnimg.cn/20190623155226569.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![服务器端的司机信息数据库](https://upload-images.jianshu.io/upload_images/18452611-3bdc5088e5728356?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 服务器端还会对乘客发送过来的数据进行整理和分析，也可以将“人车不符”数据和位置信息发送给合规部门。
-![“人车不符”](https://img-blog.csdnimg.cn/2019062316111087.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![“人车不符”](https://upload-images.jianshu.io/upload_images/18452611-77a204b67ed3a324?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 下图是“人车不符”情况发生的地区热力图：
-![“人车不符”发生频率热力图](https://img-blog.csdnimg.cn/20190623164607201.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![“人车不符”发生频率热力图](https://upload-images.jianshu.io/upload_images/18452611-d64de2bec04cb402?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 还可以根据乘客的叫车时间，筛选出高峰时段的用车需求热力图，给司机调度部门提供数据支持。 
-![用车需求热力图](https://img-blog.csdnimg.cn/20190623164443218.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![用车需求热力图](https://upload-images.jianshu.io/upload_images/18452611-55fe9fbe93023d00?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 对服务器端的打车数据进行分析，还可以生成非常漂亮的24小时动态热力图、星云图、蝌蚪迁移图，感兴趣的读者可以研究下Python 、Pandas 、MatplotLib，可以快捷地处理服务器端数据，生成可视化图表。
 
 ## 使用NDK调用MD5加密算法
 前面提到项目中会把ID号码使用C语言的MD5算法进行加密，关键代码在下图中的cpp 文件夹。
 图中 NDK Components 组件提供了一整套编译C语言动态库（*.so ）和打包的工具，可以把* *.so 动态库打包到apk中。
 下面的MD5.h 和 MD5.cpp 文件分别是C语言写的算法类头文件和源文件。头文件用来声明源文件要用到的变量、类型、宏定义，源文件则用来描述方法和具体实现，里面会有一个`#include "MD5.h"` 把头文件导入进来。两者的关系有点像书的目录和内容的关系，目录是对章节和内容进行简单表示，真正的实现实在书里面的。
-![NDK相关文件](https://img-blog.csdnimg.cn/20190624205842847.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![NDK相关文件](https://upload-images.jianshu.io/upload_images/18452611-0a0c06e0211f0a5f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 上图中MD5 C语言文件下面还有一个native-lib.cpp 文件，是NDK 在 Android studio 里帮助我们生成的。
 下面的图可以看到 native-lib 是如何帮助 MD5JniUtils 类的 getMd5 () 方法调用 C语言加密方法的，JNIEXPORT 和 JNICALL 两个宏用来标识函数用途是调用.so 库，就好像 C++可以调用 .dll 动态链接库一样，后面紧跟的是函数名，命名规则很重要：Java_ + 包名 + 调用这个加密算法的Java工具类名 + Java调用方法 ，后面的变量参数是Java中String类型对应的JNI jstring类型，下面在方法体中，就可以使用对传入的加密前字符串进行加密的C语言运算了，并把加密完成的 jstring类型结果返回给java层。
-![native-lib.cpp 文件](https://img-blog.csdnimg.cn/20190624221543991.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzczNDk4OA==,size_16,color_FFFFFF,t_70)
+![native-lib.cpp 文件](https://upload-images.jianshu.io/upload_images/18452611-5c69279e397e28b4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 结语
 整个项目就大概介绍完了，欢迎读者转载和提问，我看到会尽快回复，如果读者能想到更加实用的功能，我也会尽快更新GitHub上的源码，增加新的功能。
