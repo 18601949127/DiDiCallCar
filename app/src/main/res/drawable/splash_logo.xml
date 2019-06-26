@@ -3,9 +3,11 @@
         android:height="50dp"
         android:viewportWidth="72.0"
         android:viewportHeight="50.0">
+
     <path
         android:name="animate_logo_target"
         android:strokeColor="@color/logoColor"
         android:strokeWidth="10"
         android:pathData="M60,5,L10,5,V15,A1,1,0,0,0,65,20,L65,10"/>
+
 </vector>

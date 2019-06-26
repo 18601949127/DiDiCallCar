@@ -66,7 +66,7 @@ import com.tantuo.didicar.utils.WebDetailActivityUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabFragment5 extends BaseFragment implements
+public class TabFragment11 extends BaseFragment implements
         OnGetPoiSearchResultListener, OnGetSuggestionResultListener, View.OnClickListener {
 
 
@@ -91,7 +91,7 @@ public class TabFragment5 extends BaseFragment implements
     private String floating_safety_center_url = "https://dpubstatic.udache.com/static/dpubimg/dpub2_project_187481/index_187481.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&flat=40.39293&flng=116.84192&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.392355381081394&lng=116.8424214994192&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=9&phone=W471piXc0R0glRFq7nvDow&pid=1_xID-B2_hV&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1560742235707&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&";
 
 
-    private static final String TAG = TabFragment5.class.getSimpleName();
+    private static final String TAG = TabFragment11.class.getSimpleName();
     private final String title;
     private final String contents;
     public MapView mMapView;
@@ -121,7 +121,7 @@ public class TabFragment5 extends BaseFragment implements
     private String iv_bottom_sheet_item1_url;
     private MapStatus.Builder builder;
 
-    public TabFragment5(String title, String contents) {
+    public TabFragment11(String title, String contents) {
         super();
         this.title = title;
         this.contents = contents;

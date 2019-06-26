@@ -27,7 +27,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Tantuo on 2017/5/4.
+ * Author by TanTuo, 微信：18601949127,
+ * Email:1991201740@qq.com
+ * 作用：DigitImageProcessor
  */
 
 public class DigitImageProcessor {
@@ -56,10 +58,10 @@ public class DigitImageProcessor {
     }
 
 
-
     /**
      * calculateDistance 计算证件号码特征与样本特征的距离
      * 我们将距离定义为 （向量差的平方）的总和，如果差平方和为0的话则是完全匹配
+     *
      * @param v1
      * @param v2
      * @return
@@ -77,10 +79,10 @@ public class DigitImageProcessor {
     }
 
 
-
     /**
      * vectordata是四十个特征向量，前面二十个是20个cell的黑点分布特征，20到40分别是x轴横向y轴纵向方向上的直方图映射projection特征
      * readFeatureVector 读取证件号码的这四十个特征
+     *
      * @param
      * @return
      */
@@ -104,6 +106,7 @@ public class DigitImageProcessor {
 
     /**
      * 把生成的特征文本文件保存到手机里
+     *
      * @param fv
      * @param textNum
      */
@@ -127,10 +130,10 @@ public class DigitImageProcessor {
     }
 
     /**
-     *
      * 证件卡号识别的特征提取，获取卡号每个数字的黑色像素点特征，作为每个号码的特征和识别的重要依据
      * 具体做法是：1。将号码图像分成五行四列，得到20个小方格（cells）,然后计算每个cell里面的像素总和，作为0-10每个号码的特征
      * 2。直方图影像特征：将x,y轴方向分成10个bin,计算不同的数字号码在每个bin x和y方向的像素投影 （直方图）
+     *
      * @param txtImage
      * @return 返回特征数据：vectordata
      */
@@ -458,6 +461,7 @@ public class DigitImageProcessor {
      * 发现号码粘结以后调用getSplitLinePos(）方法拆分成两个单独的号码
      * by:author Tantuo, 具体思路是将两个字符粘结的图像的中间部分（这里是两个字符x轴中间值左右10个像素的区域）做竖列方向的像素扫描
      * 竖列方向像素最少的列，被认为是粘结的那部分，并将这一列的左右拆分为两个单独的号码
+     *
      * @param mtexts
      * @return
      */
@@ -503,14 +507,13 @@ public class DigitImageProcessor {
         Mat hsv = new Mat();
         Mat binary = new Mat();
 
-        //从RGB色彩空间转换到hsv色彩空间，使用openCV的 Imgproc函数：Imgproc.COLOR_BGR2HSV
+        //从RGB色彩空间转换到hsv色彩空间，使用openCV的 Imgproc类：Imgproc.COLOR_BGR2HSV
         Imgproc.cvtColor(card, hsv, Imgproc.COLOR_BGR2HSV);
         //inRange函数将hsv彩色图片的根阈值进行过滤,用来过滤掉对识别左上角标志区域帮助不大的颜色
         //并且把滤出的图像保存到 binary里面
         // Scalar（）是具有三个参数的结构体，三个参数代表 hsv的色相，饱和度，亮度值
 
         Core.inRange(hsv, new Scalar(30, 40, 45), new Scalar(180, 255, 255), binary);
-//        Core.inRange(hsv, new Scalar(45, 30, 40), new Scalar(180, 255, 255), binary);
 
         //以上会得到一个驾驶员证件的二值化图像，但是噪声比较多
         //下面对二值话图像进行形态学的开操作（morphology excution）,去除小的 5*5大小的结构元素（噪声）
@@ -537,18 +540,9 @@ public class DigitImageProcessor {
             }
             //找到标志区域以后，以标志区域为基准，证件号码的位置在标志x坐标 *2 左右，宽度大概在 binary.cols() - roi.x - 100像素
             //证件号码的高度大概是证件标志（基准）的0.7倍 height*0.7 ;
-//            if (roi.x < offsetx && roi.y < offsety) {
-//                numberROI.x = roi.x;
-//                numberROI.y = roi.y + 2 * roi.height - 20;
-//                numberROI.width = binary.cols() - roi.x - 100;
-//                numberROI.height = (int) (roi.height * 0.7);
-//                break;
-//            }
-
-
             //如果找到的左上角标志物的轮廓长宽都小于证件的三分之一，则以此标志物作为标准定为号码区域
             if (roi.x < offsetx && roi.y < offsety) {
-                numberROI.x = 3* roi.x + 120;
+                numberROI.x = 3 * roi.x + 120;
                 numberROI.y = roi.y + 4 * roi.height - 65;
                 numberROI.width = binary.cols() - roi.x - 390;
                 numberROI.height = (int) (roi.height * 0.9);
@@ -573,13 +567,13 @@ public class DigitImageProcessor {
 
     /**
      * 找到图像中的证件区域
-     * 在RGB色彩空间求取驾驶员证件的图像梯度，之后在此图像上做二值化，从而通过轮廓（contour）发现与面积大小过滤得到证件区域 by:tantuo
-     * author:Tantuo
+     * 在RGB色彩空间求取驾驶员证件的图像梯度，之后在此图像上做二值化，从而通过轮廓（contour）发现与面积大小过滤得到证件区域
+     * author:Tantuo 86-1860194917
      *
      * @param fileUri
      * @return
      */
-    public Mat findCardContour(Uri fileUri) {
+    public Mat findLicenseContour(Uri fileUri) {
 
         //首先使用openCV 的 Imgcodecs类得到相机获取的证件图片
         Mat src = Imgcodecs.imread(fileUri.getPath());

@@ -52,8 +52,7 @@ Java_com_tantuo_didicar_utils_JniUtils_getMd5(JNIEnv *env, jobject instance, jst
 }
 
 extern "C"
-JNIEXPORT jstring JNICALL
-Java_com_tantuo_didicar_utils_MD5JniUtils_getMd5(JNIEnv *env, jclass type, jstring origin_) {
+JNIEXPORT jstring JNICALL Java_com_tantuo_didicar_utils_MD5JniUtils_getMd5(JNIEnv *env, jclass type, jstring origin_) {
     const char *origin = env->GetStringUTFChars(origin_, 0);
     const char *originStr;
     //将jstring转化成char *类型

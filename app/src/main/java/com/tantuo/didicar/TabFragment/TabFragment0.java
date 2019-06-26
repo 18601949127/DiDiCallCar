@@ -134,7 +134,7 @@ public class TabFragment0 extends BaseFragment implements
     public View initView() {
 
         rootview = View.inflate(getActivity(), R.layout.callcar_tab_fragment_0, null);
-        LogUtil.i("进入类: "+  getClass().getSimpleName() + "  交通工具为：" + gettitle() + ",  方法:initView()  ");
+        LogUtil.i("进入类: " + getClass().getSimpleName() + "  交通工具为：" + gettitle() + ",  方法:initView()  ");
 
         mMapView = rootview.findViewById(R.id.bmapView);
 
@@ -208,7 +208,7 @@ public class TabFragment0 extends BaseFragment implements
         destin_text_view.setThreshold(1);
 
 
-        /* 当输入关键字变化时，动态更新建议列表 */
+        /* 当输入关键字变化时，动态更新地址建议列表 */
         start_text_view.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable arg0) {
@@ -246,8 +246,6 @@ public class TabFragment0 extends BaseFragment implements
                         .pageNum(0)
                         //scope的值为1表示返回基本信息，2表示返回POI详细信息
                         .scope(1));
-
-
             }
         });
 
@@ -265,7 +263,6 @@ public class TabFragment0 extends BaseFragment implements
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
                 Flag_Tocken = "destin_text_view";
-                //Toast.makeText(context, " Destin_TextChanged() Flag_Tocken =" + Flag_Tocken, Toast.LENGTH_LONG).show();
                 LogUtil.i("进入类: " + getClass().getSimpleName() + " 方法:onTextChanged() destin_text_view ");
 
                 if (cs.length() <= 0) {
@@ -383,7 +380,7 @@ public class TabFragment0 extends BaseFragment implements
             }
 
             strInfo += "找到结果";
-            //Toast.makeText(context, strInfo, Toast.LENGTH_LONG).show();
+            LogUtil.i("进入类:TabFragment0, 方法:onGetPoiResult()" + strInfo);
         }
     }
 
@@ -419,7 +416,6 @@ public class TabFragment0 extends BaseFragment implements
     public void initData() {
 
         Flag_Tocken = "initData";
-        //Toast.makeText(getActivity(), "tab0 initData()", Toast.LENGTH_SHORT).show();
         LogUtil.i("进入类: " + getClass().getSimpleName() + "  交通工具为：" + gettitle() + ",  方法:initData()  ");
         super.initData();
 
@@ -471,20 +467,20 @@ public class TabFragment0 extends BaseFragment implements
      */
     public void onGetPoiDetailResult(PoiDetailResult result) {
         if (result.error != SearchResult.ERRORNO.NO_ERROR) {
-            //Toast.makeText(context, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+            LogUtil.i("进入类:TabFragment0, 方法:onGetPoiDetailResult() 抱歉，未找到结果 ");
         } else {
-            //           //Toast.makeText(context,result.getName() + ": " + result.getAddress(),Toast.LENGTH_SHORT).show();
+            LogUtil.i("进入类:TabFragment0, 方法:onGetPoiDetailResult()  " + result.getName() + ": " + result.getAddress());
         }
     }
 
     @Override
     public void onGetPoiDetailResult(PoiDetailSearchResult poiDetailSearchResult) {
         if (poiDetailSearchResult.error != SearchResult.ERRORNO.NO_ERROR) {
-            //Toast.makeText(context, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+            LogUtil.i("进入类:TabFragment0, 方法:onGetPoiDetailResult() 抱歉，未找到结果 ");
         } else {
             List<PoiDetailInfo> poiDetailInfoList = poiDetailSearchResult.getPoiDetailInfoList();
             if (null == poiDetailInfoList || poiDetailInfoList.isEmpty()) {
-                //Toast.makeText(context, "抱歉，检索结果为空", Toast.LENGTH_SHORT).show();
+                LogUtil.i("进入类:TabFragment0, 方法:onGetPoiDetailResult() 抱歉，检索结果为空 ");
                 return;
             }
 
@@ -529,6 +525,8 @@ public class TabFragment0 extends BaseFragment implements
 
     @Override
     public void onPause() {
+        start_text_view.setText("");
+        destin_text_view.setText("");
         super.onPause();
     }
 
@@ -669,13 +667,13 @@ public class TabFragment0 extends BaseFragment implements
         @Override
         public void onGetDrivingRouteResult(DrivingRouteResult result) {
             if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-                //Toast.makeText(context, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+                LogUtil.i("进入类:TabFragment0, 方法:onGetDrivingRouteResult() 抱歉，未找到结果 ");
+
             }
             if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
                 //起终点或途经点地址有岐义，通过以下接口获取建议查询信息
                 result.getSuggestAddrInfo();
-
-                //Toast.makeText(context, "起终点或途经点地址有岐义" + result.getSuggestAddrInfo(), Toast.LENGTH_SHORT).show();
+                LogUtil.i("进入类:TabFragment0, 方法:onGetDrivingRouteResult() 起终点或途经点地址有岐义 ");
 
                 return;
             }
@@ -690,8 +688,7 @@ public class TabFragment0 extends BaseFragment implements
                     overlay.addToMap();
                     overlay.zoomToSpan();
                 } else {
-                    Log.d("route result", "结果数<0");
-                    //Toast.makeText(context, "route result , 结果数<0", Toast.LENGTH_SHORT).show();
+                    LogUtil.i("进入类:TabFragment0, 方法:onGetDrivingRouteResult() 结果数<0 ");
                     return;
                 }
 

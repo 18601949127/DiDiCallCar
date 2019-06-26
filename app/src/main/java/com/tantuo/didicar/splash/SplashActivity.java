@@ -40,7 +40,7 @@ public class SplashActivity extends Activity {
                     startActivity(intent);
                     finish();
                 }
-            }, 4000);//3秒后执行Runnable中的run方法
+            }, 4000);//动画完成后执行Runnable中的run方法
 
         }
     }

@@ -25,7 +25,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:background="@android:color/white"/>
+            android:background="@android:color/white" />
 
 
     </LinearLayout>
@@ -70,8 +70,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:background="@drawable/background_white"
-                android:scaleType="fitCenter"
                 android:clickable="true"
+                android:scaleType="fitCenter"
                 android:src="@drawable/iv_bottom_sheet_item2" />
 
 
@@ -82,8 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:background="@drawable/background_white"
-                android:scaleType="fitCenter"
                 android:clickable="true"
+                android:scaleType="fitCenter"
                 android:src="@drawable/iv_bottom_sheet_item3" />
 
             <include layout="@layout/transparent_seperate_line" />
@@ -93,8 +93,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:background="@drawable/background_white"
-                android:scaleType="fitCenter"
                 android:clickable="true"
+                android:scaleType="fitCenter"
                 android:src="@drawable/iv_bottom_sheet_item4" />
 
             <include layout="@layout/transparent_seperate_line" />
@@ -104,8 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:background="@drawable/background_white"
-                android:scaleType="fitCenter"
                 android:clickable="true"
+                android:scaleType="fitCenter"
                 android:src="@drawable/iv_bottom_sheet_item5" />
 
             <include layout="@layout/transparent_seperate_line" />
@@ -115,8 +115,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
                 android:clickable="true"
+                android:scaleType="fitCenter"
                 android:src="@drawable/iv_bottom_sheet_item6" />
 
 
@@ -127,8 +127,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:background="@drawable/background_white"
-                android:scaleType="fitCenter"
                 android:clickable="true"
+                android:scaleType="fitCenter"
                 android:src="@drawable/iv_bottom_sheet_item7" />
 
             <include layout="@layout/transparent_seperate_line" />

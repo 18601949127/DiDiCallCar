@@ -6,7 +6,6 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.widget.NestedScrollView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -62,7 +61,7 @@ import com.tantuo.didicar.base.BaseFragment;
 import com.tantuo.didicar.utils.DrivingRouteOverlay;
 import com.tantuo.didicar.utils.LogUtil;
 import com.tantuo.didicar.utils.PoiOverlay;
-
+import com.tantuo.didicar.utils.WebDetailActivityUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,12 +71,24 @@ public class TabFragment1 extends BaseFragment implements
 
 
     private NestedScrollView bottomSheetView;
-    private ImageView iv_BottomSheet1;
-    private ImageView iv_BottomSheet2;
-    private ImageView iv_BottomSheet3;
-    private ImageView iv_BottomSheet4;
-    private ImageView iv_BottomSheet5;
-    private ImageView iv_BottomSheet6;
+    private ImageView iv_bottom_sheet_item1;
+    private ImageView iv_bottom_sheet_item2;
+    private ImageView iv_bottom_sheet_item3;
+    private ImageView iv_bottom_sheet_item4;
+    private ImageView iv_bottom_sheet_item5;
+    private ImageView iv_bottom_sheet_item6;
+    private ImageView iv_bottom_sheet_item7;
+    private ImageView iv_bottom_sheet_item8;
+    private ImageView floating_safety_center;
+    private android.support.design.widget.FloatingActionButton floating_locate_center;
+    private String iv_bottom_sheet_item_url1 = "https://xmall.xiaojukeji.com/imall/index.htm?xmallsource=1002&sidechanne=3002&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=3012&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.394839795143554&lng=116.8487379582826&model=HWI-AL00&os=9&phone=W471piXc0R0glRFq7nvDow==&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&time=1560572808586&uid=281867467423745&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&vcode=553&trip_country=CN&location_country=CN&TripCountry=CN&trip_cityId=1&trip_cityid=1&location_cityid=1&utc_offset=480&maptype=soso&origin_id=1&terminal_id=1&source=weixin_source&role=1&shared=tru";
+    private String iv_bottom_sheet_item_url2 = "https://dpubstatic.udache.com/static/dpubimg/dpub2_project_187481/index_187481.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&flat=40.39293&flng=116.84192&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.392355381081394&lng=116.8424214994192&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=9&phone=W471piXc0R0glRFq7nvDow&pid=1_xID-B2_hV&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1560742235707&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&";
+    private String iv_bottom_sheet_item_url3 = "https://dpubstatic.udache.com/static/dpubimg/76f185ec7e0a18a60935cf2673c1020f/index.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.3949025796631&lng=116.84876880903553&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=9&phone=W471piXc0R0glRFq7nvDow&pid=1_2hJ3RccxA&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1560760307676&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&vcode=553&from=singlemess";
+    private String iv_bottom_sheet_item_url4 = "https://dpubstatic.udache.com/static/dpubimg/76f185ec7e0a18a60935cf2673c1020f/index.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.3979418911976&lng=116.8437601867656&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=9&phone=W471piXc0R0glRFq7nvDow&pid=1_m8AD23H4n&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1560759621077&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&vcode=553";
+    private String iv_bottom_sheet_item_url5 = "https://dpubstatic.udache.com/static/dpubimg/b6d6d1436f5094959a4289a4deace69c/index.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.3949025796631&lng=116.84876880903553&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=9&phone=W471piXc0R0glRFq7nvDow&pid=1_26PHFy8uc&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1560760439334&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&vcode=553";
+    private String iv_bottom_sheet_item_url6 = "https://page.xiaojukeji.com/market/ddPage_0CQ3KMow.html?access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.39493203251291&lng=116.84898101505226&model=HWI-AL00&os=9&phone=W471piXc0R0glRFq7nvDow==&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&time=1560740676668&uid=281867467423745&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&vcode=553&trip_country=CN&location_country=CN&TripCountry=CN&trip_cityId=1&trip_cityid=1&location_cityid=1&utc_offset=480&maptype=soso&origin_id=1&terminal_id=1&stm=2%257C4ad7bc9d-0a78-464c-8f45-6f3cf3c66fa9%257C4ad7bc9d-0a78-464c-8f45-6f3cf3c66fa9";
+    private String iv_bottom_sheet_item_url7 = "https://page.xiaojukeji.com/m/collage.html?openid=oDe7ajrFd0t6KdDKIYjjiCdTd2WA&acctoken=de14351d8744e998f37627267f2c5f4b&needuserinfo=0#/";
+    private String floating_safety_center_url = "https://dpubstatic.udache.com/static/dpubimg/dpub2_project_187481/index_187481.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&flat=40.39293&flng=116.84192&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.392355381081394&lng=116.8424214994192&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=9&phone=W471piXc0R0glRFq7nvDow&pid=1_xID-B2_hV&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1560742235707&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=A0AF094F9D975FBBAE7AD129E96CF26F&";
 
 
     private static final String TAG = TabFragment1.class.getSimpleName();
@@ -90,7 +101,6 @@ public class TabFragment1 extends BaseFragment implements
     private View rootview;
     BitmapDescriptor mCurrentMarker;
 
-    private ImageView iv_bottom_backseat;
     boolean isFirstLoc = true; // 是否首次定位
     private MyLocationData locData;
     private float direction;
@@ -108,7 +118,8 @@ public class TabFragment1 extends BaseFragment implements
     private String start_str;
     private String destin_str;
     private Intent intent;
-    private String iv_bottom_sheet1_url;
+    private String iv_bottom_sheet_item1_url;
+    private MapStatus.Builder builder;
 
     public TabFragment1(String title, String contents) {
         super();
@@ -120,10 +131,12 @@ public class TabFragment1 extends BaseFragment implements
     @Override
     public View initView() {
 
-        rootview = View.inflate(getActivity(), R.layout.callcar_tab_fragment_1, null);
+        rootview = View.inflate(getActivity(), R.layout.callcar_tab_fragment_0, null);
+        LogUtil.i("进入类: " + getClass().getSimpleName() + "  交通工具为：" + gettitle() + ",  方法:initView()  ");
 
-//        mMapView = rootview.findViewById(R.id.bmapView);
-//        mBaiduMap = mMapView.getMap();
+        mMapView = rootview.findViewById(R.id.bmapView);
+
+        mBaiduMap = mMapView.getMap();
 
 
         findview();
@@ -132,30 +145,45 @@ public class TabFragment1 extends BaseFragment implements
 
         initBottomSheet();
 
-
-
         return rootview;
 
 
     }
 
 
-
     private void findview() {
         bottomSheetView = (NestedScrollView) rootview.findViewById(R.id.bottomSheetView);
-        iv_BottomSheet1 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item1);
-        iv_BottomSheet2 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item2);
-        iv_BottomSheet3 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item3);
-        iv_BottomSheet4 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item4);
-        iv_BottomSheet5 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet5);
-        iv_BottomSheet6 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet6);
 
-        iv_BottomSheet1.setOnClickListener(this);
-        iv_BottomSheet2.setOnClickListener(this);
-        iv_BottomSheet3.setOnClickListener(this);
-        iv_BottomSheet4.setOnClickListener(this);
-        iv_BottomSheet5.setOnClickListener(this);
-        iv_BottomSheet6.setOnClickListener(this);
+        start_text_view = (AutoCompleteTextView) rootview.findViewById(R.id.tv_start_location);
+        destin_text_view = (AutoCompleteTextView) rootview.findViewById(R.id.tv_destin_location);
+        floating_safety_center = rootview.findViewById(R.id.floating_safety_center);
+        floating_locate_center = rootview.findViewById(R.id.floating_locate_center);
+
+
+        if (MainActivity.currentBuilding != null) {
+            start_text_view.setHint("从哪里出发？ " + MainActivity.currentStreet + MainActivity.currentBuilding);
+        } else {
+            start_text_view.setHint("从哪里出发？ " + MainActivity.currentStreet);
+        }
+
+
+        iv_bottom_sheet_item1 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item1);
+        iv_bottom_sheet_item2 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item2);
+        iv_bottom_sheet_item3 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item3);
+        iv_bottom_sheet_item4 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item4);
+        iv_bottom_sheet_item5 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item5);
+        iv_bottom_sheet_item6 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item6);
+        iv_bottom_sheet_item7 = (ImageView) rootview.findViewById(R.id.iv_bottom_sheet_item7);
+
+        iv_bottom_sheet_item1.setOnClickListener(this);
+        iv_bottom_sheet_item2.setOnClickListener(this);
+        iv_bottom_sheet_item3.setOnClickListener(this);
+        iv_bottom_sheet_item4.setOnClickListener(this);
+        iv_bottom_sheet_item5.setOnClickListener(this);
+        iv_bottom_sheet_item6.setOnClickListener(this);
+        iv_bottom_sheet_item7.setOnClickListener(this);
+        floating_safety_center.setOnClickListener(this);
+        floating_locate_center.setOnClickListener(this);
 
 
     }
@@ -170,9 +198,6 @@ public class TabFragment1 extends BaseFragment implements
         mSuggestionSearch.setOnGetSuggestionResultListener(this);
 
 
-        start_text_view = (AutoCompleteTextView) rootview.findViewById(R.id.tv_start_location);
-        destin_text_view = (AutoCompleteTextView) rootview.findViewById(R.id.tv_destin_location);
-
         sugAdapter = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line);
         start_text_view.setAdapter(sugAdapter);
         start_text_view.setThreshold(1);
@@ -181,7 +206,7 @@ public class TabFragment1 extends BaseFragment implements
         destin_text_view.setThreshold(1);
 
 
-        /* 当输入关键字变化时，动态更新建议列表 */
+        /* 当输入关键字变化时，动态更新地址建议列表 */
         start_text_view.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable arg0) {
@@ -194,7 +219,6 @@ public class TabFragment1 extends BaseFragment implements
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
                 Flag_Tocken = "start_text_view";
-                //Toast.makeText(context, " StartTextChanged() Flag_Tocken =" + Flag_Tocken, Toast.LENGTH_LONG).show();
                 if (cs.length() <= 0) {
                     return;
                 }
@@ -220,8 +244,6 @@ public class TabFragment1 extends BaseFragment implements
                         .pageNum(0)
                         //scope的值为1表示返回基本信息，2表示返回POI详细信息
                         .scope(1));
-
-
             }
         });
 
@@ -239,8 +261,7 @@ public class TabFragment1 extends BaseFragment implements
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
                 Flag_Tocken = "destin_text_view";
-                //Toast.makeText(context, " Destin_TextChanged() Flag_Tocken =" + Flag_Tocken, Toast.LENGTH_LONG).show();
-                LogUtil.i("进入类:TabFragment1, 方法:onTextChanged() destin_text_view ");
+                LogUtil.i("进入类: " + getClass().getSimpleName() + " 方法:onTextChanged() destin_text_view ");
 
                 if (cs.length() <= 0) {
                     return;
@@ -281,7 +302,7 @@ public class TabFragment1 extends BaseFragment implements
      */
     public void onGetPoiResult(PoiResult result) {
         if (result == null || result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
-            LogUtil.i("进入类:TabFragment1, 方法:onGetPoiResult() 未找到结果 ");
+            LogUtil.i("进入类:" + getClass().getSimpleName() + "  方法:onGetPoiResult() 未找到结果 ");
 
             return;
         }
@@ -289,8 +310,6 @@ public class TabFragment1 extends BaseFragment implements
         if (result.error == SearchResult.ERRORNO.NO_ERROR) {
 
 
-            mMapView = rootview.findViewById(R.id.bmapView);
-            mBaiduMap = mMapView.getMap();
             mBaiduMap.clear();
 
             PoiOverlay overlay = new MyPoiOverlay(mBaiduMap);
@@ -298,7 +317,7 @@ public class TabFragment1 extends BaseFragment implements
             overlay.setData(result);
             overlay.addToMap();
 
-            MapStatus.Builder builder = new MapStatus.Builder();
+            builder = new MapStatus.Builder();
             PoiInfo poi1 = result.getAllPoi().get(0);
 
             switch (Flag_Tocken) {
@@ -359,7 +378,7 @@ public class TabFragment1 extends BaseFragment implements
             }
 
             strInfo += "找到结果";
-            //Toast.makeText(context, strInfo, Toast.LENGTH_LONG).show();
+            LogUtil.i("进入类:TabFragment0, 方法:onGetPoiResult()" + strInfo);
         }
     }
 
@@ -395,12 +414,9 @@ public class TabFragment1 extends BaseFragment implements
     public void initData() {
 
         Flag_Tocken = "initData";
-        //Toast.makeText(getActivity(), "tab0 initData()", Toast.LENGTH_SHORT).show();
-        LogUtil.i("进入类:" + gettitle() + "TabFragment1, 方法:initData()  ");
+        LogUtil.i("进入类: " + getClass().getSimpleName() + "  交通工具为：" + gettitle() + ",  方法:initData()  ");
         super.initData();
 
-        mMapView = rootview.findViewById(R.id.bmapView);
-        mBaiduMap = mMapView.getMap();
         mBaiduMap.clear();
         mBaiduMap.setMyLocationEnabled(true);
         mBaiduMap.setTrafficEnabled(true);
@@ -449,20 +465,20 @@ public class TabFragment1 extends BaseFragment implements
      */
     public void onGetPoiDetailResult(PoiDetailResult result) {
         if (result.error != SearchResult.ERRORNO.NO_ERROR) {
-            //Toast.makeText(context, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+            LogUtil.i("进入类:TabFragment0, 方法:onGetPoiDetailResult() 抱歉，未找到结果 ");
         } else {
-            //           //Toast.makeText(context,result.getName() + ": " + result.getAddress(),Toast.LENGTH_SHORT).show();
+            LogUtil.i("进入类:TabFragment0, 方法:onGetPoiDetailResult()  " + result.getName() + ": " + result.getAddress());
         }
     }
 
     @Override
     public void onGetPoiDetailResult(PoiDetailSearchResult poiDetailSearchResult) {
         if (poiDetailSearchResult.error != SearchResult.ERRORNO.NO_ERROR) {
-            //Toast.makeText(context, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+            LogUtil.i("进入类:TabFragment0, 方法:onGetPoiDetailResult() 抱歉，未找到结果 ");
         } else {
             List<PoiDetailInfo> poiDetailInfoList = poiDetailSearchResult.getPoiDetailInfoList();
             if (null == poiDetailInfoList || poiDetailInfoList.isEmpty()) {
-                //Toast.makeText(context, "抱歉，检索结果为空", Toast.LENGTH_SHORT).show();
+                LogUtil.i("进入类:TabFragment0, 方法:onGetPoiDetailResult() 抱歉，检索结果为空 ");
                 return;
             }
 
@@ -507,6 +523,8 @@ public class TabFragment1 extends BaseFragment implements
 
     @Override
     public void onPause() {
+        start_text_view.setText("");
+        destin_text_view.setText("");
         super.onPause();
     }
 
@@ -529,16 +547,54 @@ public class TabFragment1 extends BaseFragment implements
     public void onClick(View v) {
 
         switch (v.getId()) {
+
+            case R.id.floating_safety_center:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), floating_safety_center_url);
+                break;
+
+            case R.id.floating_locate_center:
+
+                builder.target(MainActivity.startll).zoom(15.0f);
+                mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()), 2000);
+                break;
+
             case R.id.iv_bottom_sheet_item1:
 
-                start_DiDi_info_Activity("https://dpubstatic.udache.com/static/dpubimg/9cf30ff247d516f9e02c290c15523f13/index.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.36159457829866&lng=116.83176385015537&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=8.0.0&phone=W471piXc0R0glRFq7nvDow&pid=1_MbksNzh5J&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1559718360358&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=8B07586EC469640F15AF840BD3913B0C&vcode=553&from=singl");
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url1);
                 break;
+
             case R.id.iv_bottom_sheet_item2:
 
-                start_DiDi_info_Activity("https://dpubstatic.udache.com/static/dpubimg/9cf30ff247d516f9e02c290c15523f13/index.html?TripCountry=CN&access_key_id=2&appid=10000&appversion=5.2.52&area=%E5%8C%97%E4%BA%AC%E5%B8%82&channel=780&city_id=1&cityid=1&datatype=1&deviceid=6cd1d3832da36056681ad4ed7ade2155&dviceid=6cd1d3832da36056681ad4ed7ade2155&imei=868227037142403854C78AD10B66380C8F28CC6327C3788&lang=zh-CN&lat=40.36159457829866&lng=116.83176385015537&location_cityid=1&location_country=CN&maptype=soso&model=HWI-AL00&origin_id=1&os=8.0.0&phone=W471piXc0R0glRFq7nvDow&pid=1_MbksNzh5J&platform=1&susig=e4f80d8df39b46ae679cb58d721db&suuid=A1702CD0DD1175EDF286DE35369DF4CA_780&terminal_id=1&time=1559718360358&trip_cityId=1&trip_cityid=1&trip_country=CN&uid=281867467423745&utc_offset=480&uuid=8B07586EC469640F15AF840BD3913B0C&vcode=553&from=singl");
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url2);
                 break;
-            default:
+
+            case R.id.iv_bottom_sheet_item3:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url3);
                 break;
+
+            case R.id.iv_bottom_sheet_item4:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url4);
+                break;
+
+            case R.id.iv_bottom_sheet_item5:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url5);
+                break;
+
+            case R.id.iv_bottom_sheet_item6:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url6);
+                break;
+
+            case R.id.iv_bottom_sheet_item7:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(this.getActivity(), iv_bottom_sheet_item_url7);
+                break;
+
+
         }
     }
 
@@ -609,13 +665,13 @@ public class TabFragment1 extends BaseFragment implements
         @Override
         public void onGetDrivingRouteResult(DrivingRouteResult result) {
             if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-                //Toast.makeText(context, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+                LogUtil.i("进入类:TabFragment0, 方法:onGetDrivingRouteResult() 抱歉，未找到结果 ");
+
             }
             if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
                 //起终点或途经点地址有岐义，通过以下接口获取建议查询信息
                 result.getSuggestAddrInfo();
-
-                //Toast.makeText(context, "起终点或途经点地址有岐义" + result.getSuggestAddrInfo(), Toast.LENGTH_SHORT).show();
+                LogUtil.i("进入类:TabFragment0, 方法:onGetDrivingRouteResult() 起终点或途经点地址有岐义 ");
 
                 return;
             }
@@ -630,8 +686,7 @@ public class TabFragment1 extends BaseFragment implements
                     overlay.addToMap();
                     overlay.zoomToSpan();
                 } else {
-                    Log.d("route result", "结果数<0");
-                    //Toast.makeText(context, "route result , 结果数<0", Toast.LENGTH_SHORT).show();
+                    LogUtil.i("进入类:TabFragment0, 方法:onGetDrivingRouteResult() 结果数<0 ");
                     return;
                 }
 

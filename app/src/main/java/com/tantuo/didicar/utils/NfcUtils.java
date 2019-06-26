@@ -16,6 +16,12 @@ import android.provider.Settings;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+/**
+ * Author by TanTuo, 微信：18601949127,
+ * Email:1991201740@qq.com
+ * 作用：NfcUtils
+ */
+
 public class NfcUtils {
 
     //nfc

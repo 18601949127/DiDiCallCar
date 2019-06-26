@@ -1,9 +1,6 @@
 
 
 
-
-
-
 package com.tantuo.didicar.DriverLicenseNFC;
 
 import java.io.BufferedReader;
@@ -105,19 +102,13 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
     private ImageView iv_bottom_image;
 
 
-//    // Used to load the 'native-lib' library on application startup.
-//    static {
-//        System.loadLibrary("native-lib");
-//    }
-//
-//    public native String getMd5(String origin);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.rfid_main_activity);
-//        SysApplication.getInstance().addActivity(this);
 
 
         checkNetworkState();
@@ -174,9 +165,6 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
         }
 
 
-//        gifImageView = findViewById(R.id.nfc_scan);
-
-
         popUpMenu = (ImageButton) findViewById(R.id.btnPopUpMenu);
         popUpMenu.setOnClickListener(this);
 
@@ -200,12 +188,11 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
     @Override
     protected void onResume() {
         super.onResume();
-        //// 前台分发系统,用于第二次检测NFC标签时该应用有最高的捕获优先权.
+        // 前台分发系统,用于第二次检测NFC标签时该应用有最高的捕获优先权.
         NfcUtils.mNfcAdapter.enableForegroundDispatch(this, NfcUtils.mPendingIntent, NfcUtils.mIntentFilter, NfcUtils.mTechList);
     }
 
 
-    //	onPause() 对应onResume()
     @Override
     protected void onPause() {
         super.onPause();
@@ -213,63 +200,10 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
         NfcUtils.mNfcAdapter.disableForegroundDispatch(this);
     }
 
-    protected void checkIDTextforResult() throws IOException {
-        returnResult = 0;
-        /*获取ID 和 Result*/
-        String tag_id = CardId;
-        if (tag_id == null || tag_id.length() <= 6) {
-            Toast.makeText(DriverRFIDMainActivity.this, "checkID函数内发现CardID为空", Toast.LENGTH_LONG).show();
-        }
-
-
-        String urlstr = "http://139.199.37.235/LBS/check_userid_back_product_info.php";            //建立网络连接
-        URL url = new URL(urlstr);
-        HttpURLConnection http = (HttpURLConnection) url.openConnection();
-
-        String params = "uid=" + CardId + '&' + "longitude=" + longitude + '&' + "latitude=" + latitude + '&' + "radius=" + radius + '&' + "province=" + province + '&' + "city=" + city + '&' + "district=" + district + '&' + "street=" + street + '&' + "streetNumber=" + streetNumber + '&' + "address=" + address;
-        http.setDoOutput(true);
-        http.setRequestMethod("POST");
-        OutputStream out = http.getOutputStream();
-        out.write(params.getBytes());//post提交参数
-        out.flush();
-        out.close();
-
-
-        //读取网页返回的数据
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(http.getInputStream()));//获得输入流
-        String line = URL;
-        StringBuilder sb = new StringBuilder();//建立输入缓冲区
-        while (null != (line = bufferedReader.readLine())) {//结束会读入一个null值
-            sb.append(line);//写缓冲区
-        }
-        String result = sb.toString();//返回结果
-
-        try {
-            /*获取服务器返回的JSON数据*/
-            JSONObject jsonObject = new JSONObject(result);
-            returnResult = jsonObject.getInt("status");//获取JSON数据中status字段值
-            userid = jsonObject.getString("userid");
-            brand = jsonObject.getString("品牌");
-            producedLocation = jsonObject.getString("产地");
-            producedDate = jsonObject.getString("生产日期");
-            leaveFactoryDate = jsonObject.getString("出厂日期");
-            retailSeller = jsonObject.getString("经销商");
-            productInformation = jsonObject.getString("产品信息");
-
-
-        } catch (Exception e) {
-
-            Log.e("log_tag", "the Error parsing data " + e.toString());
-        }
-    }
-
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
-
-        Toast.makeText(DriverRFIDMainActivity.this, "onNewIntent1...", Toast.LENGTH_LONG).show();
 
         SoundPool soundPool = new SoundPool(21, AudioManager.STREAM_SYSTEM, 10);
         soundPool.load(this, R.raw.positive, 1);
@@ -295,8 +229,6 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
         new GetDataTask().execute();
 
 
-
-
     }
 
 
@@ -319,7 +251,7 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
                 break;
 
             case R.id.iv_bottom_sheet_item2:
-                WebDetailActivityUtils.start_DiDi_info_Activity(DriverRFIDMainActivity.this,iv_bottom_sheet_item_url2);
+                WebDetailActivityUtils.start_DiDi_info_Activity(DriverRFIDMainActivity.this, iv_bottom_sheet_item_url2);
                 break;
 
 
@@ -452,6 +384,7 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
      * okhttp网络请求部分，使用手机贴近司机的RFID识别芯片，手机读出其中的唯一号码，并将ID发送到我再腾讯云上的服务器端
      * 服务器端会对发送过来的UID号码与数据库进行比对，如果的确是在平台注册过的司机和车辆，会把司机信息和车辆的信息发送给乘客
      * RFID技术广泛用于银行卡和身份识别安全领域，每个RFID芯片ID全球唯一，可以比较好的解决打车过程中一直存在的"人车不一致"问题
+     * author
      */
     private class GetDataTask extends AsyncTask<Void, Void, String> {
         @Override
@@ -460,13 +393,18 @@ public class DriverRFIDMainActivity extends AppCompatActivity implements OnClick
             OkHttpClient client = new OkHttpClient();
             //这里也可以直接包成GSON发给服务器端，因为参数比较少我直接把RFID号码放到请求体body里面直接发动服务器
             FormBody.Builder builder = new FormBody.Builder();
-            //把从滴滴司机RFID识别到的唯一号码发到服务器验证
+
+            //把从滴滴司机RFID识别到的唯一ID发到服务器验证
             builder.add("uid", MD5JniUtils.getMd5(CardId));
-            //这里给大家提供一个数据库里存在的数据，让大家看一下从数据库中返回的信息
-            //在实际应DriverRFIDMainActivity用中下面这句不会有，而是使用上面的CardId发给数据库去做验证。
-            //这里为了给大家看到正确的验证结果，使用"4F96BFDD"这个数据库里确实存在的号码代替读出来的UID
-            //否则大家使用自己的手机读取一个带RFID芯片的银行卡，肯定
+
+
+            //这里给大家提供一个已经在数据库里注册过的我自己的司机ID，让大家看一下从数据库中返回的真实信息
             builder.add("uid", MD5JniUtils.getMd5("4F96BFDD"));
+
+
+
+
+            //把验证当时的地理位置信息也发送给平台或监管机构，可以给后台的数据分析提供支持
             builder.add("current_location", (MainActivity.startlocation).toString());
             RequestBody body = builder.build();
             Request request = new Request.Builder()

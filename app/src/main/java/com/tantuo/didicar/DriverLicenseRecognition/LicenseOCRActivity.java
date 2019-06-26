@@ -134,7 +134,7 @@ public class LicenseOCRActivity extends AppCompatActivity implements View.OnClic
         license_original_imageView.startAnimation(alphaAnimation);
 
 
-        license = processor.findCardContour(fileUri);
+        license = processor.findLicenseContour(fileUri);
         if (license == null) return;
 
 
@@ -230,12 +230,12 @@ public class LicenseOCRActivity extends AppCompatActivity implements View.OnClic
 
                 }
                 Log.i(TAG, "Find Card and Card Number Block...");
-//                Bitmap bitmap = Bitmap.createBitmap(numImage.cols(), numImage.rows(), Bitmap.Config.ARGB_8888);
-////                Imgproc.cvtColor(numImage, numImage, Imgproc.COLOR_BGR2RGBA);
-////                Utils.matToBitmap(numImage, bitmap);
-////                saveDebugImage(bitmap);
-////                ImageView imageView = (ImageView) LicenseOCRActivity.this.findViewById(R.id.iv_number_contour_block);
-////                imageView.setImageBitmap(bitmap);
+                Bitmap bitmap = Bitmap.createBitmap(numImage.cols(), numImage.rows(), Bitmap.Config.ARGB_8888);
+                Imgproc.cvtColor(numImage, numImage, Imgproc.COLOR_BGR2RGBA);
+                Utils.matToBitmap(numImage, bitmap);
+                saveDebugImage(bitmap);
+                ImageView imageView = (ImageView) LicenseOCRActivity.this.findViewById(R.id.iv_number_contour_block);
+                imageView.setImageBitmap(bitmap);
 
             }
         }, 4000); // 延时1秒

@@ -187,9 +187,6 @@ public class MainActivity extends SlidingFragmentActivity implements OnCheckedCh
         @Override
         public void onReceiveLocation(BDLocation location) {
 
-            String locdescribe = location.getStreet();
-            Toast.makeText(MainActivity.this, "locDescription:" + locdescribe, Toast.LENGTH_SHORT).show();
-
 
             if (isFirstLoc) {
                 isFirstLoc = false;
@@ -199,7 +196,7 @@ public class MainActivity extends SlidingFragmentActivity implements OnCheckedCh
                 mCurrentAccracy = location.getRadius();
                 startlocData = new MyLocationData.Builder()
                         .accuracy(location.getRadius())
-                        // 此处设置开发者获取到的方向信息，顺时针0-360
+                        // 此处设置获取到的方向信息，顺时针0-360
                         .direction(mCurrentDirection).latitude(location.getLatitude())
                         .longitude(location.getLongitude()).build();
                 startll = new LatLng(location.getLatitude(), location.getLongitude());
@@ -207,6 +204,12 @@ public class MainActivity extends SlidingFragmentActivity implements OnCheckedCh
                 currentStreet = location.getStreet();
                 currentBuilding = location.getBuildingName();
                 startlocation = location;
+
+
+                if(currentBuilding != null) {
+                    Toast.makeText(getApplicationContext(), "您的位置：" + currentBuilding, Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 //得到地址信息以后立即把第一个客户可见的出行fragment当前位置界面展示出来
                 //初始化打车界面Fragment集合
@@ -323,9 +326,6 @@ public class MainActivity extends SlidingFragmentActivity implements OnCheckedCh
         tablayoutIndicator.setupWithViewPager(viewPager);
         tablayoutIndicator.setTabMode(TabLayout.MODE_SCROLLABLE);
 
-        //绑定之后注意如果要使用ViewPagerIndicator,还要在当前activity的 Manifest文件类把样式修改成下面 by:tantuo
-        //android:theme="@style/Theme.PageIndicatorDefaults">
-        //并且可以在viewPageIndicator中的 values 文件里修改样式，比如自定义 colorSelector
 
 
         //注意viewPageIndicator的PageChangeListener比 viewPager的优先级高，因此要使用indicator的listener
@@ -336,7 +336,6 @@ public class MainActivity extends SlidingFragmentActivity implements OnCheckedCh
     }
 
     private void initSlidingMenu() {
-        LogUtil.i("进入： 类:MainActivity -----方法:initSlidingMenu()---- ");
         //添加左侧Sliding_Menu
         setBehindContentView(R.layout.activity_leftmenu);
         //添加右侧菜单 secondaryMenu
@@ -379,7 +378,6 @@ public class MainActivity extends SlidingFragmentActivity implements OnCheckedCh
         ib_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //toggle() 方法会让 slidingMenu开关切换
                 getSlidingMenu().toggle();
             }

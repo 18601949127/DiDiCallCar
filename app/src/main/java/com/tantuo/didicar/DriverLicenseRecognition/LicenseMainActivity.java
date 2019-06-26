@@ -66,8 +66,6 @@ public class LicenseMainActivity extends AppCompatActivity implements View.OnCli
         iv_bottom_image.setOnClickListener(this);
 
 
-
-
         copyFilesFassets(this, "driver_card_sample_tantuo.png", "sdcard/driver_card_sample_tantuo.png");
 
 
@@ -106,25 +104,29 @@ public class LicenseMainActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.ib_titlebar_back:
-                finish();
-                break;
-
             case R.id.take_picture_btn:
                 //使用摄像头对司机驾驶证拍照
                 getDriverLicenseFromCamera();
                 break;
 
-             case R.id.iv_bottom_sheet_item2:
-                //使用摄像头对司机驾驶证拍照
-                 WebDetailActivityUtils.start_DiDi_info_Activity(LicenseMainActivity.this,iv_bottom_sheet_item_url2);
+            case R.id.select_picture_btn:
+                //从手机相册调取要识别的照片
+                getDriverLicenseFromPhone();
+
+                //从assets文件夹调取司机证件照片 Sample
+                //getDriverLicenseFromMysample();
                 break;
 
-            case R.id.select_picture_btn:
-                //从手机调取要识别的照片
-                //getDriverLicenseFromPhone();
-                getDriverLicenseFromMysample();
+            case R.id.iv_bottom_sheet_item2:
+
+                WebDetailActivityUtils.start_DiDi_info_Activity(LicenseMainActivity.this, iv_bottom_sheet_item_url2);
                 break;
+
+
+            case R.id.ib_titlebar_back:
+                finish();
+                break;
+
             default:
                 break;
         }
