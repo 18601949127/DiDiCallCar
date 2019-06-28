@@ -265,32 +265,27 @@ public class MainActivity extends SlidingFragmentActivity implements OnCheckedCh
         language_switch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "因百度地图没有英文版，这个功能后面换成mapbox再展示", Toast.LENGTH_SHORT).show();
-                //switchLanguage();
+                //首先判断flag是真还是假，分别显示中文和英文
+                if (languageflag) {
+                    language_switch.setImageResource(img[0]);//中文
+                    languageflag = false;
+                    if (LocaleUtils.needUpdateLocale(MainActivity.this, LocaleUtils.LOCALE_ENGLISH)) {
+                        LocaleUtils.updateLocale(MainActivity.this, LocaleUtils.LOCALE_ENGLISH);
+                        restartAct();
+                    }
+
+                } else {
+                    language_switch.setImageResource(img[1]);//英文
+                    languageflag = true;
+
+                    if (LocaleUtils.needUpdateLocale(MainActivity.this, LocaleUtils.LOCALE_CHINESE)) {
+                        LocaleUtils.updateLocale(MainActivity.this, LocaleUtils.LOCALE_CHINESE);
+                        restartAct();
+                    }
+                }
             }
         });
 
-    }
-
-    private void switchLanguage() {
-        //首先判断flag是真还是假，分别显示中文和英文
-        if (languageflag) {
-            language_switch.setImageResource(img[0]);//中文
-            languageflag = false;
-            if (LocaleUtils.needUpdateLocale(MainActivity.this, LocaleUtils.LOCALE_ENGLISH)) {
-                LocaleUtils.updateLocale(MainActivity.this, LocaleUtils.LOCALE_ENGLISH);
-                restartAct();
-            }
-
-        } else {
-            language_switch.setImageResource(img[1]);//英文
-            languageflag = true;
-
-            if (LocaleUtils.needUpdateLocale(MainActivity.this, LocaleUtils.LOCALE_CHINESE)) {
-                LocaleUtils.updateLocale(MainActivity.this, LocaleUtils.LOCALE_CHINESE);
-                restartAct();
-            }
-        }
     }
 
     private void iniLoadOpenCV() {
