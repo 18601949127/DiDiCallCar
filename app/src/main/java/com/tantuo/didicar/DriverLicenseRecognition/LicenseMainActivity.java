@@ -111,10 +111,10 @@ public class LicenseMainActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.select_picture_btn:
                 //从手机相册调取要识别的照片
-                getDriverLicenseFromPhone();
+                //getDriverLicenseFromPhone();
 
                 //从assets文件夹调取司机证件照片 Sample
-                //getDriverLicenseFromMysample();
+                getDriverLicenseFromMysample();
                 break;
 
             case R.id.iv_bottom_sheet_item2:
@@ -135,22 +135,12 @@ public class LicenseMainActivity extends AppCompatActivity implements View.OnCli
 
     private void getDriverLicenseFromMysample() {
 
-        //http://139.199.37.235/LBS/didiDriverData/didiDriverProfile/tantuo.png
-
         Intent intent = new Intent(getApplicationContext(), LicenseOCRActivity.class);
 
         Uri uri = Uri.fromFile(new File("sdcard/driver_card_sample_tantuo.png"));
 
-        //       Uri imageUri = getImageContentUri(LicenseMainActivity.this, "sdcard/driver_card_sample_tantuo.png");
 
-
-//        Uri uri = Uri.parse("android.resource://com.tantuo.didicar/assets/driver_card_sample_tantuo.png");
-//        intent.putExtra("PICTURE-URL","http://139.199.37.235/LBS/didiDriverData/didiDriverProfile/tantuo.png");
-//        intent.putExtra("PICTURE-URL","assets://driver_card_sample_tantuo.png");
         intent.putExtra("PICTURE-URL", uri);
-
-//        Toast.makeText(getApplicationContext(), "android.resource://com.tantuo.didicar/" + R.raw.driver_card_sample_tantuo), Toast.LENGTH_SHORT).show();
-//        LogUtil.i("进入类:LicenseMainActivity, 方法:getDriverLicenseFromMysample() uri: " +Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.raw.driver_card_sample_tantuo));
         startActivity(intent);
 
     }
@@ -234,7 +224,6 @@ public class LicenseMainActivity extends AppCompatActivity implements View.OnCli
 
     /**
      * 从assets目录中复制整个文件夹内容
-     *
      * @param context Context 使用CopyFiles类的Activity
      * @param oldPath String  原文件路径  如：/aa
      * @param newPath String  复制后路径  如：xx:/bb/cc
@@ -270,7 +259,6 @@ public class LicenseMainActivity extends AppCompatActivity implements View.OnCli
 
     /**
      * Gets the content:// URI from the given corresponding path to a file
-     *
      * @param context
      * @param imageFile
      * @return content Uri
