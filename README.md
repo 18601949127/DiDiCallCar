@@ -1,4 +1,11 @@
 ## 前言
+
+I complete this whole project on my own . Including Android application programming，web server ( Apache + PHP + MySQL),  and UI. 
+1．Map route planing。You can use mobile phone choose pick up & destination address，application provide address name hint and draw optimized route for user , then call car for you.
+2．RFID authentication function：User can use application to scan driver license or other RFID hardware, then use NDK MD5 algorithm encrypt RFID number, and send it to Web Server Database, check with driver information and authenticate ID number , if ID number coherent with driver info , send back driver information to User and continue call car order . record user location  and alert if ID not coherent.
+3．Driver License Number Recognition : Application can recognize driver license digit number ,and also can send to web server for authentication & feed back result to user.
+
+
 这是我自己做的一个仿滴滴打车的Android出行项目，主要针对滴滴等出行平台一直饱受质疑的“人车不符”问题，以及当前越发火热的国际化和出海战略，给出行项目增加了下面几个功能：
 
  **1.** RFID识别验证功能：在司机证件或者车内识别硬件里嵌入RFID识别芯片，乘客使用手机读取到芯片信息，并且通过网络（okhttp3）发送到出行平台数据库进行验证（我用NDK加了一个C语言的MD5加密算法对识别到的信息进行了加密）。如果不是合规的“人”或“车”，则不能完成订单并向平台或监管单位汇报当前位置。（为了方便读者测试，可以使用手机读取任何一个加密或非加密RFID芯片，比如银行卡、公交卡等，我在代码中的验证前阶段把芯片信息都换成我自己的司机信息，确保读者测试时可以收到服务器的回复）
